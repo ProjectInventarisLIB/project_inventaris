@@ -285,9 +285,9 @@ session_start();
 									labels: Object.keys(response),
 									datasets: [{
 										backgroundColor: [
-											"#68e365",
-											"#ffa755",
-											"#f72b50"
+											"#ffa755", // Diproses (Kuning)
+											"#68e365", // Disetujui (Hijau)
+											"#f72b50"  // Ditolak (Merah)
 										],
 										data: Object.values(response)
 									}]

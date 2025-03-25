@@ -1,13 +1,22 @@
 <?php
+session_start(); // Tambahkan session_start() di awal
 include($_SERVER['DOCUMENT_ROOT'] . "/project_inventaris/config/konfigurasi.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/project_inventaris/vendor/autoload.php"); // Load library MPDF
 
-// Ambil data dari tabel surat_pengadaan
-$query1 = "SELECT * FROM surat_pengadaan";
+// Cek apakah user sudah login
+if (!isset($_SESSION['ID_staf'])) {
+    echo "Akses ditolak! Silakan login terlebih dahulu.";
+    exit;
+}
+
+$id_staf = $_SESSION['ID_staf']; // Ambil ID staf yang login
+
+// Ambil data dari tabel surat_pengadaan berdasarkan ID staf
+$query1 = "SELECT * FROM surat_pengadaan WHERE ID_staf = '$id_staf'";
 $result1 = $conn->query($query1);
 
-// Ambil data dari tabel surat_pengambilan
-$query2 = "SELECT * FROM surat_pengambilan";
+// Ambil data dari tabel surat_pengambilan berdasarkan ID staf
+$query2 = "SELECT * FROM surat_pengambilan WHERE ID_staf = '$id_staf'";
 $result2 = $conn->query($query2);
 
 // Hitung jumlah status pada surat_pengadaan
