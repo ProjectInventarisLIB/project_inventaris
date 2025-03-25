@@ -17,22 +17,22 @@
 	<title>Inventaris Lintas Internasional Berkarya</title>
 	
 	<!-- FAVICONS ICON -->
-	<link rel="shortcut icon" type="image/png" href="/project_web/assets/favicon_logo.png" />
+	<link rel="shortcut icon" type="image/png" href="/project_inventaris/assets/favicon_logo.png" />
 	
-	<link href="/project_web/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
-	<link rel="stylesheet" href="/project_web/vendor/nouislider/nouislider.min.css">
+	<link href="/project_inventaris/vendors/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+	<link rel="stylesheet" href="/project_inventaris/vendors/nouislider/nouislider.min.css">
 
 	<!-- Chartist -->
-	<link rel="stylesheet" href="/project_web/vendor/chartist/css/chartist.min.css">
+	<link rel="stylesheet" href="/project_inventaris/vendors/chartist/css/chartist.min.css">
 	
-    <link href="/project_web/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-	<link href="/project_web/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+    <link href="/project_inventaris/vendors/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+	<link href="/project_inventaris/vendors/jquery-nice-select/css/nice-select.css" rel="stylesheet">
 
     <!-- Datatable -->
-    <link href="/project_web/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="/project_inventaris/vendors/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
 
 	<!-- Style css -->
-    <link href="/project_web/css/style.css" rel="stylesheet">
+    <link href="/project_inventaris/css/style.css" rel="stylesheet">
 	
 </head>
 <body>
@@ -41,8 +41,8 @@
 		<!-- NAVBAR -->
 		<div class="nav-header">
             <a href="index.php" class="brand-logo">
-				<img class="logo-abbr" src="/project_web/assets/logo_gambar.png" alt="Logo Abbreviation" width="53" height="53">
-				<img class="brand-title" src="/project_web/assets/logo_tulisan.png" alt="Brand Title" width="124" height="53">
+				<img class="logo-abbr" src="/project_inventaris/assets/logo_gambar.png" alt="Logo Abbreviation" width="53" height="53">
+				<img class="brand-title" src="/project_inventaris/assets/logo_tulisan.png" alt="Brand Title" width="124" height="53">
 			</a>
 			
             <div class="nav-control">
@@ -74,7 +74,7 @@
 				<ul class="metismenu" id="menu">
 					<li class="dropdown header-profile">
 						<a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
-							<img src="/project_web/assets/user.png" width="20" alt=""/>
+							<img src="/project_inventaris/assets/user.png" width="20" alt=""/>
 							<div class="header-info ms-3">
 								<span class="font-w600 "><b>Admin</b></span>
 								<small class="text-end font-w400">admin@gmail.com</small>
@@ -249,30 +249,30 @@
     <!--**********************************
         Scripts
     ***********************************-->
-    <!-- Required vendors -->
-    <script src="/project_web/vendor/global/global.min.js"></script>
-	<script src="/project_web/vendor/chart.js/Chart.bundle.min.js"></script>
-	<script src="/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+    <!-- Required vendorss -->
+    <script src="/project_inventaris/vendors/global/global.min.js"></script>
+	<script src="/project_inventaris/vendors/chart.js/Chart.bundle.min.js"></script>
+	<script src="/vendors/jquery-nice-select/js/jquery.nice-select.min.js"></script>
 	
 	<!-- Apex Chart -->
-	<script src="/project_web/vendor/apexchart/apexchart.js"></script>
-	<script src="/project_web/vendor/nouislider/nouislider.min.js"></script>
-	<script src="/project_web/vendor/wnumb/wNumb.js"></script>
+	<script src="/project_inventaris/vendors/apexchart/apexchart.js"></script>
+	<script src="/project_inventaris/vendors/nouislider/nouislider.min.js"></script>
+	<script src="/project_inventaris/vendors/wnumb/wNumb.js"></script>
 	
 	<!-- Dashboard 1 -->
-	<script src="/project_web/js/dashboard/dashboard-1.js"></script>
+	<script src="/project_inventaris/js/dashboard/dashboard-1.js"></script>
 
-    <script src="/project_web/js/custom.min.js"></script>
-	<script src="/project_web/js/dlabnav-init.js"></script>
+    <script src="/project_inventaris/js/custom.min.js"></script>
+	<script src="/project_inventaris/js/dlabnav-init.js"></script>
 
 
     <!-- Init file -->
-    <script src="/project_web/js/plugins-init/widgets-script-init.js"></script>
+    <script src="/project_inventaris/js/plugins-init/widgets-script-init.js"></script>
 
 	
     <!-- Datatable -->
-    <script src="/project_web/vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="/project_web/js/plugins-init/datatables.init.js"></script>
+    <script src="/project_inventaris/vendors/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/project_inventaris/js/plugins-init/datatables.init.js"></script>
 
 	
 </body>

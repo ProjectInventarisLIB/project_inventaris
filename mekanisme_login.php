@@ -14,8 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $stmt->get_result();
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        // if (password_verify($password, $row['sandi_admin_utama'])) {
-        if ($password === $row['sandi_admin_utama']) {
+        if (hash('sha256', $password) === $row['sandi_admin_utama']) {// Menggunakan sha256()
             $_SESSION['role'] = 'admin_utama';
             $_SESSION['user_id'] = $row['id'];
             header("Location: views/super_admin/index");
@@ -31,8 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $stmt->get_result();
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        // if (password_verify($password, $row['sandi_admin'])) {
-        if ($password === $row['sandi_admin']) {
+        if (hash('sha256', $password) === $row['sandi_admin']) { // Menggunakan sha256()
             $_SESSION['role'] = 'admin';
             $_SESSION['user_id'] = $row['id'];
             header("Location: views/admin/index");
@@ -48,12 +46,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $stmt->get_result();
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        // if (password_verify($password, $row['sandi_staf'])) {
-        if ($password === $row['sandi_staf']) {
+        if (hash('sha256', $password) === $row['sandi_staf']) {    // Menggunakan sha256()
             $_SESSION['role'] = 'staf';
             $_SESSION['ID_staf'] = $row['ID_staf'];
-            // var_dump($_SESSION); //untuk cek session
-            // exit();
             header("Location: views/staf/index");
             exit();
         }
@@ -63,6 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['error'] = "Email atau kata sandi salah";
     header("Location: login.php");
     exit();
+} else {
+    echo 'tidak terjalankan';
 }
-else { echo 'tidak terjalankan'; }
 ?>
