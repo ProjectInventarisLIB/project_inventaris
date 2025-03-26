@@ -72,8 +72,8 @@
 									</svg>
 								</div>
 								<div>
-									<h2 class="text-white invoice-num">2478</h2>
-									<span class="text-white fs-18">Total Surat Permohonan Barang</span>
+									<h2 id="invoiceNum" class="text-white invoice-num">0</h2>
+									<span class="text-white fs-18">Total Surat Permohonan Pengambilan</span>
 								</div>
 							</div>
 						</div>
@@ -90,8 +90,8 @@
 									</svg>
 								</div>
 								<div>
-									<h2 class="text-white invoice-num">983</h2>
-									<span class="text-white fs-18">Total Persetujuan Surat Permohonan Barang</span>
+									<h2 id="invoiceNum3" class="text-white invoice-num">0</h2>
+									<span class="text-white fs-18">Total Persetujuan Surat Permohonan Pengambilan</span>
 								</div>
 							</div>
 						</div>
@@ -106,7 +106,7 @@
 									</svg>
 								</div>
 								<div>
-									<h2 class="text-white invoice-num">1256</h2>
+									<h2 id="invoiceNum2" class="text-white invoice-num">0</h2>
 									<span class="text-white fs-18">Total Surat Permohonan Pengadaan</span>
 								</div>
 							</div>
@@ -124,8 +124,8 @@
 									</svg>
 								</div>
 								<div>
-									<h2 class="text-white invoice-num">652</h2>
-									<span class="text-white fs-18">Total Persetujuan Surat Permohonan Barang</span>
+									<h2 id="invoiceNum4" class="text-white invoice-num">0</h2>
+									<span class="text-white fs-18">Total Persetujuan Surat Permohonan Pengadaan</span>
 								</div>
 							</div>
 						</div>
@@ -136,50 +136,13 @@
 						<div class="card">
 							<div class="card-header border-0 pb-0">
 								<div>
-									<h4 class="card-title mb-2">Pengeluaran</h4>
-									<span class="fs-12">Persenan pengeluaran departemen pergudangan</span>
+									<h4 class="card-title mb-2">Pengeluaran Keuangan</h4>
+									<span class="fs-12">Pengeluaran anggaran tiap divisi Lintas Internasional Berkarya</span>
 								</div>
 							</div>
-							<div class="card-body">	
-								<div class="progress default-progress">
-                                    <div class="progress-bar bg-gradient-4 progress-animated" style="width: 45%; height:20px;" role="progressbar">
-                                        <span class="sr-only">50% Complete</span>
-                                    </div>
-                                </div>
-								<div class="d-flex align-items-end mt-2 pb-3 justify-content-between">
-									<span>Pergudangan</span>
-									<span class="fs-16"><span class="text-black pe-2">Rp.100.000</span>/Rp.200.000</span>
-								</div>
-								<div class="progress default-progress mt-4">
-                                    <div class="progress-bar bg-gradient-4 progress-animated" style="width: 70%; height:20px;" role="progressbar">
-                                        <span class="sr-only">70% Complete</span>
-                                    </div>
-                                </div>
-								<div class="d-flex align-items-end mt-2 pb-3 justify-content-between">
-									<span>Operasional</span>
-									<span class="fs-16"><span class="text-black pe-2">Rp.100.000</span>/Rp.200.000</span>
-								</div>
-								<div class="progress default-progress mt-4">
-                                    <div class="progress-bar bg-gradient-4 progress-animated" style="width: 35%; height:20px;" role="progressbar">
-                                        <span class="sr-only">35% Complete</span>
-                                    </div>
-                                </div>
-								<div class="d-flex align-items-end mt-2 pb-3 justify-content-between">
-									<span>Logistik</span>
-									<span class="fs-16"><span class="text-black pe-2">Rp.100.000</span>/Rp.200.000</span>
-								</div>
-								<div class="progress default-progress mt-4">
-                                    <div class="progress-bar bg-gradient-4 progress-animated" style="width: 95%; height:20px;" role="progressbar">
-                                        <span class="sr-only">95% Complete</span>
-                                    </div>
-                                </div>
-								<div class="d-flex align-items-end mt-2 justify-content-between">
-									<span>HRD</span>
-									<span class="fs-16"><span class="text-black pe-2">Rp.100.000</span>/Rp.200.000</span>
-								</div>
-							</div>
+							<div class="card-body" id="progress-container"></div>
 							<div class="card-footer border-0 pt-0">
-								<a href="javascript:void(0);" class="btn btn-outline-utama d-block btn-lg"> Lihat Selengkapnya</a>
+								<a href="anggaran" class="btn btn-outline-utama d-block btn-lg"> Lihat Selengkapnya</a>
 							</div>
 						</div>
 					</div>
@@ -228,9 +191,81 @@
     <script src="/project_inventaris/js/custom.min.js"></script>
 	<script src="/project_inventaris/js/dlabnav-init.js"></script>
 
-
     <!-- Init file -->
     <script src="/project_inventaris/js/plugins-init/widgets-script-init.js"></script>
+<!-- 		
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
+
+	<!-- SCRIPT JUMLAH SURAT -->
+	<script>
+		$(document).ready(function() {
+			$.ajax({
+				url: "backend/get_surat.php",
+				method: "GET",
+				dataType: "json",
+				success: function(response) {
+					console.log(response);
+					$("#invoiceNum2").text(response.total_pengadaan); 
+					$("#invoiceNum").text(response.total_peminjaman); 
+					$("#invoiceNum4").text(response.pengadaan_disetujui); 
+					$("#invoiceNum3").text(response.peminjaman_disetujui);
+				},
+				error: function(xhr, status, error) {
+					console.error("Error mengambil data:", error);
+				}
+			});
+		});
+	</script>
+
+	<script>
+		function loadProgress() {
+			$.ajax({
+				url: "backend/get_progress.php",
+				method: "GET",
+				dataType: "json",
+				success: function (data) {
+					let progressHtml = "";
+					const formatRupiah = (angka) => {
+						return new Intl.NumberFormat("id-ID", {
+							style: "currency",
+							currency: "IDR",
+							minimumFractionDigits: 0, 
+							maximumFractionDigits: 0
+						}).format(angka);
+					};
+
+					data.forEach(item => {
+						let percentage = item.anggaran > 0 ? (item.pengeluaran_anggaran / item.anggaran) * 100 : 0;
+						percentage = Math.min(percentage, 100);
+
+						progressHtml += `
+							<div class='progress default-progress mt-4'>
+								<div class='progress-bar bg-gradient-4 progress-animated' style='width: ${percentage}%; height:20px;' role='progressbar'>
+									<span class='sr-only'>${percentage.toFixed(2)}% Complete</span>
+								</div>
+							</div>
+							<div class='d-flex align-items-end mt-2 pb-3 justify-content-between'>
+								<span>${item.nama_staf}</span>
+								<span class='fs-16'>
+									<span class='text-black pe-2'>${formatRupiah(item.pengeluaran_anggaran)}</span> / ${formatRupiah(item.anggaran)}
+								</span>
+							</div>`;
+					});
+
+					$("#progress-container").html(progressHtml);
+				},
+				error: function (xhr, status, error) {
+					console.error("Error fetching data:", error);
+				}
+			});
+		}
+
+		$(document).ready(function () {
+			loadProgress();
+		});
+	</script>
+
 
 	
 </body>

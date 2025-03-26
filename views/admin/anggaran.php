@@ -39,18 +39,7 @@
 	<div id="main-wrapper">
 
 		<!-- NAVBAR -->
-		<div class="nav-header">
-            <a href="index.php" class="brand-logo">
-				<img class="logo-abbr" src="/project_inventaris/assets/logo_gambar.png" alt="Logo Abbreviation" width="53" height="53">
-				<img class="brand-title" src="/project_inventaris/assets/logo_tulisan.png" alt="Brand Title" width="124" height="53">
-			</a>
-			
-            <div class="nav-control">
-                <div class="hamburger">
-                    <span class="line"></span><span class="line"></span><span class="line"></span>
-                </div>
-            </div>
-        </div>
+		<?php include 'layouts/navbar.php'; ?>
 		
 		<!-- HEADER -->
         <div class="header">
@@ -69,56 +58,7 @@
 
 
         <!-- SIDEBAR -->
-        <div class="dlabnav">
-            <div class="dlabnav-scroll">
-				<ul class="metismenu" id="menu">
-					<li class="dropdown header-profile">
-						<a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
-							<img src="/project_inventaris/assets/user.png" width="20" alt=""/>
-							<div class="header-info ms-3">
-								<span class="font-w600 "><b>Admin</b></span>
-								<small class="text-end font-w400">admin@gmail.com</small>
-							</div>
-						</a>
-						<div class="dropdown-menu dropdown-menu-end">
-							<a href="/login.php" class="dropdown-item ai-icon">
-								<svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-								<span class="ms-2">Keluar</span>
-							</a>
-						</div>
-					</li>
-                    <li><a href="index.php" class="ai-icon" aria-expanded="false">
-							<i class="flaticon-025-dashboard"></i>
-							<span class="nav-text">Halaman Utama</span>
-						</a>
-                    </li>
-					<li><a href="anggaran.php" class="ai-icon" aria-expanded="false">
-							<i class="flaticon-034-filter"></i>
-							<span class="nav-text">Anggaran</span>
-						</a>
-					</li>
-					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-						<i class="flaticon-022-copy"></i>
-						<span class="nav-text">Barang</span>
-					</a>
-					<ul aria-expanded="false">
-						<li><a href="./barang_pendataan.php">Pendataan Barang</a></li>
-						<li><a href="./barang_pengambilan.php">Data Pengambilan Barang</a></li>
-						<li><a href="./barang_pengajuan.php">Data Pengajuan Barang</a></li>
-					</ul>
-				</li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-072-printer"></i>
-							<span class="nav-text">Permohonan</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="./permohonan_pengambilan.php">Pengambilan Barang</a></li>
-                            <li><a href="./permohonan_pengadaan.php">Pengadaan Barang</a></li>
-                        </ul>
-                    </li>
-                </ul>
-			</div>
-        </div>
+        <?php include 'layouts/sidebar.php'; ?>
 
 		<!-- CONTENT -->
         <div class="content-body">
@@ -129,57 +69,17 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="example3" class="display" style="min-width: 845px">
+                                    <table id="tableanggaran" class="display" style="width: 100%">
                                         <thead>
                                             <tr>
-                                                <th>ID Departemen</th>
-                                                <th>Nama Departemen</th>
-                                                <th>Periode Anggaran</th>
-												<th>Nilai Anggaran</th>
-                                                <th>Aksi</th>
+                                                <th>ID Staf</th>
+                                                <th>Nama Staf</th>
+												<th>Email Staf</th>
+												<th>Pengeluaran</th>
+                                                <th>Anggaran</th>
+												<th>Tindakan</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>OPS-2025/001</td>
-                                                <td>Departemen Pergudangan</td>
-												<td>2024/2025</td>
-                                                <td>1.000.000</td>
-												<td><a class="btn btn-utama btn-xs px-3 py-2 text-white updateanggaran">Perbarui</a></td>													
-                                            </tr>
-											<tr>
-                                                <td>OPS-2025/001</td>
-                                                <td>Departemen Pergudangan</td>
-												<td>2024/2025</td>
-                                                <td>1.000.000</td>
-												<td><a class="btn btn-utama btn-xs px-3 py-2 text-white updateanggaran">Perbarui</a></td>
-													
-                                            </tr>
-											<tr>
-                                                <td>OPS-2025/001</td>
-                                                <td>Departemen Pergudangan</td>
-												<td>2024/2025</td>
-                                                <td>1.000.000</td>
-												<td><a class="btn btn-utama btn-xs px-3 py-2 text-white updateanggaran">Perbarui</a></td>
-													
-                                            </tr>
-											<tr>
-                                                <td>OPS-2025/001</td>
-                                                <td>Departemen Pergudangan</td>
-												<td>2024/2025</td>
-                                                <td>1.000.000</td>
-												<td><a class="btn btn-utama btn-xs px-3 py-2 text-white updateanggaran">Perbarui</a></td>
-													
-                                            </tr>
-                                            <tr>
-                                                <td>OPS-2025/001</td>
-                                                <td>Departemen Pergudangan</td>
-												<td>2024/2025</td>
-                                                <td>1.000.000</td>
-												<td><a class="btn btn-utama btn-xs px-3 py-2 text-white updateanggaran">Perbarui</a></td>
-													
-                                            </tr>
-                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -192,32 +92,22 @@
 
 
     <!-- Modal Tambah Data -->
-    <div class="modal fade" id="modalPengadaanBarang" tabindex="-1" aria-labelledby="modalPengadaanBarangLabel" aria-hidden="true">
-		<div class="modal-dialog  modal-lg">
+    <div class="modal fade" id="modalAnggaran" tabindex="-1" aria-labelledby="modalAnggaranLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="modalPengadaanBarangLabel">Formulir Anggaran</h5>
+					<h5 class="modal-title" id="modalAnggaranLabel">Formulir Perbarui Anggaran</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form id="formPengadaanBarang">
-						<div class="mb-3 w-50">
-							<label for="tanggalMasuk" class="form-label">Periode Anggaran</label>
-							<input type="date" class="form-control" id="tanggalMasuk" required>
+					<form id="formPerbaruiAnggaran">
+						<div class="mb-3">
+							<label for="idNamaStaf" class="form-label">Nama Staf</label>
+							<input type="text" class="form-control" name="idNamaStaf" id="idNamaStaf" readonly>
 						</div>
-                        <div class="mb-3">
-                            <label for="departemen" class="form-label">Nama Departemen</label>
-                            <select class="form-control" id="departemen" required>
-                                <option value="" disabled selected>Pilih Departemen</option>
-                                <option value="pergudangan">OPS/001 - Departemen Pergudangan</option>
-                                <option value="keuangan">OPS/002 - Departemen Keuangan</option>
-                                <option value="sumber-daya">OPS/003 - Departemen Sumber Daya Manusia</option>
-                                <option value="pemasaran">OPS/004 - Departemen Pemasaran</option>
-                            </select>
-                        </div>                        
-                        <div class="mb-3">
+						<div class="mb-3">
 							<label for="nilaiAnggaran" class="form-label">Nilai Anggaran</label>
-							<input type="number" class="form-control" id="nilaiAnggaran" required>
+							<input type="number" class="form-control" name="nilaiAnggaran" id="nilaiAnggaran" required>
 						</div>
 						<div class="text-end">
 							<button type="submit" class="btn btn-primary">Simpan</button>
@@ -226,24 +116,9 @@
 				</div>
 			</div>
 		</div>
-    </div>
+	</div>
+
   
-    <!-- Script untuk membuka modal -->
-	<script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Ambil semua tombol dengan class "updateanggaran"
-            var buttons = document.querySelectorAll(".updateanggaran");
-        
-            // Loop setiap tombol dan tambahkan event listener
-            buttons.forEach(function(button) {
-                button.addEventListener("click", function() {
-                    var modal = new bootstrap.Modal(document.getElementById("modalPengadaanBarang"));
-                    modal.show();
-                });
-            });
-        });
-        </script>
-        
 
 
     <!--**********************************
@@ -253,11 +128,6 @@
     <script src="/project_inventaris/vendors/global/global.min.js"></script>
 	<script src="/project_inventaris/vendors/chart.js/Chart.bundle.min.js"></script>
 	<script src="/vendors/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-	
-	<!-- Apex Chart -->
-	<script src="/project_inventaris/vendors/apexchart/apexchart.js"></script>
-	<script src="/project_inventaris/vendors/nouislider/nouislider.min.js"></script>
-	<script src="/project_inventaris/vendors/wnumb/wNumb.js"></script>
 	
 	<!-- Dashboard 1 -->
 	<script src="/project_inventaris/js/dashboard/dashboard-1.js"></script>
@@ -273,6 +143,111 @@
     <!-- Datatable -->
     <script src="/project_inventaris/vendors/datatables/js/jquery.dataTables.min.js"></script>
     <script src="/project_inventaris/js/plugins-init/datatables.init.js"></script>
+
+
+	<!-- Script untuk membuka modal -->
+	<script>
+		$(document).on("click", ".updateanggaran", function() {
+			var row = $(this).closest("tr");
+			var table = $("#tableanggaran").DataTable();
+			var rowData = table.row(row).data();
+			
+			// Mengisi data otomatis ke dalam modal
+			$("#modalAnggaran #idNamaStaf").val(rowData.ID_staf + " - " + rowData.nama_staf);
+			$("#modalAnggaran #nilaiAnggaran").val(rowData.anggaran);
+			
+			// Menampilkan modal
+			var modal = new bootstrap.Modal(document.getElementById("modalAnggaran"));
+			modal.show();
+		});
+	</script>
+	
+	<script>
+		$(document).ready(function () {
+			if (!$.fn.DataTable.isDataTable('#tableanggaran')) {
+				$('#tableanggaran').DataTable({
+					"processing": true,
+					"serverSide": true,
+					"ajax": {
+						"url": "backend/get_anggaran.php",
+						"type": "POST"
+					},
+					"columns": [
+						{ "data": "ID_staf", "orderable": false },
+						{ "data": "nama_staf", "orderable": false },
+						{ "data": "email_staf", "orderable": false },
+						{ 
+							"data": "pengeluaran_anggaran", 
+							"orderable": false,
+							"render": function (data, type, row) {
+								return formatRupiah(data);
+							}
+						},
+						{ 
+							"data": "anggaran", 
+							"orderable": false,
+							"render": function (data, type, row) {
+								return formatRupiah(data);
+							}
+						},
+						{ 
+							"data": null, 
+							"orderable": false,
+							"render": function () {
+								return '<a class="btn btn-utama btn-xs px-3 py-2 text-white updateanggaran">Perbarui</a>';
+							}
+						}
+					],
+					"order": [[1, "asc"]],
+					"language": {
+						"lengthMenu": "Tampilkan _MENU_ data staf",
+						"zeroRecords": "Data tidak ditemukan",
+						"info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+						"infoEmpty": "Tidak ada data tersedia",
+						"search": "Cari:",
+						"paginate": {
+							"first": "Awal",
+							"last": "Akhir",
+							"next": "›",
+							"previous": "‹"
+						}
+					}
+				});
+			}
+		});
+
+		function formatRupiah(angka) {
+			return 'Rp. ' + parseFloat(angka).toLocaleString('id-ID');
+		}
+    </script>
+
+	<script>
+		$(document).ready(function () {
+			$("#formPerbaruiAnggaran").submit(function (event) {
+				event.preventDefault();
+
+				$.ajax({
+					url: "backend/update_anggaran.php", // Sesuaikan dengan nama file PHP backend
+					type: "POST",
+					data: $(this).serialize(),
+					dataType: "json",
+					success: function (response) {
+						if (response.status === "success") {
+							alert(response.message);
+							$("#modalAnggaran").modal("hide");
+							$("#tableanggaran").DataTable().ajax.reload();
+						} else {
+							alert(response.message);
+						}
+					},
+					error: function () {
+						alert("Terjadi kesalahan saat memperbarui anggaran.");
+					}
+				});
+			});
+		});
+	</script>
+
 
 	
 </body>
