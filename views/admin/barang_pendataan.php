@@ -31,18 +31,7 @@
     <div id="main-wrapper">
 
         <!-- NAVBAR -->
-		<div class="nav-header">
-            <a href="index.php" class="brand-logo">
-				<img class="logo-abbr" src="/project_inventaris/assets/logo_gambar.png" alt="Logo Abbreviation" width="53" height="53">
-				<img class="brand-title" src="/project_inventaris/assets/logo_tulisan.png" alt="Brand Title" width="124" height="53">
-			</a>
-			
-            <div class="nav-control">
-                <div class="hamburger">
-                    <span class="line"></span><span class="line"></span><span class="line"></span>
-                </div>
-            </div>
-        </div>
+		<?php include 'layouts/navbar.php'; ?>
 
         <!-- HEADER -->
         <div class="header">
@@ -72,56 +61,7 @@
 		</div>
 
         <!-- SIDEBAR -->
-        <div class="dlabnav">
-            <div class="dlabnav-scroll">
-				<ul class="metismenu" id="menu">
-					<li class="dropdown header-profile">
-						<a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
-							<img src="/project_inventaris/assets/user.png" width="20" alt=""/>
-							<div class="header-info ms-3">
-								<span class="font-w600 "><b>Admin</b></span>
-								<small class="text-end font-w400">admin@gmail.com</small>
-							</div>
-						</a>
-						<div class="dropdown-menu dropdown-menu-end">
-							<a href="/login.php" class="dropdown-item ai-icon">
-								<svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-								<span class="ms-2">Keluar</span>
-							</a>
-						</div>
-					</li>
-                    <li><a href="index.php" class="ai-icon" aria-expanded="false">
-							<i class="flaticon-025-dashboard"></i>
-							<span class="nav-text">Halaman Utama</span>
-						</a>
-                    </li>
-					<li><a href="anggaran.php" class="ai-icon" aria-expanded="false">
-							<i class="flaticon-034-filter"></i>
-							<span class="nav-text">Anggaran</span>
-						</a>
-					</li>
-					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-						<i class="flaticon-022-copy"></i>
-						<span class="nav-text">Barang</span>
-					</a>
-					<ul aria-expanded="false">
-						<li><a href="./barang_pendataan.php">Pendataan Barang</a></li>
-						<li><a href="./barang_pengambilan.php">Data Pengambilan Barang</a></li>
-						<li><a href="./barang_pengajuan.php">Data Pengajuan Barang</a></li>
-					</ul>
-				</li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-072-printer"></i>
-							<span class="nav-text">Permohonan</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="./permohonan_pengambilan.php">Pengambilan Barang</a></li>
-                            <li><a href="./permohonan_pengadaan.php">Pengadaan Barang</a></li>
-                        </ul>
-                    </li>
-                </ul>
-			</div>
-        </div>
+        <?php include 'layouts/sidebar.php'; ?>
 
         <!-- CONTENT -->
         <div class="content-body">
@@ -131,104 +71,17 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="example4" class="display" style="min-width: 845px">
+                                    <table id="mytable" class="display" style="min-width: 100%">
                                         <thead>
                                             <tr>
                                                 <th>Gambar</th>
-                                                <th>Tanggal</th>
-                                                <th>Kode</th>
+                                                <th>ID Barang</th>
                                                 <th>Nama Barang</th>
-                                                <th>Deskripsi</th>
-                                                <th>Stok</th>
-                                                <th>Aksi</th>
+                                                <th>Ukuran</th>
+                                                <th>Jumlah</th>
+												<th>Tindakan</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><img class="img-fluid" width="60" src="/images/profile/small/pic1.jpg" alt=""></td>
-                                                <td>21/01/2025</td>
-                                                <td>DI-098</td>
-                                                <td>Baut Stainless</td>
-                                                <td>XL x 2mm</td>
-                                                <td>200</td>
-                                                <td>
-													<div class="d-flex">
-														<a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
-														<a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-													</div>
-												</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img class="img-fluid" width="60" src="/images/profile/small/pic1.jpg" alt=""></td>
-                                                <td>21/01/2025</td>
-												<td>DI-098</td>
-                                                <td>Baut Stainless</td>
-                                                <td>XL x 2mm</td>
-                                                <td>200</td>
-                                                <td>
-													<div class="d-flex">
-														<a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
-														<a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-													</div>
-												</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img class="img-fluid" width="60" src="/images/profile/small/pic1.jpg" alt=""></td>
-                                                <td>21/01/2025</td>
-												<td>DI-098</td>
-                                                <td>Baut Stainless</td>
-                                                <td>XL x 2mm</td>
-                                                <td>200</td>
-                                                <td>
-													<div class="d-flex">
-														<a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
-														<a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-													</div>
-												</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img class="img-fluid" width="60" src="/images/profile/small/pic1.jpg" alt=""></td>
-                                                <td>21/01/2025</td>
-												<td>DI-098</td>
-                                                <td>Baut Stainless</td>
-                                                <td>XL x 2mm</td>
-                                                <td>200</td>
-                                                <td>
-													<div class="d-flex">
-														<a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
-														<a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-													</div>
-												</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img class="img-fluid" width="60" src="/images/profile/small/pic1.jpg" alt=""></td>
-                                                <td>21/01/2025</td>
-												<td>DI-098</td>
-                                                <td>Baut Stainless</td>
-                                                <td>XL x 2mm</td>
-                                                <td>200</td>
-                                                <td>
-													<div class="d-flex">
-														<a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
-														<a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-													</div>
-												</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img class="img-fluid" width="60" src="/images/profile/small/pic1.jpg" alt=""></td>
-                                                <td>21/01/2025</td>
-												<td>DI-098</td>
-                                                <td>Baut Stainless</td>
-                                                <td>XL x 2mm</td>
-                                                <td>200</td>
-                                                <td>
-													<div class="d-flex">
-														<a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
-														<a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-													</div>
-												</td>
-                                            </tr>
-                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -306,6 +159,125 @@
     <script src="/project_inventaris/js/custom.min.js"></script>
 	<script src="/project_inventaris/js/dlabnav-init.js"></script>
 	
-    
+    <script>
+        $(document).ready(function () {
+			if (!$.fn.DataTable.isDataTable('#mytable')) {
+				var table = $('#mytable').DataTable({
+					"processing": true,
+					"serverSide": true,
+					"ajax": {
+						"url": "backend/get_barang.php",
+						"type": "POST"
+					},
+					"columns": [
+						{ "data": "gambar", "orderable": false, "render": function(data) {
+							return '<img src="'+ data +'" width="50">';
+						}},
+						{ "data": "ID_barang", "orderable": true },
+						{ "data": "nama_barang", "orderable": true },
+						{ "data": "ukuran", "orderable": false },
+						{ "data": "jumlah_barang", "orderable": false },
+						{ 
+							"data": null, 
+							"orderable": false,
+							"render": function (data, type, row) {
+								return `
+									<div class="d-flex">
+										<a href="edit_barang.php?id=${row.ID_barang}" 
+											class="btn btn-primary shadow btn-xs sharp me-1 btn-edit" 
+											data-id="${row.ID_barang}" title="Edit">
+											<i class="fa fa-pencil"></i>
+										</a>
+										<a href="#" class="btn btn-danger shadow btn-xs sharp btn-delete" 
+											data-id="${row.ID_barang}" title="Hapus">
+											<i class="fa fa-trash"></i>
+										</a>
+									</div>
+								`;
+							}
+						}
+					],
+					"order": [[1, "asc"]],
+					"language": {
+						"lengthMenu": "Tampilkan _MENU_ data barang",
+						"zeroRecords": "Data tidak ditemukan",
+						"info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+						"infoEmpty": "Tidak ada data tersedia",
+						"search": "Cari:",
+						"paginate": {
+							"first": "Awal",
+							"last": "Akhir",
+							"next": "›",
+							"previous": "‹"
+						}
+					}
+				});
+
+				// Event Listener Hapus (dengan event delegation)
+				$(document).on('click', '.btn-delete', function(e) {
+					e.preventDefault();
+					let id = $(this).data('id');
+					
+					if (confirm("Apakah Anda yakin ingin menghapus barang ini?")) {
+						$.ajax({
+							url: "backend/delete_barang.php",
+							type: "POST",
+							data: { ID_barang: id },
+							success: function(response) {
+								alert("Barang berhasil dihapus!");
+								table.ajax.reload(null, false); // Refresh tabel tanpa reload halaman
+							},
+							error: function(xhr, status, error) {
+								alert("Terjadi kesalahan: " + error);
+							}
+						});
+					}
+				});
+
+				// Event Listener Edit (jika ingin pakai modal edit)
+				$(document).on('click', '.btn-edit', function(e) {
+					e.preventDefault();
+					let id = $(this).data('id');
+					
+					// Contoh: Tampilkan modal edit dan isi dengan data dari server
+					$.ajax({
+						url: "backend/get_barang_detail.php",
+						type: "POST",
+						data: { ID_barang: id },
+						success: function(response) {
+							let data = JSON.parse(response);
+							$("#editModal #nama_barang").val(data.nama_barang);
+							$("#editModal #ukuran").val(data.ukuran);
+							$("#editModal #jumlah_barang").val(data.jumlah_barang);
+							$("#editModal #edit_id").val(data.ID_barang);
+							$("#editModal").modal("show");
+						},
+						error: function(xhr, status, error) {
+							alert("Gagal mengambil data barang: " + error);
+						}
+					});
+				});
+
+				// Event Listener untuk Submit Edit
+				$("#editForm").submit(function(e) {
+					e.preventDefault();
+					$.ajax({
+						url: "backend/update_barang.php",
+						type: "POST",
+						data: $(this).serialize(),
+						success: function(response) {
+							alert("Data berhasil diperbarui!");
+							$("#editModal").modal("hide");
+							table.ajax.reload(null, false);
+						},
+						error: function(xhr, status, error) {
+							alert("Gagal memperbarui data: " + error);
+						}
+					});
+				});
+			}
+		});
+
+    </script>
 </body>
 </html>
