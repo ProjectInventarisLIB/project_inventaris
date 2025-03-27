@@ -93,36 +93,40 @@
     </div>
 
     <!-- Modal Tambah Data -->
-    <div class="modal fade" id="modalPengadaanBarang" tabindex="-1" aria-labelledby="modalPengadaanBarangLabel" aria-hidden="true">
+    <div class="modal fade" id="modalPendataanBarang" tabindex="-1" aria-labelledby="modalPendataanBarangLabel" aria-hidden="true">
 		<div class="modal-dialog  modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="modalPengadaanBarangLabel">Formulir Pendataan Barang</h5>
+					<h5 class="modal-title" id="modalPendataanBarangLabel">Formulir Pendataan Barang</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form id="formPengadaanBarang">
-						<div class="mb-3 d-flex justify-content-between">
-							<div class="w-50 me-2">
-								<label for="kodeBarang" class="form-label">Kode Barang</label>
-								<input type="text" class="form-control" id="kodeBarang" required>
-							</div>
-							<div class="w-50">
-								<label for="tanggalMasuk" class="form-label">Tanggal Masuk</label>
-								<input type="date" class="form-control" id="tanggalMasuk" required>
+					<form id="formPendataanBarang" enctype="multipart/form-data">
+						<div class="mb-3">
+							<label for="id_barang" class="form-label">ID Barang</label>
+							<input type="text" class="form-control" id="id_barang" name="id_barang" readonly>
+						</div>
+						<div class="mb-3">
+							<label for="gambarBarang" class="form-label">Gambar</label>
+							<div class="input-group">
+								<button class="btn btn-secondary" type="button" onclick="document.getElementById('gambarBarang').click()">
+									Pilih File
+								</button>
+								<input type="file" class="form-control" id="gambarBarang" name="gambarBarang" accept="image/*" required style="display: none;">
+								<input type="text" class="form-control" id="fileName" placeholder="No file chosen" readonly>
 							</div>
 						</div>
 						<div class="mb-3">
 							<label for="namaBarang" class="form-label">Nama Barang</label>
-							<input type="text" class="form-control" id="namaBarang" required>
+							<input type="text" class="form-control" id="namaBarang" name="namaBarang" required>
 						</div>
-                        <div class="mb-3">
-							<label for="deskripsi" class="form-label">Deskripsi</label>
-							<input type="text" class="form-control" id="deskripsi" required>
+						<div class="mb-3">
+							<label for="ukuranBarang" class="form-label">Ukuran</label>
+							<input type="text" class="form-control" id="ukuranBarang" name="ukuranBarang" required>
 						</div>
-                        <div class="mb-3">
-							<label for="stok" class="form-label">Stok</label>
-							<input type="number" class="form-control" id="stok" required>
+						<div class="mb-3">
+							<label for="jumlahBarang" class="form-label">Jumlah</label>
+							<input type="number" class="form-control" id="jumlahBarang" name="jumlahBarang" required>
 						</div>
 						<div class="text-end">
 							<button type="submit" class="btn btn-primary">Simpan</button>
@@ -132,16 +136,55 @@
 			</div>
 		</div>
     </div>
-  
-    <!-- Script untuk membuka modal -->
-	<script>
-	document.addEventListener("DOMContentLoaded", function() {
-		document.getElementById("btnTambahData").addEventListener("click", function() {
-			var modal = new bootstrap.Modal(document.getElementById("modalPengadaanBarang"));
-			modal.show();
-		});
-	});
-	</script>
+
+	<!-- Modal Edit Barang -->
+	<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="editModalLabel">Edit Data Barang</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="formEditBarang" enctype="multipart/form-data">
+						<div class="mb-3">
+							<label for="edit_id" class="form-label">ID Barang</label>
+							<input type="text" class="form-control" id="edit_id" name="edit_id" readonly>
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Gambar Barang</label>
+							<div class="text-center">
+								<img id="editPreviewImage" src="" alt="Preview Gambar" class="img-thumbnail" style="max-width: 100px; display: none;">
+							</div>
+							<div class="input-group mt-2">
+								<button class="btn btn-secondary" type="button" onclick="document.getElementById('editGambarBarang').click()">
+									Pilih File
+								</button>
+								<input type="file" class="form-control" id="editGambarBarang" name="editGambarBarang" accept="image/*" style="display: none;">
+								<input type="text" class="form-control" id="editFileName" name="editFileName" placeholder="No file chosen" readonly>
+							</div>
+						</div>
+						<div class="mb-3">
+							<label for="edit_nama_barang" class="form-label">Nama Barang</label>
+							<input type="text" class="form-control" id="edit_nama_barang" name="edit_nama_barang" required>
+						</div>
+						<div class="mb-3">
+							<label for="edit_ukuran" class="form-label">Ukuran</label>
+							<input type="text" class="form-control" id="edit_ukuran" name="edit_ukuran" required>
+						</div>
+						<div class="mb-3">
+							<label for="edit_jumlah_barang" class="form-label">Jumlah</label>
+							<input type="number" class="form-control" id="edit_jumlah_barang" name="edit_jumlah_barang" required>
+						</div>
+						<div class="text-end">
+							<button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
 		
   
     <!-- Required vendorss -->
@@ -154,10 +197,61 @@
     <script src="/project_inventaris/vendors/datatables/js/jquery.dataTables.min.js"></script>
     <script src="/project_inventaris/js/plugins-init/datatables.init.js"></script>
 
-	<script src="/vendors/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+	<script src="/project_inventaris/vendors/jquery-nice-select/js/jquery.nice-select.min.js"></script>
 
     <script src="/project_inventaris/js/custom.min.js"></script>
 	<script src="/project_inventaris/js/dlabnav-init.js"></script>
+
+	<!-- Script untuk membuka modal -->
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			document.getElementById("btnTambahData").addEventListener("click", function() {
+				var modal = new bootstrap.Modal(document.getElementById("modalPendataanBarang"));
+				modal.show();
+			});
+		});
+	</script>
+
+	<!-- Input gambar di modal -->
+	<script>
+        document.getElementById('gambarBarang').addEventListener('change', function() {
+            document.getElementById('fileName').value = this.files[0] ? this.files[0].name : '';
+        });
+    </script>
+
+	<!-- INSERT BARANG -->
+	<script>
+		$("#formPendataanBarang").submit(function (e) {
+			e.preventDefault();
+			
+			var formData = new FormData(this); // Gunakan FormData untuk mengirim file
+			
+			$.ajax({
+				type: "POST",
+				url: "backend/insert_barang.php",
+				data: formData,
+				contentType: false,
+				processData: false,
+				dataType: "json",
+				success: function (response) {
+					console.log(response);
+					if (response.status === "success") {
+						alert("Data berhasil disimpan!");
+						location.reload();
+					} else {
+						alert(response.message);
+					}
+				},
+				error: function (xhr, status, error) {
+					console.error(xhr.responseText);
+					alert("Terjadi kesalahan dalam proses penyimpanan.");
+				}
+			});
+		});
+
+	</script>
+
+
 	
     <script>
         $(document).ready(function () {
@@ -170,9 +264,13 @@
 						"type": "POST"
 					},
 					"columns": [
-						{ "data": "gambar", "orderable": false, "render": function(data) {
-							return '<img src="'+ data +'" width="50">';
-						}},
+						{ 
+							"data": "gambar",
+							"render": function(data, type, row) {
+								return `<img src="${data}" alt="Gambar Barang" width="50" height="50" onerror="this.src='/project_inventaris/upload/gambar_barang/contohbarang.jpg'">`;
+							},
+							"orderable": false
+						},
 						{ "data": "ID_barang", "orderable": true },
 						{ "data": "nama_barang", "orderable": true },
 						{ "data": "ukuran", "orderable": false },
@@ -235,31 +333,54 @@
 				});
 
 				// Event Listener Edit (jika ingin pakai modal edit)
-				$(document).on('click', '.btn-edit', function(e) {
+				$(document).on("click", ".btn-edit", function (e) {
 					e.preventDefault();
-					let id = $(this).data('id');
-					
-					// Contoh: Tampilkan modal edit dan isi dengan data dari server
+					let id = $(this).data("id");
+
+					// Ambil data barang dari server
 					$.ajax({
-						url: "backend/get_barang_detail.php",
+						url: "backend/get_detail_barang.php",
 						type: "POST",
 						data: { ID_barang: id },
-						success: function(response) {
+						success: function (response) {
 							let data = JSON.parse(response);
-							$("#editModal #nama_barang").val(data.nama_barang);
-							$("#editModal #ukuran").val(data.ukuran);
-							$("#editModal #jumlah_barang").val(data.jumlah_barang);
-							$("#editModal #edit_id").val(data.ID_barang);
+							$("#edit_id").val(data.ID_barang);
+							$("#edit_nama_barang").val(data.nama_barang);
+							$("#edit_ukuran").val(data.ukuran);
+							$("#edit_jumlah_barang").val(data.jumlah_barang);
+							$("#editFileName").val(data.gambar); // Menampilkan nama file gambar lama
+							
+							// Tampilkan gambar lama jika ada
+							if (data.gambar) {
+								$("#editPreviewImage").attr("src", "/project_inventaris/upload/gambar_barang/" + data.gambar).show();
+							} else {
+								$("#editPreviewImage").hide();
+							}
+
 							$("#editModal").modal("show");
 						},
-						error: function(xhr, status, error) {
+						error: function (xhr, status, error) {
 							alert("Gagal mengambil data barang: " + error);
 						}
 					});
 				});
 
+				// Event listener untuk menampilkan preview gambar yang baru dipilih
+				$("#editGambarBarang").on("change", function (event) {
+					let file = event.target.files[0];
+					if (file) {
+						let reader = new FileReader();
+						reader.onload = function (e) {
+							$("#editPreviewImage").attr("src", e.target.result).show();
+						};
+						reader.readAsDataURL(file);
+						$("#editFileName").val(file.name);
+					}
+				});
+
+
 				// Event Listener untuk Submit Edit
-				$("#editForm").submit(function(e) {
+				$("#formEditBarang").submit(function(e) {
 					e.preventDefault();
 					$.ajax({
 						url: "backend/update_barang.php",
@@ -279,5 +400,13 @@
 		});
 
     </script>
+
+	<script>
+		fetch('backend/get_id_barang.php')
+			.then(response => response.json())
+			.then(data => {
+				document.getElementById("id_barang").value = data.id_barang;
+			});
+	</script>
 </body>
 </html>
