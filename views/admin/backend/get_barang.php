@@ -7,7 +7,7 @@ $length = isset($_POST['length']) ? intval($_POST['length']) : 10;
 $search = isset($_POST['search']['value']) ? $conn->real_escape_string($_POST['search']['value']) : "";
 
 // Ambil parameter sorting
-$columns = ["jumlah_barang", "ID_barang", "nama_barang"]; // Sesuaikan dengan urutan kolom
+$columns = ["gambar", "ID_barang", "nama_barang", "ukuran", "jumlah_barang"]; // Sesuaikan dengan urutan kolom
 $orderColumnIndex = isset($_POST['order'][0]['column']) ? intval($_POST['order'][0]['column']) : 0;
 $orderDir = isset($_POST['order'][0]['dir']) && $_POST['order'][0]['dir'] === 'desc' ? 'DESC' : 'ASC';
 
@@ -37,8 +37,15 @@ $query = $conn->query($sql);
 
 $data = [];
 while ($row = $query->fetch_assoc()) {
+    $gambarPath = "/project_inventaris/upload/gambar_barang/" . $row['gambar'];
+
+    // Periksa apakah file gambar ada
+    if (!file_exists($_SERVER['DOCUMENT_ROOT'] . $gambarPath)) {
+        $gambarPath = "/project_inventaris/upload/gambar_barang/contohbarang.jpg"; // Gunakan gambar default jika tidak ditemukan
+    }
+
     $data[] = [
-        "gambar" => $row['gambar'],
+        "gambar" => $gambarPath,
         "ID_barang" => $row['ID_barang'],
         "nama_barang" => $row['nama_barang'],
         "ukuran" => $row['ukuran'],
