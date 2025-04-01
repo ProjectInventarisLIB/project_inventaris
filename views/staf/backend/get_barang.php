@@ -37,10 +37,15 @@ $query = $conn->query($sql);
 
 $data = [];
 while ($row = $query->fetch_assoc()) {
+    $gambarPath = "/project_inventaris/upload/gambar_barang/" . $row['gambar'];
+
+    // Periksa apakah file gambar ada
+    if (!file_exists($_SERVER['DOCUMENT_ROOT'] . $gambarPath)) {
+        $gambarPath = "/project_inventaris/upload/gambar_barang/contohbarang.jpg"; // Gunakan gambar default jika tidak ditemukan
+    }
+
     $data[] = [
-        "gambar" => '<a href="/project_inventaris/assets/contohbarang.jpg" class="lightbox" data-lightbox="gallery">
-                        <img src="/project_inventaris/assets/contohbarang.jpg" width="60">
-                     </a>',
+        "gambar" => $gambarPath,
         "ID_barang" => $row['ID_barang'],
         "nama_barang" => $row['nama_barang'],
         "ukuran" => $row['ukuran'],

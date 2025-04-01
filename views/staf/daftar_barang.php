@@ -170,7 +170,16 @@
                         "type": "POST"
                     },
                     "columns": [
-                        { "data": "gambar", "orderable": false }, // Gambar
+                        { 
+							"data": "gambar",
+							"render": function(data, type, row) {
+                                return `<a href="${data}" target="_blank">
+                                            <img src="${data}" alt="Gambar Barang" width="60" height="60"
+                                                onerror="this.src='/project_inventaris/upload/gambar_barang/contohbarang.jpg'">
+                                        </a>`;
+                            },
+							"orderable": false
+						},
                         { "data": "ID_barang", "orderable": true },  // ID Barang
                         { "data": "nama_barang", "orderable": true },  // Nama Barang
                         { "data": "ukuran", "orderable": false },  // Ukuran

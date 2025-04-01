@@ -7,7 +7,7 @@ $length = isset($_POST['length']) ? intval($_POST['length']) : 10;
 $search = isset($_POST['search']['value']) ? $conn->real_escape_string($_POST['search']['value']) : "";
 
 // Ambil parameter sorting
-$columns = ["gambar", "ID_barang", "nama_barang", "ukuran", "jumlah_barang"]; // Sesuaikan dengan urutan kolom
+$columns = ["ID_barang", "nama_barang", "tanggal", "jumlah_diambil", "no_surat"];
 $orderColumnIndex = isset($_POST['order'][0]['column']) ? intval($_POST['order'][0]['column']) : 0;
 $orderDir = isset($_POST['order'][0]['dir']) && $_POST['order'][0]['dir'] === 'desc' ? 'DESC' : 'ASC';
 
@@ -15,17 +15,17 @@ $orderDir = isset($_POST['order'][0]['dir']) && $_POST['order'][0]['dir'] === 'd
 $orderColumn = isset($columns[$orderColumnIndex]) ? $columns[$orderColumnIndex] : "ID_barang";
 
 // Ambil total data tanpa filter
-$totalDataQuery = $conn->query("SELECT COUNT(*) AS total FROM barang");
+$totalDataQuery = $conn->query("SELECT COUNT(*) AS total FROM barang_pengambilan");
 $totalData = $totalDataQuery->fetch_assoc()['total'];
 
 // Query dengan filter pencarian
-$sql = "SELECT * FROM barang";
+$sql = "SELECT ID_barang, nama_barang, tanggal, jumlah_diambil, no_surat FROM barang_pengambilan";
 if (!empty($search)) {
     $sql .= " WHERE nama_barang LIKE '%$search%' OR ID_barang LIKE '%$search%'";
 }
 
 // Hitung total setelah pencarian
-$filteredDataQuery = $conn->query("SELECT COUNT(*) AS total FROM barang WHERE nama_barang LIKE '%$search%' OR ID_barang LIKE '%$search%'");
+$filteredDataQuery = $conn->query("SELECT COUNT(*) AS total FROM barang_pengambilan WHERE nama_barang LIKE '%$search%' OR ID_barang LIKE '%$search%'");
 $recordsFiltered = $filteredDataQuery->fetch_assoc()['total'];
 
 // Tambahkan sorting
@@ -37,19 +37,12 @@ $query = $conn->query($sql);
 
 $data = [];
 while ($row = $query->fetch_assoc()) {
-    $gambarPath = "/project_inventaris/upload/gambar_barang/" . $row['gambar'];
-
-    // Periksa apakah file gambar ada
-    if (!file_exists($_SERVER['DOCUMENT_ROOT'] . $gambarPath)) {
-        $gambarPath = "/project_inventaris/upload/gambar_barang/default_barang.jpg";
-    }
-
     $data[] = [
-        "gambar" => $gambarPath,
         "ID_barang" => $row['ID_barang'],
         "nama_barang" => $row['nama_barang'],
-        "ukuran" => $row['ukuran'],
-        "jumlah_barang" => $row['jumlah_barang']
+        "tanggal" => $row['tanggal'],
+        "jumlah_diambil" => $row['jumlah_diambil'],
+        "no_surat" => $row['no_surat']
     ];
 }
 

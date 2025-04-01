@@ -107,12 +107,12 @@
 							<input type="text" class="form-control" id="id_barang" name="id_barang" readonly>
 						</div>
 						<div class="mb-3">
-							<label for="gambarBarang" class="form-label">Gambar</label>
+							<label for="gambarBarang" class="form-label">Gambar (opsional)</label>
 							<div class="input-group">
 								<button class="btn btn-secondary" type="button" onclick="document.getElementById('gambarBarang').click()">
 									Pilih File
 								</button>
-								<input type="file" class="form-control" id="gambarBarang" name="gambarBarang" accept="image/*" required style="display: none;">
+								<input type="file" class="form-control" id="gambarBarang" name="gambarBarang" accept="image/*" style="display: none;">
 								<input type="text" class="form-control" id="fileName" placeholder="No file chosen" readonly>
 							</div>
 						</div>
@@ -267,8 +267,11 @@
 						{ 
 							"data": "gambar",
 							"render": function(data, type, row) {
-								return `<img src="${data}" alt="Gambar Barang" width="50" height="50" onerror="this.src='/project_inventaris/upload/gambar_barang/contohbarang.jpg'">`;
-							},
+                                return `<a href="${data}" target="_blank">
+                                            <img src="${data}" alt="Gambar Barang" width="60" height="60"
+                                                onerror="this.src='/project_inventaris/upload/gambar_barang/default_barang.jpg'">
+                                        </a>`;
+                            },
 							"orderable": false
 						},
 						{ "data": "ID_barang", "orderable": true },
@@ -323,7 +326,7 @@
 							data: { ID_barang: id },
 							success: function(response) {
 								alert("Barang berhasil dihapus!");
-								table.ajax.reload(null, false); // Refresh tabel tanpa reload halaman
+								location.reload();
 							},
 							error: function(xhr, status, error) {
 								alert("Terjadi kesalahan: " + error);
