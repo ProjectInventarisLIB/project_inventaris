@@ -14,25 +14,27 @@ $orderDir = isset($_POST['order'][0]['dir']) && $_POST['order'][0]['dir'] === 'd
 // Pastikan kolom yang dipilih ada dalam daftar
 $orderColumn = isset($columns[$orderColumnIndex]) ? $columns[$orderColumnIndex] : "no_surat";
 
-// Ambil total data tanpa filter
-$totalDataQuery = $conn->query("SELECT COUNT(*) AS total FROM surat_pengambilan");
+// Ambil total data tanpa filter tetapi hanya yang berstatus "Diproses"
+$totalDataQuery = $conn->query("SELECT COUNT(*) AS total FROM surat_pengambilan WHERE status = 'Diproses'");
 $totalData = $totalDataQuery->fetch_assoc()['total'];
 
-// Query dengan filter pencarian dan JOIN ke tabel staf
+// Query dengan filter pencarian dan JOIN ke tabel staf, serta hanya status "Diproses"
 $sql = "SELECT s.no_surat, s.tanggal, s.nama_barang, s.link_surat, s.status, 
                st.nama_staf 
         FROM surat_pengambilan s 
-        LEFT JOIN staf st ON s.ID_staf = st.ID_staf";
+        LEFT JOIN staf st ON s.ID_staf = st.ID_staf
+        WHERE s.status = 'Diproses'";
 
 if (!empty($search)) {
-    $sql .= " WHERE (s.nama_barang LIKE '%$search%' OR s.no_surat LIKE '%$search%' OR st.nama_staf LIKE '%$search%')";
+    $sql .= " AND (s.nama_barang LIKE '%$search%' OR s.no_surat LIKE '%$search%' OR st.nama_staf LIKE '%$search%')";
 }
 
 // Hitung total setelah pencarian
 $filteredDataQuery = $conn->query("SELECT COUNT(*) AS total 
                                    FROM surat_pengambilan s 
                                    LEFT JOIN staf st ON s.ID_staf = st.ID_staf 
-                                   WHERE s.nama_barang LIKE '%$search%' OR s.no_surat LIKE '%$search%' OR st.nama_staf LIKE '%$search%'");
+                                   WHERE s.status = 'Diproses' 
+                                   AND (s.nama_barang LIKE '%$search%' OR s.no_surat LIKE '%$search%' OR st.nama_staf LIKE '%$search%')");
 $recordsFiltered = $filteredDataQuery->fetch_assoc()['total'];
 
 // Tambahkan sorting
@@ -51,7 +53,6 @@ while ($row = $query->fetch_assoc()) {
         $row['nama_barang'],            
         "<a href='" . $row['link_surat'] . "' target='_blank'>Lihat Surat</a>", 
         $row['status']
-            
     ];
 }
 
