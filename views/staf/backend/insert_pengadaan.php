@@ -28,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $namaBarang = $conn->real_escape_string($_POST['namaBarang']);
     $anggaran = (float) $conn->real_escape_string($_POST['anggaran']); // Konversi ke float
     $jumlah = (int) $conn->real_escape_string($_POST['jumlah']);
+    $satuan = $conn->real_escape_string($_POST['satuan']);
     $deskripsi = $conn->real_escape_string($_POST['deskripsi']);
     
 
@@ -43,11 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo json_encode(["status" => "error", "message" => "Anggaran tidak mencukupi!"]);
             exit;
         }
-
-        // Kurangi anggaran staf
-        $anggaranBaru = $anggaranStaf - $anggaran;
-        $queryUpdateAnggaran = "UPDATE staf SET anggaran = '$anggaranBaru' WHERE id_staf = '$idStaf'";
-        $conn->query($queryUpdateAnggaran);
     } else {
         echo json_encode(["status" => "error", "message" => "ID staf tidak ditemukan!"]);
         exit;
@@ -88,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <br>
     <p class="content">Dengan hormat,</p>
     <p class="content">
-    Melalui surat ini kami sampaikan bahwa kami, dari divisi ' . $namaStaf . ' ingin mengajukan pengadaan barang ' . $namaBarang . ' (' . $deskripsi . ') sebanyak ' . $jumlah . ' yang dibutuhkan pada tanggal ' . $tanggalDiperlukan . ' dengan perkiraan anggaran mencapai  Rp. ' . number_format($anggaran, 2, ',', '.') . ' adapun barang ini ditujukan untuk keperluan ' . $tujuan . '.
+    Melalui surat ini kami sampaikan bahwa kami, dari divisi ' . $namaStaf . ' ingin mengajukan pengadaan barang ' . $namaBarang . ' (' . $deskripsi . ') sebanyak ' . $jumlah .' '. $satuan . ' yang dibutuhkan pada tanggal ' . $tanggalDiperlukan . ' dengan perkiraan anggaran mencapai  Rp. ' . number_format($anggaran, 2, ',', '.') . ' adapun barang ini ditujukan untuk keperluan ' . $tujuan . '.
     </p>
 
     <p class="content">Demikian kami sampaikan. Atas perhatian Bapak, kami ucapkan terima kasih.</p>
@@ -106,11 +102,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mpdf->Output($pdfFilePath, "F"); // Simpan PDF ke folder
 
     // Simpan data ke database
-    $sql = "INSERT INTO surat_pengadaan (no_surat, tanggal, tujuan, nama_barang, anggaran, jumlah, deskripsi, status, link_surat, id_staf)
-            VALUES ('$noSurat', '$tanggalDiperlukan', '$tujuan', '$namaBarang', '$anggaran', '$jumlah', '$deskripsi', '$status', '$linkSurat', '$idStaf')";
+    $sql = "INSERT INTO surat_pengadaan (no_surat, tanggal, tujuan, nama_barang, anggaran, jumlah, satuan, deskripsi, status, link_surat, id_staf)
+            VALUES ('$noSurat', '$tanggalDiperlukan', '$tujuan', '$namaBarang', '$anggaran', '$jumlah', '$satuan', '$deskripsi', '$status', '$linkSurat', '$idStaf')";
 
     if ($conn->query($sql) === TRUE) {
-        echo json_encode(["status" => "success", "message" => "Data berhasil disimpan", "link_surat" => $linkSurat, "sisa_anggaran" => $anggaranBaru]);
+        echo json_encode(["status" => "success", "message" => "Data berhasil disimpan", "link_surat" => $linkSurat]);
     } else {
         echo json_encode(["status" => "error", "message" => "Gagal menyimpan data: " . $conn->error]);
     }

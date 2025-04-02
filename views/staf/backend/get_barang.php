@@ -41,7 +41,7 @@ while ($row = $query->fetch_assoc()) {
 
     // Periksa apakah file gambar ada
     if (!file_exists($_SERVER['DOCUMENT_ROOT'] . $gambarPath)) {
-        $gambarPath = "/project_inventaris/upload/gambar_barang/contohbarang.jpg"; // Gunakan gambar default jika tidak ditemukan
+        $gambarPath = "/project_inventaris/upload/gambar_barang/default_barang.jpg"; // Gunakan gambar default jika tidak ditemukan
     }
 
     $data[] = [
@@ -49,7 +49,8 @@ while ($row = $query->fetch_assoc()) {
         "ID_barang" => $row['ID_barang'],
         "nama_barang" => $row['nama_barang'],
         "ukuran" => $row['ukuran'],
-        "jumlah_barang" => $row['jumlah_barang']
+        "jumlah_barang" => $row['jumlah_barang'],
+        "satuan" => $row['satuan']
     ];
 }
 

@@ -75,8 +75,9 @@
                                                 <th>ID Staf</th>
                                                 <th>Nama Staf</th>
 												<th>Email Staf</th>
-												<th>Pengeluaran</th>
+												<th>Periode</th>
                                                 <th>Anggaran</th>
+												<th>Pengeluaran</th>
 												<th>Tindakan</th>
                                             </tr>
                                         </thead>
@@ -108,6 +109,10 @@
 						<div class="mb-3">
 							<label for="nilaiAnggaran" class="form-label">Nilai Anggaran</label>
 							<input type="number" class="form-control" name="nilaiAnggaran" id="nilaiAnggaran" required>
+						</div>
+						<div class="mb-3">
+							<label for="periodeAnggaran" class="form-label">Periode Anggaran</label>
+							<input type="text" class="form-control" name="periodeAnggaran" id="periodeAnggaran" required>
 						</div>
 						<div class="text-end">
 							<button type="submit" class="btn btn-primary">Simpan</button>
@@ -176,15 +181,16 @@
 						{ "data": "ID_staf", "orderable": false },
 						{ "data": "nama_staf", "orderable": false },
 						{ "data": "email_staf", "orderable": false },
+						{ "data": "periode_anggaran", "orderable": false },
 						{ 
-							"data": "pengeluaran_anggaran", 
+							"data": "anggaran", 
 							"orderable": false,
 							"render": function (data, type, row) {
 								return formatRupiah(data);
 							}
 						},
 						{ 
-							"data": "anggaran", 
+							"data": "pengeluaran_anggaran", 
 							"orderable": false,
 							"render": function (data, type, row) {
 								return formatRupiah(data);

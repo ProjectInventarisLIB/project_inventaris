@@ -1,4 +1,3 @@
-
 <?php
 // backend/insert_pengambilan.php
 include($_SERVER['DOCUMENT_ROOT'] . "/project_inventaris/config/konfigurasi.php");
@@ -38,7 +37,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             VALUES ('$kodeBarang', '$namaBarang', '$tanggalKeluar', '$jumlah', '$noSurat')";
     
     if ($conn->query($sql) === TRUE) {
-        echo json_encode(["status" => "success", "message" => "Data pengambilan berhasil disimpan!"]);
+        // Update status di tabel surat_pengambilan
+        $updateStatusSql = "UPDATE surat_pengambilan SET status = 'Selesai' WHERE no_surat = '$noSurat'";
+        $conn->query($updateStatusSql);
+        
+        echo json_encode(["status" => "success", "message" => "Data pengambilan berhasil disimpan dan status surat diubah menjadi Selesai!"]);
     } else {
         echo json_encode(["status" => "error", "message" => "Gagal menyimpan data: " . $conn->error]);
     }

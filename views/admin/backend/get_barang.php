@@ -49,7 +49,8 @@ while ($row = $query->fetch_assoc()) {
         "ID_barang" => $row['ID_barang'],
         "nama_barang" => $row['nama_barang'],
         "ukuran" => $row['ukuran'],
-        "jumlah_barang" => $row['jumlah_barang']
+        "jumlah_barang" => $row['jumlah_barang'],
+        "satuan" => $row['satuan']
     ];
 }
 

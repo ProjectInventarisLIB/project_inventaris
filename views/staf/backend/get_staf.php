@@ -12,7 +12,7 @@ if (!isset($_SESSION['ID_staf'])) {
 
 $id_staf = $_SESSION['ID_staf']; // Ambil ID staf yang benar
 
-$sql = "SELECT nama_staf, email_staf, pengeluaran_anggaran, anggaran FROM staf WHERE ID_staf = ?";
+$sql = "SELECT nama_staf, email_staf, pengeluaran_anggaran, anggaran, periode_anggaran FROM staf WHERE ID_staf = ?";
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "s", $id_staf);
 mysqli_stmt_execute($stmt);
@@ -27,7 +27,8 @@ if ($row = mysqli_fetch_assoc($result)) {
         "pengeluaran_anggaran" => $row['pengeluaran_anggaran'],
         "pengeluaran_anggaran1" => $row['pengeluaran_anggaran'],
         "anggaran" => $row['anggaran'],
-        "anggaran1" => $row['anggaran']
+        "anggaran1" => $row['anggaran'],
+        "periode_anggaran" => $row['periode_anggaran']
     ]);
 } else {
     echo json_encode(["error" => "Data not found"]);

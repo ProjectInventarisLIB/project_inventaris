@@ -119,14 +119,18 @@
                             <label for="deskripsi" class="form-label">Deskripsi Barang</label>
                             <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3"></textarea>
                         </div>
+                        <div class="mb-3">
+                            <label for="anggaran" class="form-label">Perkiraan Anggaran</label>
+                            <input type="number" class="form-control" id="anggaran" name="anggaran" min="1" required>
+                        </div>
                         <div class="mb-3 d-flex justify-content-between">
-                            <div class="w-50 me-2">
-                                <label for="anggaran" class="form-label">Perkiraan Anggaran</label>
-                                <input type="number" class="form-control" id="anggaran" name="anggaran" min="1" required>
-                            </div>
                             <div class="w-50">
                                 <label for="jumlah" class="form-label">Jumlah</label>
                                 <input type="number" class="form-control" id="jumlah" name="jumlah" min="1" required>
+                            </div>
+                            <div class="w-50 me-2">
+                                <label for="satuan" class="form-label">Satuan</label>
+                                <input type="text" class="form-control" id="satuan" name="satuan" required>
                             </div>
                         </div>
                         <div class="mb-3">
@@ -235,7 +239,7 @@
                 success: function (response) {
                     console.log(response); // Debug: lihat respon dari server
                     if (response.status === "success") {
-                        alert("Data berhasil disimpan!\nSisa Anggaran: Rp. " + response.sisa_anggaran.toLocaleString('id-ID'));
+                        alert("Data berhasil disimpan!");
                         location.reload();
                     } else {
                         alert(response.message);
