@@ -31,7 +31,8 @@ while ($row = $query->fetch_assoc()) {
         "nama_staf" => $row['nama_staf'],
         "email_staf" => $row['email_staf'],
         "anggaran" => $row['anggaran'],
-        "pengeluaran_anggaran" => $row['pengeluaran_anggaran']
+        "pengeluaran_anggaran" => $row['pengeluaran_anggaran'],
+        "periode_anggaran" => $row['periode_anggaran']
     ];
 }
 

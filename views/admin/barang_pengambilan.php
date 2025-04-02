@@ -74,9 +74,9 @@
                                     <table id="tabelbarangpengambilan" class="display" style="width: 100%">
                                         <thead>
                                             <tr>
+                                                <th>Tanggal</th>
                                                 <th>ID Barang</th>
                                                 <th>Nama Barang</th>
-                                                <th>Tanggal</th>
                                                 <th>Jumlah Diambil</th>
                                                 <th>Surat Terkait</th>
                                             </tr>
@@ -101,12 +101,16 @@
                 </div>
                 <div class="modal-body">
                     <form id="formPengadaanBarang">
+                        <div class="mb-3">
+                            <label for="noSurat" class="form-label">No Surat</label>
+                            <select class="form-control" id="noSurat" name="noSurat" required>
+                                <option value="">Pilih No Surat</option>
+                            </select>
+                        </div>
                         <div class="mb-3 d-flex justify-content-between">
                             <div class="w-50 me-2">
                                 <label for="kodeBarang" class="form-label">Kode Barang</label>
-                                <select class="form-control" id="kodeBarang" name="kodeBarang" required>
-                                    <option value="">Pilih ID Barang</option>
-                                </select>
+                                <input class="form-control" id="kodeBarang" name="kodeBarang" readonly>
                             </div>
                             <div class="w-50">
                                 <label for="tanggalKeluar" class="form-label">Tanggal Keluar</label>
@@ -119,13 +123,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="jumlah" class="form-label">Jumlah yang ingin diambil</label>
-                            <input type="number" class="form-control" id="jumlah" name="jumlah" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="noSurat" class="form-label">No Surat</label>
-                            <select class="form-control" id="noSurat" name="noSurat" required>
-                                <option value="">Pilih No Surat</option>
-                            </select>
+                            <input type="number" class="form-control" id="jumlah" name="jumlah" readonly>
                         </div>
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary">Simpan</button>
@@ -173,9 +171,9 @@
                         "type": "POST"
                     },
                     "columns": [
+                        { "data": "tanggal", "orderable": true },
                         { "data": "ID_barang", "orderable": true },
 						{ "data": "nama_barang", "orderable": true },
-						{ "data": "tanggal", "orderable": true },
                         { "data": "jumlah_diambil", "orderable": false },
                         { "data": "no_surat", "orderable": true },
                     ],
@@ -200,38 +198,34 @@
 
     <script>
         $(document).ready(function () {
-            // Fetch ID Barang dan Nama Barang
+            // Ambil data nomor surat
             $.ajax({
-                url: "backend/fetch_barang.php",
-                type: "GET",
-                dataType: "json",
-                success: function (data) {
-                    let options = "<option value=''>Pilih ID Barang</option>";
-                    data.forEach(item => {
-                        options += `<option value='${item.ID_barang}' data-nama='${item.nama_barang}'>${item.ID_barang}</option>`;
-                    });
-                    $('#kodeBarang').html(options);
-                }
-            });
-
-            // Fetch No Surat
-            $.ajax({
-                url: "backend/fetch_surat.php",
+                url: "backend/get_nosurat_pengambilan.php",
                 type: "GET",
                 dataType: "json",
                 success: function (data) {
                     let options = "<option value=''>Pilih No Surat</option>";
                     data.forEach(item => {
-                        options += `<option value='${item.no_surat}'>${item.no_surat}</option>`;
+                        options += `<option value='${item.no_surat}'
+                                        data-kode='${item.ID_barang}'  
+                                        data-nama='${item.nama_barang}' 
+                                        data-jumlah='${item.jumlah}'>${item.no_surat}</option>`;
                     });
                     $('#noSurat').html(options);
                 }
             });
 
-            // Auto-fill Nama Barang saat ID Barang dipilih
-            $('#kodeBarang').change(function () {
+            // Auto-fill input berdasarkan pilihan No Surat
+            $('#noSurat').change(function () {
                 var selectedOption = $(this).find('option:selected');
-                $('#namaBarang').val(selectedOption.data('nama'));
+
+                if (selectedOption.val() === "") {
+                    $('#kodeBarang, #namaBarang, #jumlah').val('');
+                } else {
+                    $('#kodeBarang').val(selectedOption.data('kode') || '');
+                    $('#namaBarang').val(selectedOption.data('nama') || '');
+                    $('#jumlah').val(selectedOption.data('jumlah') || '');
+                }
             });
 
             // AJAX Submit Form
@@ -261,7 +255,8 @@
                     }
                 });
             });
-        });
+        }); 
+
     </script>
 
 	

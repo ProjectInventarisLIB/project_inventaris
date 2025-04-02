@@ -79,6 +79,7 @@
                                                 <th>Nama Barang</th>
                                                 <th>Ukuran</th>
                                                 <th>Jumlah</th>
+												<th>Satuan</th>
 												<th>Tindakan</th>
                                             </tr>
                                         </thead>
@@ -124,10 +125,16 @@
 							<label for="ukuranBarang" class="form-label">Ukuran</label>
 							<input type="text" class="form-control" id="ukuranBarang" name="ukuranBarang" required>
 						</div>
-						<div class="mb-3">
-							<label for="jumlahBarang" class="form-label">Jumlah</label>
-							<input type="number" class="form-control" id="jumlahBarang" name="jumlahBarang" required>
-						</div>
+						<div class="mb-3 d-flex justify-content-between">
+                            <div class="w-50 me-2">
+								<label for="jumlahBarang" class="form-label">Jumlah</label>
+								<input type="number" class="form-control" id="jumlahBarang" name="jumlahBarang" required>
+                            </div>
+                            <div class="w-50">
+                                <label for="satuan" class="form-label">Satuan</label>
+                                <input type="text" class="form-control" id="satuan" name="satuan" required>
+                            </div>
+                        </div>
 						<div class="text-end">
 							<button type="submit" class="btn btn-primary">Simpan</button>
 						</div>
@@ -172,10 +179,16 @@
 							<label for="edit_ukuran" class="form-label">Ukuran</label>
 							<input type="text" class="form-control" id="edit_ukuran" name="edit_ukuran" required>
 						</div>
-						<div class="mb-3">
-							<label for="edit_jumlah_barang" class="form-label">Jumlah</label>
-							<input type="number" class="form-control" id="edit_jumlah_barang" name="edit_jumlah_barang" required>
-						</div>
+						<div class="mb-3 d-flex justify-content-between">
+                            <div class="w-50 me-2">
+								<label for="edit_jumlah_barang" class="form-label">Jumlah</label>
+								<input type="number" class="form-control" id="edit_jumlah_barang" name="edit_jumlah_barang" required>
+                            </div>
+                            <div class="w-50">
+                                <label for="edit_satuan" class="form-label">Satuan</label>
+                                <input type="text" class="form-control" id="edit_satuan" name="edit_satuan" required>
+                            </div>
+                        </div>
 						<div class="text-end">
 							<button type="submit" class="btn btn-primary">Simpan Perubahan</button>
 						</div>
@@ -278,6 +291,7 @@
 						{ "data": "nama_barang", "orderable": true },
 						{ "data": "ukuran", "orderable": false },
 						{ "data": "jumlah_barang", "orderable": false },
+						{ "data": "satuan", "orderable": false },
 						{ 
 							"data": null, 
 							"orderable": false,
@@ -351,6 +365,7 @@
 							$("#edit_nama_barang").val(data.nama_barang);
 							$("#edit_ukuran").val(data.ukuran);
 							$("#edit_jumlah_barang").val(data.jumlah_barang);
+							$("#edit_satuan").val(data.satuan);
 							$("#editFileName").val(data.gambar); // Menampilkan nama file gambar lama
 							
 							// Tampilkan gambar lama jika ada

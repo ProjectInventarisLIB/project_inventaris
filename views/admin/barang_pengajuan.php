@@ -135,7 +135,7 @@
                             </div>
                             <div class="w-50">
                                 <label for="satuan" class="form-label">Satuan</label>
-                                <input class="form-control" id="satuan"  name="satuan" required>
+                                <input class="form-control" id="satuan"  name="satuan" readonly>
                             </div>
                         </div>
                         <div class="mb-3">
@@ -262,7 +262,8 @@
                             options += `<option value='${item.no_surat}' 
                                             data-nama='${item.nama_barang}' 
                                             data-deskripsi='${item.deskripsi}' 
-                                            data-jumlah='${item.jumlah}' 
+                                            data-jumlah='${item.jumlah}'
+                                            data-satuan='${item.satuan}' 
                                             data-anggaran='${item.anggaran}'>${item.no_surat}</option>`;
                         });
                         $('#noSurat').html(options);
@@ -276,6 +277,7 @@
                 $('#namaBarang').val(selectedOption.data('nama') || '');
                 $('#deskripsi').val(selectedOption.data('deskripsi') || '');
                 $('#jumlah').val(selectedOption.data('jumlah') || '');
+                $('#satuan').val(selectedOption.data('satuan') || '');
                 $('#anggaran').val(selectedOption.data('anggaran') || '');
             });
 

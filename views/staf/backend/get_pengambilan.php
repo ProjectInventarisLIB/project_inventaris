@@ -49,11 +49,12 @@ $query = $conn->query($sql);
 $data = [];
 while ($row = $query->fetch_assoc()) {
     $data[] = [
-        $row['no_surat'],          // 0
-        $row['tanggal'],           // 1
-        $row['nama_barang'],       // 2 
-        "<a href='" . $row['link_surat'] . "' target='_blank'>Lihat Surat</a>", // 3
-        $row['status'],            // 4
+        "no_surat" => $row['no_surat'],
+        "tanggal" => $row['tanggal'],
+        "ID_barang" => $row['ID_barang'],
+        "nama_barang" => $row['nama_barang'],
+        "link_surat" => "<a href='" . $row['link_surat'] . "' target='_blank'>Lihat Surat</a>",
+        "status" => $row['status']
     ];
 }
 

@@ -6,6 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_barang = $_POST["id_barang"];
     $nama_barang = $_POST["namaBarang"];
     $jumlah_barang = $_POST["jumlahBarang"];
+    $satuan = $_POST["satuan"];
     $ukuran = $_POST["ukuranBarang"];
     
     $fileName = "default_barang.jpg"; // Gambar default
@@ -37,10 +38,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
     // Simpan ke database
-    $query = "INSERT INTO barang (id_barang, nama_barang, jumlah_barang, ukuran, gambar) VALUES (?, ?, ?, ?, ?)";
+    $query = "INSERT INTO barang (id_barang, nama_barang, jumlah_barang, satuan, ukuran, gambar) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($query);
     if ($stmt) {
-        $stmt->bind_param("ssiss", $id_barang, $nama_barang, $jumlah_barang, $ukuran, $fileName);
+        $stmt->bind_param("ssisss", $id_barang, $nama_barang, $jumlah_barang, $satuan, $ukuran, $fileName);
         
         if ($stmt->execute()) {
             echo json_encode(["status" => "success", "message" => "Data berhasil disimpan!"]);

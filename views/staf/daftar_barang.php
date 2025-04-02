@@ -48,8 +48,8 @@
                         </div>
                         <ul class="navbar-nav header-right">
                             <li class="nav-item">
-								<button type="button" class="btn btn-primary d-sm-inline-block d-none" id="btnTambahData">
-                                    Cari Barang <i class="fa fa-search ms-3 scale4"></i>
+								<button type="button" class="btn btn-primary d-sm-inline-block d-none" id="reloadData">
+                                    Perbarui Data <i class="fa fa-refresh ms-3 scale4"></i>
                                 </button>
 							</li>
                         </ul>
@@ -69,7 +69,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="mytable" class="display" style="min-width: 100%">
+                                    <table id="mytable" class="display" style="width: 100%">
                                         <thead>
                                             <tr>
                                                 <th>Gambar</th>
@@ -77,6 +77,7 @@
                                                 <th>Nama Barang</th>
                                                 <th>Ukuran</th>
                                                 <th>Jumlah</th>
+                                                <th>Satuan</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -88,50 +89,6 @@
             </div>
         </div>       
     </div>
-
-    <!-- Modal Lihat Data -->
-    <div class="modal fade" id="modalLihatBarang" tabindex="-1" aria-labelledby="modalLihatBarangLabel" aria-hidden="true">
-		<div class="modal-dialog  modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="modalLihatBarangLabel">Lihat Barang</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<div class="card-body">
-                        <div class="d-flex align-items-center gap-2 mb-3 mb-md-4">
-                            <label class="mb-0"><strong>Seleksi:</strong></label>
-                            <select id="automatic-selection">
-                                <option value="Solar">Solar</option>
-                                <option value="Baut">Baut</option>
-                                <option value="Rantai">Rantai</option>
-                                <option value="Pelampung">Jaket Pelampung</option>
-                            </select>
-                        </div>                        
-                        
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-responsive-sm">
-                                <thead>
-                                    <tr>
-                                        <th><strong>Gambar</strong></th>
-                                        <th><strong>Barang</strong></th>
-                                        <th><strong>Barang</strong></th>
-                                        <th><strong>Ukuran</strong></th>
-                                        <th><strong>Stok Barang</strong></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- data disini -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-				</div>
-			</div>
-		</div>
-    </div>
-
-
 		
   
     <!-- Required vendorss -->
@@ -183,7 +140,8 @@
                         { "data": "ID_barang", "orderable": true },  // ID Barang
                         { "data": "nama_barang", "orderable": true },  // Nama Barang
                         { "data": "ukuran", "orderable": false },  // Ukuran
-                        { "data": "jumlah_barang", "orderable": false }  
+                        { "data": "jumlah_barang", "orderable": false },
+                        { "data": "satuan", "orderable": false }    
                     ],
                     "order": [[1, "asc"]],
                     "language": {
@@ -201,6 +159,12 @@
                     }
                 });
             }
+        });
+    </script>
+
+    <script>
+        document.getElementById("reloadData").addEventListener("click", function() {
+            location.reload(); // Reload halaman
         });
     </script>
 

@@ -139,8 +139,8 @@ session_start();
 						<div class="card">
 							<div class="card-header border-0 pb-0">
 								<div>
-									<h4 class="card-title mb-2">Pengeluaran</h4>
-									<span class="fs-12">Persenan pengeluaran departemen pergudangan</span>
+									<h4 class="card-title mb-2">Pengeluaran Periode <span id="periodeStaf"></span></h4>
+									<span class="fs-12">persenan pengeluaran <span id="divisiStaf"></span></span>
 								</div>
 							</div>
 							<div class="card-body">	
@@ -257,6 +257,24 @@ session_start();
 					$("#invoiceNum").text(response.total_peminjaman); // Total surat peminjaman
 					$("#invoiceNum4").text(response.pengadaan_disetujui); // Surat pengadaan disetujui
 					$("#invoiceNum3").text(response.peminjaman_disetujui); // Surat peminjaman disetujui
+				},
+				error: function(xhr, status, error) {
+					console.error("Error mengambil data:", error);
+				}
+			});
+		});
+	</script>
+
+	<script>
+		$(document).ready(function() {
+			$.ajax({
+				url: "backend/get_staf.php", // Panggil API yang sudah digabung
+				method: "GET",
+				dataType: "json",
+				success: function(response) {
+					console.log(response);
+					$("#divisiStaf").text(response.nama_staf);
+					$("#periodeStaf").text(response.periode_anggaran);
 				},
 				error: function(xhr, status, error) {
 					console.error("Error mengambil data:", error);

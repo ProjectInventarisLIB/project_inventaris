@@ -73,6 +73,7 @@
                                             <tr>
                                                 <th>No Surat</th>
                                                 <th>Tanggal</th>
+                                                <th>ID Barang</th>
                                                 <th>Nama Barang</th>
                                                 <th>Link Surat</th>
                                                 <th>Status</th>
@@ -170,12 +171,13 @@
                         "type": "POST"
                     },
                     "columns": [
-                        { "data": 0, "orderable": true },
-                        { "data": 1, "orderable": true },
-                        { "data": 2, "orderable": true },
-                        { "data": 3, "orderable": false },
+                        { "data": "no_surat", "orderable": true },
+                        { "data": "tanggal", "orderable": true },
+                        { "data": "ID_barang", "orderable": false },
+                        { "data": "nama_barang", "orderable": true },
+                        { "data": "link_surat", "orderable": false },
                         { 
-                            "data": 4, 
+                            "data": "status", 
                             "orderable": false,
                             "render": function (data, type, row) {
                                 let badgeClass = "badge-secondary";
