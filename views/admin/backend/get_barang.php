@@ -50,7 +50,9 @@ while ($row = $query->fetch_assoc()) {
         "nama_barang" => $row['nama_barang'],
         "ukuran" => $row['ukuran'],
         "jumlah_barang" => $row['jumlah_barang'],
-        "satuan" => $row['satuan']
+        "satuan" => $row['satuan'],
+        "tanggal" => $row['tanggal'],
+        "dana_final" => $row['dana_final']
     ];
 }
 

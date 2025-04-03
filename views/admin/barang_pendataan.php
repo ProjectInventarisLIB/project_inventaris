@@ -49,11 +49,6 @@
                                     Tambah Data <i class="fa fa-plus ms-3 scale4"></i>
                                 </button>
 							</li>
-                            <li class="nav-item">
-								<button type="button" class="btn btn-primary d-sm-inline-block d-none" id="btnTambahData">
-                                    Unduh PDF<i class="fa fa-download ms-3 scale4"></i>
-                                </button>
-							</li>
                         </ul>
                     </div>
 				</nav>
@@ -71,7 +66,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="mytable" class="display" style="min-width: 100%">
+                                    <table id="mytable" class="display" style="width: 100%">
                                         <thead>
                                             <tr>
                                                 <th>Gambar</th>
@@ -80,6 +75,8 @@
                                                 <th>Ukuran</th>
                                                 <th>Jumlah</th>
 												<th>Satuan</th>
+												<th>Dana</th>
+												<th>Tanggal</th>
 												<th>Tindakan</th>
                                             </tr>
                                         </thead>
@@ -103,10 +100,16 @@
 				</div>
 				<div class="modal-body">
 					<form id="formPendataanBarang" enctype="multipart/form-data">
-						<div class="mb-3">
-							<label for="id_barang" class="form-label">ID Barang</label>
-							<input type="text" class="form-control" id="id_barang" name="id_barang" readonly>
-						</div>
+						<div class="mb-3 d-flex justify-content-between">
+                            <div class="w-50 me-2">
+								<label for="id_barang" class="form-label">ID Barang</label>
+								<input type="text" class="form-control" id="id_barang" name="id_barang" readonly>
+                            </div>
+                            <div class="w-50">
+                                <label for="tanggalMasuk" class="form-label">Tanggal Masuk</label>
+                                <input type="date" class="form-control" id="tanggalMasuk" name="tanggal" required>
+                            </div>
+                        </div>
 						<div class="mb-3">
 							<label for="gambarBarang" class="form-label">Gambar (opsional)</label>
 							<div class="input-group">
@@ -135,6 +138,10 @@
                                 <input type="text" class="form-control" id="satuan" name="satuan" required>
                             </div>
                         </div>
+						<div class="mb-3">
+							<label for="dana_final" class="form-label">Dana Final</label>
+							<input type="number" class="form-control" id="dana_final" name="dana_final" required>
+						</div>
 						<div class="text-end">
 							<button type="submit" class="btn btn-primary">Simpan</button>
 						</div>
@@ -154,10 +161,16 @@
 				</div>
 				<div class="modal-body">
 					<form id="formEditBarang" enctype="multipart/form-data">
-						<div class="mb-3">
-							<label for="edit_id" class="form-label">ID Barang</label>
-							<input type="text" class="form-control" id="edit_id" name="edit_id" readonly>
-						</div>
+						<div class="mb-3 d-flex justify-content-between">
+                            <div class="w-50 me-2">
+								<label for="edit_id" class="form-label">ID Barang</label>
+								<input type="text" class="form-control" id="edit_id" name="edit_id" readonly>
+                            </div>
+                            <div class="w-50">
+                                <label for="edit_tanggal" class="form-label">Tanggal Masuk</label>
+                                <input type="date" class="form-control" id="edit_tanggal" name="edit_tanggal" required>
+                            </div>
+                        </div>
 						<div class="mb-3">
 							<label class="form-label">Gambar Barang</label>
 							<div class="text-center">
@@ -189,6 +202,10 @@
                                 <input type="text" class="form-control" id="edit_satuan" name="edit_satuan" required>
                             </div>
                         </div>
+						<div class="mb-3">
+							<label for="edit_dana_final" class="form-label">Dana Final</label>
+							<input type="number" class="form-control" id="edit_dana_final" name="edit_dana_final" required>
+						</div>
 						<div class="text-end">
 							<button type="submit" class="btn btn-primary">Simpan Perubahan</button>
 						</div>
@@ -292,6 +309,8 @@
 						{ "data": "ukuran", "orderable": false },
 						{ "data": "jumlah_barang", "orderable": false },
 						{ "data": "satuan", "orderable": false },
+						{ "data": "dana_final", "orderable": false },
+						{ "data": "tanggal", "orderable": false },
 						{ 
 							"data": null, 
 							"orderable": false,
@@ -362,10 +381,12 @@
 						success: function (response) {
 							let data = JSON.parse(response);
 							$("#edit_id").val(data.ID_barang);
+							$("#edit_tanggal").val(data.tanggal);
 							$("#edit_nama_barang").val(data.nama_barang);
 							$("#edit_ukuran").val(data.ukuran);
 							$("#edit_jumlah_barang").val(data.jumlah_barang);
 							$("#edit_satuan").val(data.satuan);
+							$("#edit_dana_final").val(data.dana_final);
 							$("#editFileName").val(data.gambar); // Menampilkan nama file gambar lama
 							
 							// Tampilkan gambar lama jika ada

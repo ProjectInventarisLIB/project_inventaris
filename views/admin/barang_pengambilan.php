@@ -49,11 +49,6 @@
                                     Ambil Barang<i class="fa fa-plus ms-3 scale4"></i>
                                 </button>
 							</li>
-                            <li class="nav-item">
-								<button type="button" class="btn btn-primary d-sm-inline-block d-none" id="btnTambahData">
-                                    Unduh PDF<i class="fa fa-download ms-3 scale4"></i>
-                                </button>
-							</li>
                         </ul>
                     </div>
 				</nav>
@@ -74,11 +69,11 @@
                                     <table id="tabelbarangpengambilan" class="display" style="width: 100%">
                                         <thead>
                                             <tr>
+                                                <th>Surat Terkait</th>
                                                 <th>Tanggal</th>
                                                 <th>ID Barang</th>
                                                 <th>Nama Barang</th>
-                                                <th>Jumlah Diambil</th>
-                                                <th>Surat Terkait</th>
+                                                <th>Jumlah</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -171,11 +166,11 @@
                         "type": "POST"
                     },
                     "columns": [
+                        { "data": "no_surat", "orderable": true },
                         { "data": "tanggal", "orderable": true },
-                        { "data": "ID_barang", "orderable": true },
+                        { "data": "ID_barang", "orderable": false },
 						{ "data": "nama_barang", "orderable": true },
                         { "data": "jumlah_diambil", "orderable": false },
-                        { "data": "no_surat", "orderable": true },
                     ],
                     "order": [[1, "asc"]],
                     "language": {

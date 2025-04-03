@@ -49,11 +49,6 @@
                                     Ajukan Barang<i class="fa fa-plus ms-3 scale4"></i>
                                 </button>
 							</li>
-                            <li class="nav-item">
-								<button type="button" class="btn btn-primary d-sm-inline-block d-none" id="btnTambahData">
-                                    Unduh PDF<i class="fa fa-download ms-3 scale4"></i>
-                                </button>
-							</li>
                         </ul>
                     </div>
 				</nav>
