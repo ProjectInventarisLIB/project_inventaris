@@ -7,7 +7,7 @@ $length = isset($_POST['length']) ? intval($_POST['length']) : 10;
 $search = isset($_POST['search']['value']) ? $conn->real_escape_string($_POST['search']['value']) : "";
 
 // Ambil parameter sorting
-$columns = ["ID_barang", "nama_barang", "tanggal", "jumlah_diambil", "no_surat"];
+$columns = ["no_surat", "tanggal", "ID_barang", "nama_barang", "jumlah_diambil"];
 $orderColumnIndex = isset($_POST['order'][0]['column']) ? intval($_POST['order'][0]['column']) : 0;
 $orderDir = isset($_POST['order'][0]['dir']) && $_POST['order'][0]['dir'] === 'desc' ? 'DESC' : 'ASC';
 

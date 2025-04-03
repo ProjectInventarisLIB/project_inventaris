@@ -153,13 +153,13 @@
 									<h4 class="card-title mb-2">Tinjau Pengelolaan</h4>
 									<span class="fs-12">Bagan pengelolaan surat tiap bulan departemen pergudangan</span>
 								</div>
-								<a href="javascript:void(0)" class="btn btn-rounded btn-md btn-utama mr-3 me-3 text-white"><i class="las la-download scale5 me-3"></i>Unduh Laporan</a>
+								<a href="backend/download_laporan_barang.php" class="btn btn-rounded btn-md btn-utama mr-3 me-3 text-white"><i class="las la-download scale5 me-3"></i>Unduh Laporan</a>
 							</div>
 							<div class="card-body pb-2">
 								<div class="d-sm-flex d-block">
 									<ul class="card-list d-flex mt-sm-0 mt-3">
-										<li class="me-3"><span class="bg-kedua circle"></span>Barang Masuk</li>
-										<li class="me-3"><span class="bg-merah circle"></span>Barang Keluar</li>
+										<li class="me-3"><span class="bg-kedua circle"></span>Barang didata</li>
+										<li class="me-3"><span class="bg-merah circle"></span>Barang diambil</li>
 									</ul>
 								</div>
 								<div id="chartBar2" class="bar-chart"></div>
@@ -186,7 +186,7 @@
 	<script src="/project_inventaris/vendors/wnumb/wNumb.js"></script>
 	
 	<!-- Dashboard 1 -->
-	<script src="/project_inventaris/js/dashboard/dashboard-1.js"></script>
+	<!-- <script src="/project_inventaris/js/dashboard/dashboard-1.js"></script> -->
 
     <script src="/project_inventaris/js/custom.min.js"></script>
 	<script src="/project_inventaris/js/dlabnav-init.js"></script>
@@ -265,6 +265,64 @@
 			loadProgress();
 		});
 	</script>
+
+	<script>
+		var chartBar2 = function(){
+			fetch('backend/get_chart.php')
+			.then(response => response.json())
+			.then(data => {
+				var options = {
+					series: data.series,
+					chart: {
+						type: 'bar',
+						height: 400,
+						toolbar: { show: false }
+					},
+					plotOptions: {
+						bar: { horizontal: false, columnWidth: '60%', borderRadius: 10 }
+					},
+					states: { hover: { filter: 'none' } },
+					colors: ['#80ec67', '#fe7d65'], // Warna untuk masing-masing kategori
+					dataLabels: { enabled: false },
+					legend: {
+						position: 'top',
+						horizontalAlign: 'right',
+						show: false,
+						fontSize: '12px'
+					},
+					stroke: { show: true, width: 5, colors: ['transparent'] },
+					grid: { borderColor: '#eee' },
+					xaxis: {
+						categories: data.labels,
+						labels: {
+							style: { colors: '#3e4954', fontSize: '13px', fontFamily: 'poppins' }
+						}
+					},
+					yaxis: {
+						labels: {
+							style: { colors: '#3e4954', fontSize: '13px', fontFamily: 'poppins' }
+						}
+					},
+					fill: { opacity: 1, colors: ['#38B6FF', '#a41c24'] }, 
+					tooltip: {
+						y: { formatter: function (val) { return val + " Transaksi"; } }
+					},
+					responsive: [{ breakpoint: 575, options: { chart: { height: 250 } } }]
+				};
+
+				// Membuat chart dengan options yang telah disesuaikan
+				var chartBar1 = new ApexCharts(document.querySelector("#chartBar2"), options);
+				chartBar1.render();
+			})
+			.catch(error => console.error("Error fetching chart data:", error));
+		};
+
+		// Menjalankan chart setelah DOM selesai dimuat
+		document.addEventListener("DOMContentLoaded", function() {
+			chartBar2();
+		});
+	</script>
+
 
 
 	

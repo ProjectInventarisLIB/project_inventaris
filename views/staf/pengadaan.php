@@ -124,11 +124,11 @@
                             <input type="number" class="form-control" id="anggaran" name="anggaran" min="1" required>
                         </div>
                         <div class="mb-3 d-flex justify-content-between">
-                            <div class="w-50">
+                            <div class="w-50 me-2">
                                 <label for="jumlah" class="form-label">Jumlah</label>
                                 <input type="number" class="form-control" id="jumlah" name="jumlah" min="1" required>
                             </div>
-                            <div class="w-50 me-2">
+                            <div class="w-50">
                                 <label for="satuan" class="form-label">Satuan</label>
                                 <input type="text" class="form-control" id="satuan" name="satuan" required>
                             </div>
