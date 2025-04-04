@@ -297,17 +297,24 @@ session_start();
 							var ctx = document.getElementById("chartsurat").getContext('2d');
 							Chart.defaults.global.legend.display = false;
 
+							// Warna yang sesuai untuk setiap status
+							var colorMap = {
+								'Diproses': "#ffa755",
+								'Disetujui': "#68e365",
+								'Ditolak': "#f72b50"
+							};
+
+							var labels = Object.keys(response);
+							var dataValues = Object.values(response);
+							var backgroundColors = labels.map(label => colorMap[label] || "#cccccc"); // Default warna abu-abu jika tidak dikenali
+
 							var myChart = new Chart(ctx, {
 								type: 'polarArea',
 								data: {
-									labels: Object.keys(response),
+									labels: labels,
 									datasets: [{
-										backgroundColor: [
-											"#ffa755", // Diproses (Kuning)
-											"#68e365", // Disetujui (Hijau)
-											"#f72b50"  // Ditolak (Merah)
-										],
-										data: Object.values(response)
+										backgroundColor: backgroundColors,
+										data: dataValues
 									}]
 								},
 								options: {
@@ -328,6 +335,7 @@ session_start();
 								}
 							});
 						},
+
 						error: function(xhr, status, error) {
 							console.error("Gagal mengambil data:", error);
 						}

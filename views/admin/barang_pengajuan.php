@@ -196,7 +196,13 @@
                         { "data": "deskripsi", "orderable": false },
                         { "data": "jumlah_diperlukan", "orderable": false },
                         { "data": "satuan", "orderable": false },
-                        { "data": "dana_final", "orderable": true },
+                        { 
+							"data": "dana_final", 
+							"orderable": false,
+							"render": function (data, type, row) {
+								return formatRupiah(data);
+							}
+						},
                     ],
                     "order": [[1, "asc"]],
                     "language": {
@@ -215,6 +221,10 @@
                 });
             }
         });
+        
+        function formatRupiah(angka) {
+            return 'Rp. ' + parseFloat(angka).toLocaleString('id-ID');
+        }
     </script>
 
     <script>

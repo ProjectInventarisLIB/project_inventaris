@@ -309,7 +309,13 @@
 						{ "data": "ukuran", "orderable": false },
 						{ "data": "jumlah_barang", "orderable": false },
 						{ "data": "satuan", "orderable": false },
-						{ "data": "dana_final", "orderable": false },
+						{ 
+							"data": "dana_final", 
+							"orderable": false,
+							"render": function (data, type, row) {
+								return formatRupiah(data);
+							}
+						},
 						{ "data": "tanggal", "orderable": false },
 						{ 
 							"data": null, 
@@ -346,6 +352,10 @@
 						}
 					}
 				});
+
+				function formatRupiah(angka) {
+					return 'Rp. ' + parseFloat(angka).toLocaleString('id-ID');
+				}
 
 				// Event Listener Hapus (dengan event delegation)
 				$(document).on('click', '.btn-delete', function(e) {

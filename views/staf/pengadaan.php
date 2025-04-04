@@ -189,7 +189,13 @@
                         { "data": 0, "orderable": true },
                         { "data": 1, "orderable": true },
                         { "data": 2, "orderable": true },
-                        { "data": 3, "orderable": false },
+                        { 
+							"data": 3, 
+							"orderable": false,
+							"render": function (data, type, row) {
+								return formatRupiah(data);
+							}
+						},
                         { "data": 4, "orderable": false },
                         { 
                             "data": 5, 
@@ -221,6 +227,9 @@
                 });
             }
         });
+        function formatRupiah(angka) {
+            return 'Rp. ' + parseFloat(angka).toLocaleString('id-ID');
+        }
     </script>
 
 <!-- TAMBAHKAN SURAT -->

@@ -208,8 +208,8 @@
 					console.log(response);
 					$("#invoiceNum2").text(response.total_pengadaan); 
 					$("#invoiceNum").text(response.total_peminjaman); 
-					$("#invoiceNum4").text(response.pengadaan_disetujui); 
-					$("#invoiceNum3").text(response.peminjaman_disetujui);
+					$("#invoiceNum4").text(response.pengadaan_diproses); 
+					$("#invoiceNum3").text(response.peminjaman_diproses);
 				},
 				error: function(xhr, status, error) {
 					console.error("Error mengambil data:", error);
