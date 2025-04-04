@@ -97,15 +97,12 @@
     <!-- Required vendorss -->
     <script src="/project_inventaris/vendors/global/global.min.js"></script>
 	<script src="/project_inventaris/vendors/chart.js/Chart.bundle.min.js"></script>
-	<script src="/vendors/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+	<script src="/project_inventaris/vendors/jquery-nice-select/js/jquery.nice-select.min.js"></script>
 	
 	<!-- Apex Chart -->
-	<script src="/project_inventaris/vendors/apexchart/apexchart.js"></script>
 	<script src="/project_inventaris/vendors/nouislider/nouislider.min.js"></script>
 	<script src="/project_inventaris/vendors/wnumb/wNumb.js"></script>
-	
-	<!-- Dashboard 1 -->
-	<script src="/project_inventaris/js/dashboard/dashboard-1.js"></script>
+
 
     <script src="/project_inventaris/js/custom.min.js"></script>
 	<script src="/project_inventaris/js/dlabnav-init.js"></script>

@@ -16,27 +16,31 @@
                     </a>
                 </div>
             </li>
-            <li><a href="index" class="ai-icon" aria-expanded="false">
+            <li>
+                <a href="index" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-025-dashboard"></i>
                     <span class="nav-text">Halaman Utama</span>
                 </a>
             </li>
-            <li><a href="anggaran" class="ai-icon" aria-expanded="false">
+            <li>
+                <a href="anggaran" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-034-filter"></i>
                     <span class="nav-text">Anggaran</span>
                 </a>
             </li>
-            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                <i class="flaticon-022-copy"></i>
-                <span class="nav-text">Barang</span>
-            </a>
-            <ul aria-expanded="false">
-                <li><a href="./barang_pendataan">Pendataan Barang</a></li>
-                <li><a href="./barang_pengambilan">Data Pengambilan Barang</a></li>
-                <li><a href="./barang_pengajuan">Data Pengajuan Barang</a></li>
-            </ul>
-        </li>
-            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-022-copy"></i>
+                    <span class="nav-text">Barang</span>
+                </a>   
+                <ul aria-expanded="false">
+                    <li><a href="./barang_pendataan">Pendataan Barang</a></li>
+                    <li><a href="./barang_pengambilan">Data Pengambilan Barang</a></li>
+                    <li><a href="./barang_pengajuan">Data Pengajuan Barang</a></li>
+                </ul>
+            </li> 
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-072-printer"></i>
                     <span class="nav-text">Permohonan</span>
                 </a>
@@ -49,9 +53,6 @@
     </div>
 </section>
 
-
- <!-- jquery-->
- <!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> -->
 
 <!-- SCRIPT DATA STAF -->
 <script>

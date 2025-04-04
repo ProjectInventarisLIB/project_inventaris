@@ -23,6 +23,7 @@
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="/project_inventaris/vendors/select2/css/select2.min.css">
 	<link href="/project_inventaris/vendors/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+    <link href="/project_inventaris/vendors/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
 
     <link href="/project_inventaris/css/style.css" rel="stylesheet">
 
@@ -146,6 +147,8 @@
     <script src="/project_inventaris/js/plugins-init/select2-init.js"></script>
 
     <script src="/project_inventaris/vendors/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+
+    <script src="/project_inventaris/vendors/sweetalert2/dist/sweetalert2.min.js"></script>
 
 
 
@@ -282,15 +285,17 @@
                 success: function (response) {
                     console.log(response); // Debugging
                     if (response.status === "success") {
-                        alert("Data berhasil disimpan!");
-                        location.reload();
+                        swal("Berhasil!", "Data berhasil disimpan!", "success")
+                        .then(() => {
+                            location.reload();
+                        });
                     } else {
-                        alert(response.message);
+                        swal("Peringatan!", response.message, "warning");
                     }
                 },
                 error: function (xhr, status, error) {
                     console.error(xhr.responseText); // Debugging
-                    alert("Terjadi kesalahan dalam proses penyimpanan.");
+                    swal("Oops!", "Terjadi kesalahan dalam proses penyimpanan.", "error");
                 }
             });
         });

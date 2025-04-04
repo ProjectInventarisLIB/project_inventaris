@@ -22,6 +22,7 @@
     <link href="/project_inventaris/vendors/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Custom Stylesheet -->
 	<link href="/project_inventaris/vendors/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+    <link href="/project_inventaris/vendors/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
     <link href="/project_inventaris/css/style.css" rel="stylesheet">
 
 </head>
@@ -150,10 +151,12 @@
     <script src="/project_inventaris/vendors/datatables/js/jquery.dataTables.min.js"></script>
     <script src="/project_inventaris/js/plugins-init/datatables.init.js"></script>
 
-	<script src="/vendors/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+	<script src="/project_inventaris/vendors/jquery-nice-select/js/jquery.nice-select.min.js"></script>
 
     <script src="/project_inventaris/js/custom.min.js"></script>
 	<script src="/project_inventaris/js/dlabnav-init.js"></script>
+
+    <script src="/project_inventaris/vendors/sweetalert2/dist/sweetalert2.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -236,17 +239,19 @@
                     processData: false,
                     dataType: "json",
                     success: function (response) {
-                        console.log(response);
+                        console.log(response); // Debug: lihat respon dari server
                         if (response.status === "success") {
-                            alert("Data berhasil disimpan!");
-                            location.reload();
+                            swal("Berhasil!", "Data berhasil disimpan!", "success")
+                            .then(() => {
+                                location.reload();
+                            });
                         } else {
-                            alert(response.message);
+                            swal("Peringatan!", response.message, "warning");
                         }
                     },
                     error: function (xhr, status, error) {
-                        console.error(xhr.responseText);
-                        alert("Terjadi kesalahan dalam proses penyimpanan.");
+                        console.error(xhr.responseText); // Debug: tampilkan error dari server
+                        swal("Oops!", "Terjadi kesalahan dalam proses penyimpanan.", "error");
                     }
                 });
             });

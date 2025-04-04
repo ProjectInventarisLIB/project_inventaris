@@ -21,18 +21,18 @@ session_start();
 	<title>Inventaris Lintas Internasional Berkarya</title>
 	
 	<!-- FAVICONS ICON -->
-	<link rel="shortcut icon" type="image/png" href="/project_web/assets/favicon_logo.png" />
+	<link rel="shortcut icon" type="image/png" href="/project_inventaris/assets/favicon_logo.png" />
 	
-	<link href="/project_web/vendors/jquery-nice-select/css/nice-select.css" rel="stylesheet">
-	<link rel="stylesheet" href="/project_web/vendors/nouislider/nouislider.min.css">
+	<link href="/project_inventaris/vendors/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+	<link rel="stylesheet" href="/project_inventaris/vendors/nouislider/nouislider.min.css">
 
 	<!-- Chartist -->
-	<link rel="stylesheet" href="/project_web/vendors/chartist/css/chartist.min.css">
+	<link rel="stylesheet" href="/project_inventaris/vendors/chartist/css/chartist.min.css">
 
-	<link href="/project_web/vendors/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-	<link href="/project_web/vendors/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+	<link href="/project_inventaris/vendors/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+	<link href="/project_inventaris/vendors/jquery-nice-select/css/nice-select.css" rel="stylesheet">
 	<!-- Style css -->
-    <link href="/project_web/css/style.css" rel="stylesheet">
+    <link href="/project_inventaris/css/style.css" rel="stylesheet">
 	
 </head>
 <body>
@@ -192,23 +192,23 @@ session_start();
 	
 
     <!-- Required vendorss -->
-    <script src="/project_web/vendors/global/global.min.js"></script>
-	<script src="/project_web/vendors/chart.js/Chart.bundle.min.js"></script>
-	<script src="/vendors/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="/project_inventaris/vendors/global/global.min.js"></script>
+	<script src="/project_inventaris/vendors/chart.js/Chart.bundle.min.js"></script>
+	<script src="/project_inventaris/vendors/jquery-nice-select/js/jquery.nice-select.min.js"></script>
 	
 	<!-- Apex Chart -->
-	<script src="/project_web/vendors/apexchart/apexchart.js"></script>
-	<script src="/project_web/vendors/nouislider/nouislider.min.js"></script>
-	<script src="/project_web/vendors/wnumb/wNumb.js"></script>
+	<script src="/project_inventaris/vendors/apexchart/apexchart.js"></script>
+	<script src="/project_inventaris/vendors/nouislider/nouislider.min.js"></script>
+	<script src="/project_inventaris/vendors/wnumb/wNumb.js"></script>
 	
 	<!-- Dashboard 1 -->
-	<!-- <script src="/project_web/js/dashboard/dashboard-1.js"></script> -->
+	<!-- <script src="/project_inventaris/js/dashboard/dashboard-1.js"></script> -->
 
-    <script src="/project_web/js/custom.min.js"></script>
-	<script src="/project_web/js/dlabnav-init.js"></script>
+    <script src="/project_inventaris/js/custom.min.js"></script>
+	<script src="/project_inventaris/js/dlabnav-init.js"></script>
 
     <!-- Init file -->
-    <script src="/project_web/js/plugins-init/widgets-script-init.js"></script>
+    <script src="/project_inventaris/js/plugins-init/widgets-script-init.js"></script>
 
 
 	<!-- SCRIPT PERSENAN PROGRESS BAR -->
