@@ -17,14 +17,14 @@
 	<title>Inventaris Lintas Internasional Berkarya</title>
 	
 	<!-- FAVICONS ICON -->
-	<link rel="shortcut icon" type="image/png" href="/project_web/assets/favicon_logo.png" />
+	<link rel="shortcut icon" type="image/png" href="/project_inventaris/assets/favicon_logo.png" />
 
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="/project_web/vendors/select2/css/select2.min.css">
-    <link href="/project_web/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/project_inventaris/vendors/select2/css/select2.min.css">
+    <link href="/project_inventaris/css/style.css" rel="stylesheet">
     
     <!-- Datatable -->
-    <link href="/project_web/vendors/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="/project_inventaris/vendors/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
 
 
 </head>
@@ -92,29 +92,18 @@
 		
   
     <!-- Required vendorss -->
-    <script src="/project_web/vendors/global/global.min.js"></script>
+    <script src="/project_inventaris/vendors/global/global.min.js"></script>
 	
     <!-- Datatable -->
-    <script src="/project_web/vendors/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="/project_web/js/plugins-init/datatables.init.js"></script>
+    <script src="/project_inventaris/vendors/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/project_inventaris/js/plugins-init/datatables.init.js"></script>
 
-    <script src="/project_web/js/custom.min.js"></script>
-	<script src="/project_web/js/dlabnav-init.js"></script>
+    <script src="/project_inventaris/js/custom.min.js"></script>
+	<script src="/project_inventaris/js/dlabnav-init.js"></script>
 
-    <script src="/project_web/vendors/select2/js/select2.full.min.js"></script>
-    <script src="/project_web/js/plugins-init/select2-init.js"></script>
+    <script src="/project_inventaris/vendors/select2/js/select2.full.min.js"></script>
+    <script src="/project_inventaris/js/plugins-init/select2-init.js"></script>
 
-
-
-    <!-- Script untuk membuka modal -->
-	<script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("btnTambahData").addEventListener("click", function() {
-                var modal = new bootstrap.Modal(document.getElementById("modalLihatBarang"));
-                modal.show();
-            });
-        });
-	</script>
 
     <script>
         $(document).ready(function () {

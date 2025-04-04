@@ -31,6 +31,8 @@
     <!-- Datatable -->
     <link href="/project_inventaris/vendors/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
 
+	<link href="/project_inventaris/vendors/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+
 	<!-- Style css -->
     <link href="/project_inventaris/css/style.css" rel="stylesheet">
 	
@@ -132,22 +134,19 @@
     <!-- Required vendorss -->
     <script src="/project_inventaris/vendors/global/global.min.js"></script>
 	<script src="/project_inventaris/vendors/chart.js/Chart.bundle.min.js"></script>
-	<script src="/vendors/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+	<script src="/project_inventaris/vendors/jquery-nice-select/js/jquery.nice-select.min.js"></script>
 	
-	<!-- Dashboard 1 -->
-	<script src="/project_inventaris/js/dashboard/dashboard-1.js"></script>
-
     <script src="/project_inventaris/js/custom.min.js"></script>
 	<script src="/project_inventaris/js/dlabnav-init.js"></script>
-
 
     <!-- Init file -->
     <script src="/project_inventaris/js/plugins-init/widgets-script-init.js"></script>
 
-	
     <!-- Datatable -->
     <script src="/project_inventaris/vendors/datatables/js/jquery.dataTables.min.js"></script>
     <script src="/project_inventaris/js/plugins-init/datatables.init.js"></script>
+
+	<script src="/project_inventaris/vendors/sweetalert2/dist/sweetalert2.min.js"></script>
 
 
 	<!-- Script untuk membuka modal -->
@@ -239,15 +238,16 @@
 					dataType: "json",
 					success: function (response) {
 						if (response.status === "success") {
-							alert(response.message);
-							$("#modalAnggaran").modal("hide");
-							$("#tableanggaran").DataTable().ajax.reload();
+							swal("Berhasil!", response.message, "success").then(() => {
+								$("#modalAnggaran").modal("hide");
+								$("#tableanggaran").DataTable().ajax.reload();
+							});
 						} else {
-							alert(response.message);
+							swal("Gagal!", response.message, "error");
 						}
 					},
 					error: function () {
-						alert("Terjadi kesalahan saat memperbarui anggaran.");
+						swal("Oops!", "Terjadi kesalahan saat memperbarui anggaran.", "error");
 					}
 				});
 			});

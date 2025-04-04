@@ -22,6 +22,7 @@
     <link href="/project_inventaris/vendors/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Custom Stylesheet -->
 	<link href="/project_inventaris/vendors/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+	<link href="/project_inventaris/vendors/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
     <link href="/project_inventaris/css/style.css" rel="stylesheet">
 
 </head>
@@ -232,6 +233,8 @@
     <script src="/project_inventaris/js/custom.min.js"></script>
 	<script src="/project_inventaris/js/dlabnav-init.js"></script>
 
+	<script src="/project_inventaris/vendors/sweetalert2/dist/sweetalert2.min.js"></script>
+
 	<!-- Script untuk membuka modal -->
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
@@ -264,18 +267,20 @@
 				processData: false,
 				dataType: "json",
 				success: function (response) {
-					console.log(response);
-					if (response.status === "success") {
-						alert("Data berhasil disimpan!");
-						location.reload();
-					} else {
-						alert(response.message);
-					}
-				},
-				error: function (xhr, status, error) {
-					console.error(xhr.responseText);
-					alert("Terjadi kesalahan dalam proses penyimpanan.");
-				}
+                    console.log(response); // Debug: lihat respon dari server
+                    if (response.status === "success") {
+                        swal("Berhasil!", "Data berhasil disimpan!", "success")
+                        .then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        swal("Peringatan!", response.message, "warning");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText); // Debug: tampilkan error dari server
+                    swal("Oops!", "Terjadi kesalahan dalam proses penyimpanan.", "error");
+                }
 			});
 		});
 
@@ -361,21 +366,42 @@
 				$(document).on('click', '.btn-delete', function(e) {
 					e.preventDefault();
 					let id = $(this).data('id');
-					
-					if (confirm("Apakah Anda yakin ingin menghapus barang ini?")) {
-						$.ajax({
-							url: "backend/delete_barang.php",
-							type: "POST",
-							data: { ID_barang: id },
-							success: function(response) {
-								alert("Barang berhasil dihapus!");
-								location.reload();
-							},
-							error: function(xhr, status, error) {
-								alert("Terjadi kesalahan: " + error);
-							}
-						});
-					}
+
+					Swal.fire({
+						title: "Apakah Anda yakin?",
+						text: "Barang yang dihapus tidak dapat dikembalikan!",
+						type: "warning",
+						showCancelButton: true,
+						confirmButtonColor: "#d33",
+						cancelButtonColor: "#3085d6",
+						confirmButtonText: "Ya, hapus!",
+						cancelButtonText: "Batal"
+					}).then((result) => {
+						console.log("SweetAlert result:", result);
+						if (result.value) {
+							$.ajax({
+								url: "backend/delete_barang.php",
+								type: "POST",
+								data: { ID_barang: id },
+								success: function(response) {
+									Swal.fire({
+										title: "Terhapus!",
+										text: "Barang berhasil dihapus.",
+										type: "success"
+									}).then(() => {
+										location.reload();
+									});
+								},
+								error: function(xhr, status, error) {
+									Swal.fire({
+										title: "Gagal!",
+										text: "Terjadi kesalahan: " + error,
+										type: "error"
+									});
+								}
+							});
+						}
+					});
 				});
 
 				// Event Listener Edit (jika ingin pakai modal edit)
@@ -436,12 +462,13 @@
 						type: "POST",
 						data: $(this).serialize(),
 						success: function(response) {
-							alert("Data berhasil diperbarui!");
-							$("#editModal").modal("hide");
-							table.ajax.reload(null, false);
+							swal("Berhasil!", "Data berhasil diperbarui!", "success").then(() => {
+								$("#editModal").modal("hide");
+								table.ajax.reload(null, false);
+							});
 						},
 						error: function(xhr, status, error) {
-							alert("Gagal memperbarui data: " + error);
+							swal("Gagal!", "Gagal memperbarui data: " + error, "error");
 						}
 					});
 				});

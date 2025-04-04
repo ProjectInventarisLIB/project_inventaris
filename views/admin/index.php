@@ -91,7 +91,7 @@
 								</div>
 								<div>
 									<h2 id="invoiceNum3" class="text-white invoice-num">0</h2>
-									<span class="text-white fs-18">Total Persetujuan Surat Permohonan Pengambilan</span>
+									<span class="text-white fs-18">Total Diproses Surat Permohonan Pengambilan</span>
 								</div>
 							</div>
 						</div>
@@ -125,7 +125,7 @@
 								</div>
 								<div>
 									<h2 id="invoiceNum4" class="text-white invoice-num">0</h2>
-									<span class="text-white fs-18">Total Persetujuan Surat Permohonan Pengadaan</span>
+									<span class="text-white fs-18">Total Diproses Surat Permohonan Pengadaan</span>
 								</div>
 							</div>
 						</div>

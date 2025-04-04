@@ -17,12 +17,13 @@
 	<title>Inventaris Lintas Internasional Berkarya</title>
 	
 	<!-- FAVICONS ICON -->
-	<link rel="shortcut icon" type="image/png" href="/project_web/assets/favicon_logo.png" />
+	<link rel="shortcut icon" type="image/png" href="/project_inventaris/assets/favicon_logo.png" />
     <!-- Datatable -->
-    <link href="/project_web/vendors/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="/project_inventaris/vendors/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Custom Stylesheet -->
-	<link href="/project_web/vendors/jquery-nice-select/css/nice-select.css" rel="stylesheet">
-    <link href="/project_web/css/style.css" rel="stylesheet">
+	<link href="/project_inventaris/vendors/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+    <link href="/project_inventaris/vendors/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="/project_inventaris/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -149,19 +150,21 @@
 		
   
     <!-- Required vendorss -->
-    <script src="/project_web/vendors/global/global.min.js"></script>
-    <script src="/project_web/vendors/chart.js/Chart.bundle.min.js"></script>
+    <script src="/project_inventaris/vendors/global/global.min.js"></script>
+    <script src="/project_inventaris/vendors/chart.js/Chart.bundle.min.js"></script>
 	<!-- Apex Chart -->
-	<script src="/project_web/vendors/apexchart/apexchart.js"></script>
+	<script src="/project_inventaris/vendors/apexchart/apexchart.js"></script>
 	
     <!-- Datatable -->
-    <script src="/project_web/vendors/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="/project_web/js/plugins-init/datatables.init.js"></script>
+    <script src="/project_inventaris/vendors/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/project_inventaris/js/plugins-init/datatables.init.js"></script>
 
-	<script src="/vendors/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+	<script src="/project_inventaris/vendors/jquery-nice-select/js/jquery.nice-select.min.js"></script>
 
-    <script src="/project_web/js/custom.min.js"></script>
-	<script src="/project_web/js/dlabnav-init.js"></script>
+    <script src="/project_inventaris/js/custom.min.js"></script>
+	<script src="/project_inventaris/js/dlabnav-init.js"></script>
+
+    <script src="/project_inventaris/vendors/sweetalert2/dist/sweetalert2.min.js"></script>
 
 	
     <!-- Script untuk membuka modal -->
@@ -248,15 +251,17 @@
                 success: function (response) {
                     console.log(response); // Debug: lihat respon dari server
                     if (response.status === "success") {
-                        alert("Data berhasil disimpan!");
-                        location.reload();
+                        swal("Berhasil!", "Data berhasil disimpan!", "success")
+                        .then(() => {
+                            location.reload();
+                        });
                     } else {
-                        alert(response.message);
+                        swal("Peringatan!", response.message, "warning");
                     }
                 },
                 error: function (xhr, status, error) {
                     console.error(xhr.responseText); // Debug: tampilkan error dari server
-                    alert("Terjadi kesalahan dalam proses penyimpanan.");
+                    swal("Oops!", "Terjadi kesalahan dalam proses penyimpanan.", "error");
                 }
             });
         });

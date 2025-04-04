@@ -96,7 +96,7 @@
     <script src="/project_inventaris/vendors/datatables/js/jquery.dataTables.min.js"></script>
     <script src="/project_inventaris/js/plugins-init/datatables.init.js"></script>
 
-	<script src="/vendors/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+	<script src="/project_inventaris/vendors/jquery-nice-select/js/jquery.nice-select.min.js"></script>
 
     <script src="/project_inventaris/js/custom.min.js"></script>
 	<script src="/project_inventaris/js/dlabnav-init.js"></script>
