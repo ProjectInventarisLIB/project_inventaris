@@ -6,8 +6,8 @@ header('Content-Type: application/json');
 $queries = [
     "total_pengadaan" => "SELECT COUNT(*) AS total FROM surat_pengadaan",
     "total_peminjaman" => "SELECT COUNT(*) AS total FROM surat_pengambilan",
-    "pengadaan_disetujui" => "SELECT COUNT(*) AS total FROM surat_pengadaan WHERE status = 'Disetujui'",
-    "peminjaman_disetujui" => "SELECT COUNT(*) AS total FROM surat_pengambilan WHERE status = 'Disetujui'"
+    "pengadaan_diproses" => "SELECT COUNT(*) AS total FROM surat_pengadaan WHERE status = 'Diproses'",
+    "peminjaman_diproses" => "SELECT COUNT(*) AS total FROM surat_pengambilan WHERE status = 'Diproses'"
 ];
 
 $data = [];
