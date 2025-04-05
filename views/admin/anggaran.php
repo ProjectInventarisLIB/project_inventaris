@@ -71,10 +71,10 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="tableanggaran" class="display" style="width: 100%">
-                                        <thead>
+									<table id="tableanggaran" class="display table table-bordered table-sm" style="width: 100%">
+                                        <thead class="bg-tableheader">
                                             <tr>
-                                                <th>ID Staf</th>
+												<th>ID Staf</th>
                                                 <th>Nama Staf</th>
 												<th>Email Staf</th>
 												<th>Periode</th>
@@ -83,6 +83,9 @@
 												<th>Tindakan</th>
                                             </tr>
                                         </thead>
+                                        <tbody class="text-dark">
+                                            <!-- isi data dari database -->
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>

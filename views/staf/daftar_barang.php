@@ -69,8 +69,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="mytable" class="display" style="width: 100%">
-                                        <thead>
+                                    <table id="mytable" class="display table table-bordered table-sm" style="width: 100%">
+                                        <thead class="bg-tableheader">
                                             <tr>
                                                 <th>Gambar</th>
                                                 <th>ID Barang</th>
@@ -80,6 +80,9 @@
                                                 <th>Satuan</th>
                                             </tr>
                                         </thead>
+                                        <tbody class="text-dark">
+                                            <!-- isi data dari database -->
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -104,11 +107,12 @@
     <script src="/project_inventaris/vendors/select2/js/select2.full.min.js"></script>
     <script src="/project_inventaris/js/plugins-init/select2-init.js"></script>
 
-
     <script>
         $(document).ready(function () {
+            var table; // Tambahkan ini
+
             if (!$.fn.DataTable.isDataTable('#mytable')) {
-                $('#mytable').DataTable({
+                table = $('#mytable').DataTable({
                     "processing": true,
                     "serverSide": true,
                     "ajax": {
@@ -117,18 +121,18 @@
                     },
                     "columns": [
                         { 
-							"data": "gambar",
-							"render": function(data, type, row) {
+                            "data": "gambar",
+                            "render": function(data, type, row) {
                                 return `<a href="${data}" target="_blank">
                                             <img src="${data}" alt="Gambar Barang" width="60" height="60"
                                                 onerror="this.src='/project_inventaris/upload/gambar_barang/contohbarang.jpg'">
                                         </a>`;
                             },
-							"orderable": false
-						},
-                        { "data": "ID_barang", "orderable": true },  // ID Barang
-                        { "data": "nama_barang", "orderable": true },  // Nama Barang
-                        { "data": "ukuran", "orderable": false },  // Ukuran
+                            "orderable": false
+                        },
+                        { "data": "ID_barang", "orderable": true },
+                        { "data": "nama_barang", "orderable": true },
+                        { "data": "ukuran", "orderable": false },
                         { "data": "jumlah_barang", "orderable": false },
                         { "data": "satuan", "orderable": false }    
                     ],
@@ -148,16 +152,15 @@
                     }
                 });
             }
+
+            // Event klik tombol reload
+            document.getElementById("reloadData").addEventListener("click", function () {
+                if (table) {
+                    table.ajax.reload(null, false);
+                }
+            });
         });
     </script>
-
-    <script>
-        document.getElementById("reloadData").addEventListener("click", function() {
-            location.reload(); // Reload halaman
-        });
-    </script>
-
-    
     
 </body>
 </html>

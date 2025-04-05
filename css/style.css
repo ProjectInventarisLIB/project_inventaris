@@ -5928,6 +5928,9 @@ textarea.form-control-lg {
 .bg-secondary {
   background-color: #709fba !important; }
 
+.bg-tableheader {
+    background-color: #a0c0e5 !important; }
+
 .bg-success {
   background-color: #68e365 !important; }
 

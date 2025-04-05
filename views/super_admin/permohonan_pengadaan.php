@@ -17,32 +17,28 @@
 	<title>Inventaris Lintas Internasional Berkarya</title>
 	
 	<!-- FAVICONS ICON -->
-	<link rel="shortcut icon" type="image/png" href="/project_web/assets/favicon_logo.png" />
+	<link rel="shortcut icon" type="image/png" href="/project_inventaris/assets/favicon_logo.png" />
     <!-- Datatable -->
-    <link href="/project_web/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="/project_inventaris/vendors/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Custom Stylesheet -->
-	<link href="/project_web/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
-    <link href="/project_web/css/style.css" rel="stylesheet">
+	<link href="/project_inventaris/vendors/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+    <link href="/project_inventaris/vendors/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="/project_inventaris/vendors/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <link href="/project_inventaris/css/style.css" rel="stylesheet">
 
 </head>
 
 <body>
 
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
     <div id="main-wrapper">
 
         <!-- NAVBAR -->
-		<div class="nav-header">
-            <a href="index.php" class="brand-logo">
-				<img class="logo-abbr" src="/project_web/assets/logo_gambar.png" alt="Logo Abbreviation" width="53" height="53">
-				<img class="brand-title" src="/project_web/assets/logo_tulisan.png" alt="Brand Title" width="124" height="53">
-			</a>
-			
-            <div class="nav-control">
-                <div class="hamburger">
-                    <span class="line"></span><span class="line"></span><span class="line"></span>
-                </div>
-            </div>
-        </div>
+		<?php include 'layouts/navbar.php'; ?>
 
         <!-- HEADER -->
         <div class="header">
@@ -54,136 +50,43 @@
                                 Permohonan Pengadaan Barang
                             </div>
                         </div>
+                        <ul class="navbar-nav header-right">
+                            <li class="nav-item">
+								<button type="button" class="btn btn-primary d-sm-inline-block d-none" id="reloadData">
+                                    Perbarui Data <i class="fa fa-refresh ms-3 scale4"></i>
+                                </button>
+							</li>
+                        </ul>
                     </div>
 				</nav>
 			</div>
 		</div>
 
         <!-- SIDEBAR -->
-        <div class="dlabnav">
-            <div class="dlabnav-scroll">
-				<ul class="metismenu" id="menu">
-					<li class="dropdown header-profile">
-						<a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
-							<img src="/project_web/assets/user.png" width="20" alt=""/>
-							<div class="header-info ms-3">
-								<span class="font-w600 "><b>Super Admin</b></span>
-								<small class="text-end font-w400">superadmin@gmail.com</small>
-							</div>
-						</a>
-						<div class="dropdown-menu dropdown-menu-end">
-							<a href="/login.php" class="dropdown-item ai-icon">
-								<svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-								<span class="ms-2">Keluar</span>
-							</a>
-						</div>
-					</li>
-                    <li><a href="index.php" class="ai-icon" aria-expanded="false">
-							<i class="flaticon-025-dashboard"></i>
-							<span class="nav-text">Halaman Utama</span>
-						</a>
-                    </li>
-					<li><a href="anggaran.php" class="ai-icon" aria-expanded="false">
-							<i class="flaticon-034-filter"></i>
-							<span class="nav-text">Anggaran</span>
-						</a>
-					</li>
-					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-						<i class="flaticon-022-copy"></i>
-						<span class="nav-text">Barang</span>
-					</a>
-					<ul aria-expanded="false">
-						<li><a href="./barang_pendataan.php">Pendataan Barang</a></li>
-						<li><a href="./barang_pengambilan.php">Data Pengambilan Barang</a></li>
-						<li><a href="./barang_pengajuan.php">Data Pengajuan Barang</a></li>
-					</ul>
-				</li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-072-printer"></i>
-							<span class="nav-text">Permohonan</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="./permohonan_pengambilan.php">Pengambilan Barang</a></li>
-                            <li><a href="./permohonan_pengadaan.php">Pengadaan Barang</a></li>
-                        </ul>
-                    </li>
-                </ul>
-			</div>
-        </div>
+        <?php include 'layouts/sidebar.php'; ?>
 
 		<!-- CONTENT -->
         <div class="content-body">
-            <!-- row -->
-			<div class="container-fluid">
-				<div class="row">
+            <div class="container-fluid">
+                <div class="row">
 					<div class="col-12">
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="example3" class="display" style="min-width: 845px">
-                                        <thead>
+                                    <table id="tabelpengadaan" class="display table table-bordered table-sm" style="width: 100%">
+                                        <thead class="bg-tableheader">
                                             <tr>
                                                 <th>No Surat</th>
+                                                <th>Tanggal</th>
+                                                <th>Pengirim</th>
                                                 <th>Nama Barang</th>
-                                                <th>Deskripsi</th>
-												<th>Tujuan</th>
+                                                <th>Perkiraan</th>
                                                 <th>Link Surat</th>
-                                                <th>Persetujuan</th>
+                                                <th>Tindakan</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>OPS-2025/001</td>
-                                                <td>Radio HT</td>
-												<td>2 buah</td>
-                                                <td>Untuk komunikasi antar petugas</td>
-                                                <td><a href=""><strong>Lihat Surat</strong></a></td>
-												<td>
-													<div class="d-flex">
-														<a class="btn btn-success btn-xs px-3 py-2 rounded-0">Setujui</a>
-														<a class="btn btn-danger btn-xs px-3 py-2 rounded-0">Tolak</a>
-													</div>											
-												</td>												
-                                            </tr>
-											<tr>
-                                                <td>ADM-2025/002</td>
-                                                <td>Printer LaserJet</td>
-												<td>2 buah</td>
-                                                <td>Untuk pencetakan dokumen kantor</td>
-                                                <td><a href="javascript:void(0);"><strong>Lihat Surat</strong></a></td>
-												<td>
-													<div class="d-flex">
-														<a class="btn btn-success btn-xs px-3 py-2 rounded-0">Setujui</a>
-														<a class="btn btn-danger btn-xs px-3 py-2 rounded-0">Tolak</a>
-													</div>											
-												</td>												
-                                            </tr>
-											<tr>
-                                                <td>K3-2025/003</td>
-                                                <td>Helm Safety</td>
-												<td>2 buah</td>
-                                                <td>Untuk perlindungan pekerja lapangan</td>
-                                                <td><a href="javascript:void(0);"><strong>Lihat Surat</strong></a></td>
-												<td>
-													<div class="d-flex">
-														<a class="btn btn-success btn-xs px-3 py-2 rounded-0">Setujui</a>
-														<a class="btn btn-danger btn-xs px-3 py-2 rounded-0">Tolak</a>
-													</div>											
-												</td>												
-                                            </tr>
-											<tr>
-                                                <td>SEC-2025/004</td>
-                                                <td>Rompi Safety</td>
-												<td>2 buah</td>
-												<td>Untuk petugas Keamanan</td>
-                                                <td><a href="javascript:void(0);"><strong>Lihat Surat</strong></a></td>
-												<td>
-													<div class="d-flex">
-														<a class="btn btn-success btn-xs px-3 py-2 rounded-0">Setujui</a>
-														<a class="btn btn-danger btn-xs px-3 py-2 rounded-0">Tolak</a>
-													</div>											
-												</td>												
-                                            </tr>
+                                        <tbody class="text-dark">
+                                            <!-- isi data dari database -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -196,21 +99,122 @@
     </div>
 		
   
-    <!-- Required vendors -->
-    <script src="/project_web/vendor/global/global.min.js"></script>
-    <script src="/project_web/vendor/chart.js/Chart.bundle.min.js"></script>
+    <!-- Required vendorss -->
+    <script src="/project_inventaris/vendors/global/global.min.js"></script>
+    <script src="/project_inventaris/vendors/chart.js/Chart.bundle.min.js"></script>
 	<!-- Apex Chart -->
-	<script src="/project_web/vendor/apexchart/apexchart.js"></script>
+	<script src="/project_inventaris/vendors/apexchart/apexchart.js"></script>
 	
     <!-- Datatable -->
-    <script src="/project_web/vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="/project_web/js/plugins-init/datatables.init.js"></script>
+    <script src="/project_inventaris/vendors/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/project_inventaris/js/plugins-init/datatables.init.js"></script>
 
-	<script src="/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+	<script src="/project_inventaris/vendors/jquery-nice-select/js/jquery.nice-select.min.js"></script>
 
-    <script src="/project_web/js/custom.min.js"></script>
-	<script src="/project_web/js/dlabnav-init.js"></script>
-	
+    <script src="/project_inventaris/js/custom.min.js"></script>
+	<script src="/project_inventaris/js/dlabnav-init.js"></script>
+
+    <script src="/project_inventaris/vendors/sweetalert2/dist/sweetalert2.min.js"></script>
+
+    <!-- TAMPILKAN TABEL SURAT -->
+    <script>
+    $(document).ready(function () {
+        var table; // Tambahkan ini agar bisa digunakan di luar if
+
+        if (!$.fn.DataTable.isDataTable('#tabelpengadaan')) {
+            table = $('#tabelpengadaan').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "backend/get_pengadaan.php",
+                    "type": "POST"
+                },
+                "columns": [
+                    { "data": 0, "orderable": true },
+                    { "data": 1, "orderable": true },
+                    { "data": 2, "orderable": false },
+                    { "data": 3, "orderable": true },
+                    { 
+                        "data": 4, 
+                        "orderable": false,
+                        "render": function (data, type, row) {
+                            return formatRupiah(data);
+                        }
+                    },
+                    { "data": 5, "orderable": false },
+                    { 
+                        "data": 6, 
+                        "orderable": false,
+						"render": function (data, type, row) {
+							return `
+								<div class="d-flex">
+									<button class="btn btn-success btn-xs px-3 py-2 rounded-0 btn-setujui" data-no_surat="${row[0]}">Setujui</button>
+									<button class="btn btn-danger btn-xs px-3 py-2 rounded-0 btn-tolak" data-no_surat="${row[0]}">Tolak</button>
+								</div>
+							`;
+						}
+                    }
+                ],
+                "order": [[1, "asc"]],
+                "language": {
+                    "lengthMenu": "Tampilkan _MENU_ data barang",
+                    "zeroRecords": "Data tidak ditemukan",
+                    "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                    "infoEmpty": "Tidak ada data tersedia",
+                    "search": "Cari:",
+                    "paginate": {
+                        "first": "Awal",
+                        "last": "Akhir",
+                        "next": "›",
+                        "previous": "‹"
+                    }
+                }
+            });
+
+            // Event klik untuk Setujui
+			$('#tabelpengadaan tbody').on('click', '.btn-setujui', function () {
+				var no_surat = $(this).data('no_surat');
+				updateStatus(no_surat, 'Disetujui');
+			});
+
+			// Event klik untuk Tolak
+			$('#tabelpengadaan tbody').on('click', '.btn-tolak', function () {
+				var no_surat = $(this).data('no_surat');
+				updateStatus(no_surat, 'Ditolak');
+			});
+
+			// Fungsi untuk update status lewat AJAX
+			function updateStatus(no_surat, status) {
+				$.ajax({
+					url: "backend/update_status_pengadaan.php",
+					type: "POST",
+					data: { no_surat: no_surat, status: status },
+					success: function (response) {
+						swal("Berhasil!", response, "success")
+						.then(() => {
+							table.ajax.reload(null, false);
+						});
+					},
+					error: function () {
+						swal("Oops!", "Terjadi kesalahan saat memperbarui status.", "error");
+					}
+				});
+			}
+        }
+
+        // Event klik tombol reload
+        document.getElementById("reloadData").addEventListener("click", function () {
+            if (table) {
+                table.ajax.reload(null, false);
+            }
+        });
+    });
+
+    function formatRupiah(angka) {
+        return 'Rp. ' + parseFloat(angka).toLocaleString('id-ID');
+        }
+    </script>
+
     
 </body>
 </html>

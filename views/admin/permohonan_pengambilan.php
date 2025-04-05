@@ -27,6 +27,7 @@
 	
     <link href="/project_inventaris/vendors/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
 	<link href="/project_inventaris/vendors/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+	<link href="/project_inventaris/vendors/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
 
     <!-- Datatable -->
     <link href="/project_inventaris/vendors/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -51,6 +52,13 @@
                                 Permohonan Pengambilan Barang 
                             </div>
                         </div>
+						<ul class="navbar-nav header-right">
+                            <li class="nav-item">
+								<button type="button" class="btn btn-primary d-sm-inline-block d-none" id="reloadData">
+                                    Perbarui Data <i class="fa fa-refresh ms-3 scale4"></i>
+                                </button>
+							</li>
+                        </ul>
                     </div>
 				</nav>
 			</div>
@@ -69,10 +77,10 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="tabelpengambilan" class="display" style="width: 100%">
-                                        <thead>
+									<table id="tabelpengambilan" class="display table table-bordered table-sm" style="width: 100%">
+                                        <thead class="bg-tableheader">
                                             <tr>
-											    <th>No Surat</th>
+												<th>No Surat</th>
                                                 <th>Tanggal</th>
 												<th>Pengirim</th>
                                                 <th>Nama Barang</th>
@@ -80,6 +88,9 @@
                                                 <th>Tindakan</th>
                                             </tr>
                                         </thead>
+                                        <tbody class="text-dark">
+                                            <!-- isi data dari database -->
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -116,85 +127,96 @@
     <script src="/project_inventaris/vendors/datatables/js/jquery.dataTables.min.js"></script>
     <script src="/project_inventaris/js/plugins-init/datatables.init.js"></script>
 
+	<script src="/project_inventaris/vendors/sweetalert2/dist/sweetalert2.min.js"></script>
+
 	
     <!-- TAMPILKAN TABEL SURAT -->
     <script>
-        $(document).ready(function () {
-			if (!$.fn.DataTable.isDataTable('#tabelpengambilan')) {
-				var table = $('#tabelpengambilan').DataTable({
-					"processing": true,
-					"serverSide": true,
-					"ajax": {
-						"url": "backend/get_pengambilan.php",
-						"type": "POST"
-					},
-					"columns": [
-						{ "data": 0, "orderable": true }, 
-						{ "data": 1, "orderable": true },
-						{ "data": 2, "orderable": false },
-						{ "data": 3, "orderable": true },
-						{ "data": 4, "orderable": false },
-						{ 
-							"data": 5, 
-							"orderable": false,
-							"render": function (data, type, row) {
-								return `
-									<div class="d-flex">
-										<button class="btn btn-success btn-xs px-3 py-2 rounded-0 btn-setujui" data-no_surat="${row[0]}">Setujui</button>
-										<button class="btn btn-danger btn-xs px-3 py-2 rounded-0 btn-tolak" data-no_surat="${row[0]}">Tolak</button>
-									</div>
-								`;
-							}
-						}
-					],
-					"order": [[1, "asc"]],
-					"language": {
-						"lengthMenu": "Tampilkan _MENU_ data barang",
-						"zeroRecords": "Data tidak ditemukan",
-						"info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-						"infoEmpty": "Tidak ada data tersedia",
-						"search": "Cari:",
-						"paginate": {
-							"first": "Awal",
-							"last": "Akhir",
-							"next": "›",
-							"previous": "‹"
+	$(document).ready(function () {
+		var table; // Deklarasi di luar supaya bisa dipakai global dalam scope ini
+
+		if (!$.fn.DataTable.isDataTable('#tabelpengambilan')) {
+			table = $('#tabelpengambilan').DataTable({
+				"processing": true,
+				"serverSide": true,
+				"ajax": {
+					"url": "backend/get_pengambilan.php",
+					"type": "POST"
+				},
+				"columns": [
+					{ "data": 0, "orderable": true }, 
+					{ "data": 1, "orderable": true },
+					{ "data": 2, "orderable": false },
+					{ "data": 3, "orderable": true },
+					{ "data": 4, "orderable": false },
+					{ 
+						"data": 5, 
+						"orderable": false,
+						"render": function (data, type, row) {
+							return `
+								<div class="d-flex">
+									<button class="btn btn-success btn-xs px-3 py-2 rounded-0 btn-setujui" data-no_surat="${row[0]}">Setujui</button>
+									<button class="btn btn-danger btn-xs px-3 py-2 rounded-0 btn-tolak" data-no_surat="${row[0]}">Tolak</button>
+								</div>
+							`;
 						}
 					}
-				});
-
-				// Event klik untuk Setujui
-				$('#tabelpengambilan tbody').on('click', '.btn-setujui', function () {
-					var no_surat = $(this).data('no_surat');
-					updateStatus(no_surat, 'Disetujui');
-				});
-
-				// Event klik untuk Tolak
-				$('#tabelpengambilan tbody').on('click', '.btn-tolak', function () {
-					var no_surat = $(this).data('no_surat');
-					updateStatus(no_surat, 'Ditolak');
-				});
-
-				// Fungsi untuk update status lewat AJAX
-				function updateStatus(no_surat, status) {
-					$.ajax({
-						url: "backend/update_status.php",
-						type: "POST",
-						data: { no_surat: no_surat, status: status },
-						success: function (response) {
-							alert(response); // Opsional: Menampilkan notifikasi
-							table.ajax.reload(null, false); // Reload tabel tanpa reset pagination
-						},
-						error: function () {
-							alert("Terjadi kesalahan saat memperbarui status.");
-						}
-					});
+				],
+				"order": [[1, "asc"]],
+				"language": {
+					"lengthMenu": "Tampilkan _MENU_ data barang",
+					"zeroRecords": "Data tidak ditemukan",
+					"info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+					"infoEmpty": "Tidak ada data tersedia",
+					"search": "Cari:",
+					"paginate": {
+						"first": "Awal",
+						"last": "Akhir",
+						"next": "›",
+						"previous": "‹"
+					}
 				}
-			}
-		});
+			});
 
-    </script>
-	
+			// Event klik untuk Setujui
+			$('#tabelpengambilan tbody').on('click', '.btn-setujui', function () {
+				var no_surat = $(this).data('no_surat');
+				updateStatus(no_surat, 'Disetujui');
+			});
+
+			// Event klik untuk Tolak
+			$('#tabelpengambilan tbody').on('click', '.btn-tolak', function () {
+				var no_surat = $(this).data('no_surat');
+				updateStatus(no_surat, 'Ditolak');
+			});
+
+			// Fungsi untuk update status lewat AJAX
+			function updateStatus(no_surat, status) {
+				$.ajax({
+					url: "backend/update_status.php",
+					type: "POST",
+					data: { no_surat: no_surat, status: status },
+					success: function (response) {
+						swal("Berhasil!", response, "success")
+						.then(() => {
+							table.ajax.reload(null, false);
+						});
+					},
+					error: function () {
+						swal("Oops!", "Terjadi kesalahan saat memperbarui status.", "error");
+					}
+				});
+			}
+		}
+
+		// Event klik tombol reload, ini harus tetap bisa jalan meskipun datatable sudah terinisialisasi sebelumnya
+		document.getElementById("reloadData").addEventListener("click", function () {
+			if (table) {
+				table.ajax.reload(null, false);
+			}
+			});
+		});
+	</script>
 
 	
 </body>
