@@ -47,6 +47,13 @@
                                 Permohonan Pengadaan Barang
                             </div>
                         </div>
+                        <ul class="navbar-nav header-right">
+                            <li class="nav-item">
+								<button type="button" class="btn btn-primary d-sm-inline-block d-none" id="reloadData">
+                                    Perbarui Data <i class="fa fa-refresh ms-3 scale4"></i>
+                                </button>
+							</li>
+                        </ul>
                     </div>
 				</nav>
 			</div>
@@ -63,8 +70,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="tabelpengadaan" class="display" style="width: 100%">
-                                        <thead>
+                                    <table id="tabelpengadaan" class="display table table-bordered table-sm" style="width: 100%">
+                                        <thead class="bg-tableheader">
                                             <tr>
                                                 <th>No Surat</th>
                                                 <th>Tanggal</th>
@@ -75,6 +82,9 @@
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
+                                        <tbody class="text-dark">
+                                            <!-- isi data dari database -->
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -103,63 +113,73 @@
 
     <!-- TAMPILKAN TABEL SURAT -->
     <script>
-        $(document).ready(function () {
-            if (!$.fn.DataTable.isDataTable('#tabelpengadaan')) {
-                $('#tabelpengadaan').DataTable({
-                    "processing": true,
-                    "serverSide": true,
-                    "ajax": {
-                        "url": "backend/get_pengadaan.php",
-                        "type": "POST"
-                    },
-                    "columns": [
-                        { "data": 0, "orderable": true },
-                        { "data": 1, "orderable": true },
-                        { "data": 2, "orderable": false },
-                        { "data": 3, "orderable": true },
-                        { 
-							"data": 4, 
-							"orderable": false,
-							"render": function (data, type, row) {
-								return formatRupiah(data);
-							}
-						},
-                        { "data": 5, "orderable": false },
-                        { 
-                            "data": 6, 
-                            "orderable": false,
-                            "render": function (data, type, row) {
-                                let badgeClass = "badge-secondary";
-                                if (data === "Diproses") badgeClass = "badge-warning";
-                                if (data === "Disetujui") badgeClass = "badge-success";
-                                if (data === "Ditolak") badgeClass = "badge-danger";
+    $(document).ready(function () {
+        var table; // Tambahkan ini agar bisa digunakan di luar if
 
-                                return `<span class="badge ${badgeClass}">${data}</span>`;
-                            }
+        if (!$.fn.DataTable.isDataTable('#tabelpengadaan')) {
+            table = $('#tabelpengadaan').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "backend/get_pengadaan.php",
+                    "type": "POST"
+                },
+                "columns": [
+                    { "data": 0, "orderable": true },
+                    { "data": 1, "orderable": true },
+                    { "data": 2, "orderable": false },
+                    { "data": 3, "orderable": true },
+                    { 
+                        "data": 4, 
+                        "orderable": false,
+                        "render": function (data, type, row) {
+                            return formatRupiah(data);
                         }
-                    ],
-                    "order": [[1, "asc"]],
-                    "language": {
-                        "lengthMenu": "Tampilkan _MENU_ data barang",
-                        "zeroRecords": "Data tidak ditemukan",
-                        "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-                        "infoEmpty": "Tidak ada data tersedia",
-                        "search": "Cari:",
-                        "paginate": {
-                            "first": "Awal",
-                            "last": "Akhir",
-                            "next": "›",
-                            "previous": "‹"
+                    },
+                    { "data": 5, "orderable": false },
+                    { 
+                        "data": 6, 
+                        "orderable": false,
+                        "render": function (data, type, row) {
+                            let badgeClass = "badge-secondary";
+                            if (data === "Diproses") badgeClass = "badge-warning";
+                            if (data === "Disetujui") badgeClass = "badge-success";
+                            if (data === "Ditolak") badgeClass = "badge-danger";
+
+                            return `<span class="badge ${badgeClass}">${data}</span>`;
                         }
                     }
-                });
+                ],
+                "order": [[1, "asc"]],
+                "language": {
+                    "lengthMenu": "Tampilkan _MENU_ data barang",
+                    "zeroRecords": "Data tidak ditemukan",
+                    "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                    "infoEmpty": "Tidak ada data tersedia",
+                    "search": "Cari:",
+                    "paginate": {
+                        "first": "Awal",
+                        "last": "Akhir",
+                        "next": "›",
+                        "previous": "‹"
+                    }
+                }
+            });
+        }
+
+        // Event klik tombol reload
+        document.getElementById("reloadData").addEventListener("click", function () {
+            if (table) {
+                table.ajax.reload(null, false);
             }
         });
-        function formatRupiah(angka) {
-			return 'Rp. ' + parseFloat(angka).toLocaleString('id-ID');
-		}
+    });
+
+    function formatRupiah(angka) {
+        return 'Rp. ' + parseFloat(angka).toLocaleString('id-ID');
+        }
     </script>
-	
+
     
 </body>
 </html>

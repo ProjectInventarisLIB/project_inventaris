@@ -69,8 +69,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="tabelPengambilan" class="display" style="min-width: 100%">
-                                        <thead>
+                                    <table id="tabelPengambilan" class="display table table-bordered table-sm" style="width: 100%">
+                                        <thead class="bg-tableheader">
                                             <tr>
                                                 <th>No Surat</th>
                                                 <th>Tanggal</th>
@@ -80,6 +80,9 @@
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
+                                        <tbody class="text-dark">
+                                            <!-- isi data dari database -->
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>

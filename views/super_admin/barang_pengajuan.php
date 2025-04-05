@@ -17,12 +17,13 @@
 	<title>Inventaris Lintas Internasional Berkarya</title>
 	
 	<!-- FAVICONS ICON -->
-	<link rel="shortcut icon" type="image/png" href="/project_web/assets/favicon_logo.png" />
+	<link rel="shortcut icon" type="image/png" href="/project_inventaris/assets/favicon_logo.png" />
     <!-- Datatable -->
-    <link href="/project_web/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="/project_inventaris/vendors/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Custom Stylesheet -->
-	<link href="/project_web/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
-    <link href="/project_web/css/style.css" rel="stylesheet">
+	<link href="/project_inventaris/vendors/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+    <link href="/project_inventaris/vendors/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="/project_inventaris/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -31,18 +32,7 @@
     <div id="main-wrapper">
 
         <!-- NAVBAR -->
-		<div class="nav-header">
-            <a href="index.php" class="brand-logo">
-				<img class="logo-abbr" src="/project_web/assets/logo_gambar.png" alt="Logo Abbreviation" width="53" height="53">
-				<img class="brand-title" src="/project_web/assets/logo_tulisan.png" alt="Brand Title" width="124" height="53">
-			</a>
-			
-            <div class="nav-control">
-                <div class="hamburger">
-                    <span class="line"></span><span class="line"></span><span class="line"></span>
-                </div>
-            </div>
-        </div>
+		<?php include 'layouts/navbar.php'; ?>
 
         <!-- HEADER -->
         <div class="header">
@@ -60,11 +50,6 @@
                                     Ajukan Barang<i class="fa fa-plus ms-3 scale4"></i>
                                 </button>
 							</li>
-                            <li class="nav-item">
-								<button type="button" class="btn btn-primary d-sm-inline-block d-none" id="btnTambahData">
-                                    Unduh PDF<i class="fa fa-download ms-3 scale4"></i>
-                                </button>
-							</li>
                         </ul>
                     </div>
 				</nav>
@@ -72,56 +57,7 @@
 		</div>
 
         <!-- SIDEBAR -->
-        <div class="dlabnav">
-            <div class="dlabnav-scroll">
-				<ul class="metismenu" id="menu">
-					<li class="dropdown header-profile">
-						<a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
-							<img src="/project_web/assets/user.png" width="20" alt=""/>
-							<div class="header-info ms-3">
-								<span class="font-w600 "><b>Super Admin</b></span>
-								<small class="text-end font-w400">superadmin@gmail.com</small>
-							</div>
-						</a>
-						<div class="dropdown-menu dropdown-menu-end">
-							<a href="/login.php" class="dropdown-item ai-icon">
-								<svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-								<span class="ms-2">Keluar</span>
-							</a>
-						</div>
-					</li>
-                    <li><a href="index.php" class="ai-icon" aria-expanded="false">
-							<i class="flaticon-025-dashboard"></i>
-							<span class="nav-text">Halaman Utama</span>
-						</a>
-                    </li>
-					<li><a href="anggaran.php" class="ai-icon" aria-expanded="false">
-							<i class="flaticon-034-filter"></i>
-							<span class="nav-text">Anggaran</span>
-						</a>
-					</li>
-					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-						<i class="flaticon-022-copy"></i>
-						<span class="nav-text">Barang</span>
-					</a>
-					<ul aria-expanded="false">
-						<li><a href="./barang_pendataan.php">Pendataan Barang</a></li>
-						<li><a href="./barang_pengambilan.php">Data Pengambilan Barang</a></li>
-						<li><a href="./barang_pengajuan.php">Data Pengajuan Barang</a></li>
-					</ul>
-				</li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-072-printer"></i>
-							<span class="nav-text">Permohonan</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="./permohonan_pengambilan.php">Pengambilan Barang</a></li>
-                            <li><a href="./permohonan_pengadaan.php">Pengadaan Barang</a></li>
-                        </ul>
-                    </li>
-                </ul>
-			</div>
-        </div>
+        <?php include 'layouts/sidebar.php'; ?>
 
         <!-- CONTENT -->
         <div class="content-body">
@@ -131,66 +67,21 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="example4" class="display" style="min-width: 845px">
-                                        <thead>
+                                    <table id="tabelbarangpengajuan" class="display table table-bordered table-sm" style="width: 100%">
+                                        <thead class="bg-tableheader">
                                             <tr>
-                                                <th>Gambar</th>
+                                                <th>ID Barang</th>
+                                                <th>Surat Terkait</th>
                                                 <th>Tanggal</th>
-                                                <th>Kode</th>
                                                 <th>Nama Barang</th>
+                                                <th>Deskripsi</th>
                                                 <th>Jumlah</th>
-                                                <th>Tujuan</th>
+                                                <th>Satuan</th>
+                                                <th>Dana Final</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><img class="img-fluid" width="60" src="/project_web/images/profile/small/pic1.jpg" alt=""></td>
-                                                <td>21/01/2025</td>
-                                                <td>DI-098</td>
-                                                <td>Baut Stainless</td>
-                                                <td>7 Buah</td>
-                                                <td>Untuk pekerja lapangan</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img class="img-fluid" width="60" src="/project_web/images/profile/small/pic1.jpg" alt=""></td>
-                                                <td>21/01/2025</td>
-												<td>DI-098</td>
-                                                <td>Baut Stainless</td>
-                                                <td>7 Buah</td>
-                                                <td>Untuk pekerja lapangan</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img class="img-fluid" width="60" src="/project_web/images/profile/small/pic1.jpg" alt=""></td>
-                                                <td>21/01/2025</td>
-												<td>DI-098</td>
-                                                <td>Baut Stainless</td>
-                                                <td>7 Buah</td>
-                                                <td>Untuk pekerja lapangan</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img class="img-fluid" width="60" src="/project_web/images/profile/small/pic1.jpg" alt=""></td>
-                                                <td>21/01/2025</td>
-												<td>DI-098</td>
-                                                <td>Baut Stainless</td>
-                                                <td>7 Buah</td>
-                                                <td>Untuk pekerja lapangan</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img class="img-fluid" width="60" src="/project_web/images/profile/small/pic1.jpg" alt=""></td>
-                                                <td>21/01/2025</td>
-												<td>DI-098</td>
-                                                <td>Baut Stainless</td>
-                                                <td>7 Buah</td>
-                                                <td>Untuk pekerja lapangan</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img class="img-fluid" width="60" src="/project_web/images/profile/small/pic1.jpg" alt=""></td>
-                                                <td>21/01/2025</td>
-												<td>DI-098</td>
-                                                <td>Baut Stainless</td>
-                                                <td>7 Buah</td>
-                                                <td>Untuk pekerja lapangan</td>
-                                            </tr>
+                                        <tbody class="text-dark">
+                                            <!-- isi data dari database -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -204,45 +95,66 @@
 
     <!-- Modal Tambah Data -->
     <div class="modal fade" id="modalPengadaanBarang" tabindex="-1" aria-labelledby="modalPengadaanBarangLabel" aria-hidden="true">
-		<div class="modal-dialog  modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="modalPengadaanBarangLabel">Formulir Pengajuan Barang</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<form id="formPengadaanBarang">
-						<div class="mb-3 d-flex justify-content-between">
-							<div class="w-50 me-2">
-								<label for="kodeBarang" class="form-label">Kode Barang</label>
-								<input type="text" class="form-control" id="kodeBarang" required>
-							</div>
-							<div class="w-50">
-								<label for="tanggalMasuk" class="form-label">Tanggal Masuk</label>
-								<input type="date" class="form-control" id="tanggalMasuk" required>
-							</div>
-						</div>
-						<div class="mb-3">
-							<label for="namaBarang" class="form-label">Nama Barang</label>
-							<input type="text" class="form-control" id="namaBarang" required>
-						</div>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalPengadaanBarangLabel">Formulir Pengajuan Barang</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formPengadaanBarang">
+                        <div class="mb-3 d-flex justify-content-between">
+                            <div class="w-50 me-2">
+                                <label for="kodeBarang" class="form-label">ID Barang</label>
+                                <input type="text" class="form-control" id="kodeBarang" name="kodeBarang" readonly>
+                            </div>
+                            <div class="w-50">
+                                <label for="tanggalKeluar" class="form-label">Tanggal Keluar</label>
+                                <input type="date" class="form-control" id="tanggalKeluar" name="tanggalKeluar" required>
+                            </div>
+                        </div>
                         <div class="mb-3">
-							<label for="jumlah" class="form-label">Jumlah</label>
-							<input type="number" class="form-control" id="jumlah" required>
-						</div>
+                            <label for="noSurat" class="form-label">No Surat</label>
+                            <select class="form-control" id="noSurat" name="noSurat" required>
+                                <option value="">Pilih No Surat</option>
+                            </select>
+                        </div>
                         <div class="mb-3">
-							<label for="tujuan" class="form-label">Tujuan</label>
-							<textarea class="form-control" id="tujuan" rows="2" required></textarea>
-						</div>
-						<div class="text-end">
-							<button type="submit" class="btn btn-primary">Simpan</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
+                            <label for="namaBarang" class="form-label">Nama Barang</label>
+                            <input type="text" class="form-control" id="namaBarang" name="namaBarang" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="deskripsi" class="form-label">Deskripsi</label>
+                            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="2" readonly></textarea>
+                        </div>
+                        <div class="mb-3 d-flex justify-content-between">
+                            <div class="w-50 me-2">
+                                <label for="jumlah" class="form-label">Jumlah</label>
+                                <input type="number" class="form-control" id="jumlah" name="jumlah" readonly>
+                            </div>
+                            <div class="w-50">
+                                <label for="satuan" class="form-label">Satuan</label>
+                                <input class="form-control" id="satuan"  name="satuan" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="anggaran" class="form-label">Estimasi Dana</label>
+                            <input type="number" class="form-control" id="anggaran" name="anggaran" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="danaFinal" class="form-label">Dana Final</label>
+                            <input type="number" class="form-control" id="danaFinal" name="danaFinal" required>
+                        </div>
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  
+
+    
     <!-- Script untuk membuka modal -->
 	<script>
 	document.addEventListener("DOMContentLoaded", function() {
@@ -254,20 +166,165 @@
 	</script>
 		
   
-    <!-- Required vendors -->
-    <script src="/project_web/vendor/global/global.min.js"></script>
-    <script src="/project_web/vendor/chart.js/Chart.bundle.min.js"></script>
+    <!-- Required vendorss -->
+    <script src="/project_inventaris/vendors/global/global.min.js"></script>
+    <script src="/project_inventaris/vendors/chart.js/Chart.bundle.min.js"></script>
 	<!-- Apex Chart -->
-	<script src="/project_web/vendor/apexchart/apexchart.js"></script>
+	<script src="/project_inventaris/vendors/apexchart/apexchart.js"></script>
 	
     <!-- Datatable -->
-    <script src="/project_web/vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="/project_web/js/plugins-init/datatables.init.js"></script>
+    <script src="/project_inventaris/vendors/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/project_inventaris/js/plugins-init/datatables.init.js"></script>
 
-	<script src="/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+	<script src="/project_inventaris/vendors/jquery-nice-select/js/jquery.nice-select.min.js"></script>
 
-    <script src="/project_web/js/custom.min.js"></script>
-	<script src="/project_web/js/dlabnav-init.js"></script>
+    <script src="/project_inventaris/js/custom.min.js"></script>
+	<script src="/project_inventaris/js/dlabnav-init.js"></script>
+
+    <script src="/project_inventaris/vendors/sweetalert2/dist/sweetalert2.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            if (!$.fn.DataTable.isDataTable('#tabelbarangpengajuan')) {
+                $('#tabelbarangpengajuan').DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": {
+                        "url": "backend/get_pengajuan_barang.php",
+                        "type": "POST"
+                    },
+                    "columns": [
+                        { "data": "ID_barang", "orderable": true },
+                        { "data": "no_surat", "orderable": true },
+						{ "data": "tanggal", "orderable": true },
+                        { "data": "nama_barang", "orderable": true },
+                        { "data": "deskripsi", "orderable": false },
+                        { "data": "jumlah_diperlukan", "orderable": false },
+                        { "data": "satuan", "orderable": false },
+                        { 
+							"data": "dana_final", 
+							"orderable": false,
+							"render": function (data, type, row) {
+								return formatRupiah(data);
+							}
+						},
+                    ],
+                    "order": [[1, "asc"]],
+                    "language": {
+                        "lengthMenu": "Tampilkan _MENU_ data barang",
+                        "zeroRecords": "Data tidak ditemukan",
+                        "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                        "infoEmpty": "Tidak ada data tersedia",
+                        "search": "Cari:",
+                        "paginate": {
+                            "first": "Awal",
+                            "last": "Akhir",
+                            "next": "›",
+                            "previous": "‹"
+                        }
+                    }
+                });
+            }
+        });
+        
+        function formatRupiah(angka) {
+            return 'Rp. ' + parseFloat(angka).toLocaleString('id-ID');
+        }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            // Fungsi untuk menghasilkan ID Barang secara otomatis
+            function generateKodeBarang() {
+                $.ajax({
+                    url: 'backend/get_kodebarang_pengajuan.php',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.lastKode) {
+                            let lastKode = response.lastKode;
+                            let angkaKode = parseInt(lastKode.replace('BRGPGDN', ''), 10); 
+                            let newKode = 'BRGPGDN' + (angkaKode + 1).toString().padStart(3, '0');
+
+                            console.log("Kode baru:", newKode); 
+                            $('#kodeBarang').val(newKode);
+                        } else {
+                            $('#kodeBarang').val('BRGPGDN001');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error mengambil kode barang:", error);
+                        $('#kodeBarang').val('BRGPGDN001');
+                    }
+                });
+            }
+
+            $('#modalPengadaanBarang').on('show.bs.modal', function() {
+                generateKodeBarang();
+
+                $.ajax({
+                    url: "backend/get_nosurat_pengajuan.php",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        let options = "<option value=''>Pilih No Surat</option>";
+                        data.forEach(item => {
+                            options += `<option value='${item.no_surat}' 
+                                            data-nama='${item.nama_barang}' 
+                                            data-deskripsi='${item.deskripsi}' 
+                                            data-jumlah='${item.jumlah}'
+                                            data-satuan='${item.satuan}' 
+                                            data-anggaran='${item.anggaran}'>${item.no_surat}</option>`;
+                        });
+                        $('#noSurat').html(options);
+                    }
+                });
+            });
+
+            // Auto-fill input berdasarkan pilihan No Surat
+            $('#noSurat').change(function () {
+                var selectedOption = $(this).find('option:selected');
+                $('#namaBarang').val(selectedOption.data('nama') || '');
+                $('#deskripsi').val(selectedOption.data('deskripsi') || '');
+                $('#jumlah').val(selectedOption.data('jumlah') || '');
+                $('#satuan').val(selectedOption.data('satuan') || '');
+                $('#anggaran').val(selectedOption.data('anggaran') || '');
+            });
+
+
+
+            // AJAX Submit Form
+            $('#formPengadaanBarang').submit(function (e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+
+                $.ajax({
+                    type: "POST",
+                    url: "backend/insert_pengajuan_barang.php",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response); // Debug: lihat respon dari server
+                        if (response.status === "success") {
+                            swal("Berhasil!", "Data berhasil disimpan!", "success")
+                            .then(() => {
+                                location.reload();
+                            });
+                        } else {
+                            swal("Peringatan!", response.message, "warning");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText); // Debug: tampilkan error dari server
+                        swal("Oops!", "Terjadi kesalahan dalam proses penyimpanan.", "error");
+                    }
+                });
+            });
+        });
+    </script>
 	
     
 </body>

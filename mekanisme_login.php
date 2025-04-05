@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = $result->fetch_assoc();
         if (hash('sha256', $password) === $row['sandi_admin_utama']) {// Menggunakan sha256()
             $_SESSION['role'] = 'admin_utama';
-            $_SESSION['user_id'] = $row['id'];
+            $_SESSION['ID_admin_utama'] = $row['ID_admin_utama'];
             header("Location: views/super_admin/index");
             exit();
         }

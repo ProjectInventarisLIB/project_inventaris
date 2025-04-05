@@ -17,123 +17,26 @@
 	<title>Inventaris Lintas Internasional Berkarya</title>
 	
 	<!-- FAVICONS ICON -->
-	<link rel="shortcut icon" type="image/png" href="/project_web/assets/favicon_logo.png" />
+	<link rel="shortcut icon" type="image/png" href="/project_inventaris/assets/favicon_logo.png" />
 	
-	<link href="/project_web/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
-	<link rel="stylesheet" href="/project_web/vendor/nouislider/nouislider.min.css">
+	<link href="/project_inventaris/vendors/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+	<link rel="stylesheet" href="/project_inventaris/vendors/nouislider/nouislider.min.css">
 
 	<!-- Chartist -->
-	<link rel="stylesheet" href="/project_web/vendor/chartist/css/chartist.min.css">
+	<link rel="stylesheet" href="/project_inventaris/vendors/chartist/css/chartist.min.css">
 
-	<link href="/project_web/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-	<link href="/project_web/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+	<link href="/project_inventaris/vendors/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+	<link href="/project_inventaris/vendors/jquery-nice-select/css/nice-select.css" rel="stylesheet">
 	<!-- Style css -->
-    <link href="/project_web/css/style.css" rel="stylesheet">
+    <link href="/project_inventaris/css/style.css" rel="stylesheet">
 	
 </head>
 <body>
 	<div id="main-wrapper">
 
 		<!-- NAVBAR -->
-		<div class="nav-header">
-            <a href="index.php" class="brand-logo">
-				<img class="logo-abbr" src="/project_web/assets/logo_gambar.png" alt="Logo Abbreviation" width="53" height="53">
-				<img class="brand-title" src="/project_web/assets/logo_tulisan.png" alt="Brand Title" width="124" height="53">
-			</a>
-			
-            <div class="nav-control">
-                <div class="hamburger">
-                    <span class="line"></span><span class="line"></span><span class="line"></span>
-                </div>
-            </div>
-        </div>
+		<?php include 'layouts/navbar.php'; ?>
 		
-		<!-- NOTIFIKASI -->
-		<div class="chatbox">
-			<div class="chatbox-close"></div>
-			<div class="custom-tab-1">
-				<div class="tab-content">
-					<div class="tab-pane fade active show" id="chat" role="tabpanel">
-						<div class="card mb-sm-3 mb-md-0 contacts_card dlab-chat-user-box">
-							<div class="card-header chat-list-header text-center">
-								<a href="javascript:void(0);" class="dlab-chat-history-back">
-									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><polygon points="0 0 24 0 24 24 0 24"/><rect fill="#000000" opacity="0.3" transform="translate(15.000000, 12.000000) scale(-1, 1) rotate(-90.000000) translate(-15.000000, -12.000000) " x="14" y="7" width="2" height="10" rx="1"/><path d="M3.7071045,15.7071045 C3.3165802,16.0976288 2.68341522,16.0976288 2.29289093,15.7071045 C1.90236664,15.3165802 1.90236664,14.6834152 2.29289093,14.2928909 L8.29289093,8.29289093 C8.67146987,7.914312 9.28105631,7.90106637 9.67572234,8.26284357 L15.6757223,13.7628436 C16.0828413,14.136036 16.1103443,14.7686034 15.7371519,15.1757223 C15.3639594,15.5828413 14.7313921,15.6103443 14.3242731,15.2371519 L9.03007346,10.3841355 L3.7071045,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(9.000001, 11.999997) scale(-1, -1) rotate(90.000000) translate(-9.000001, -11.999997) "/></g></svg>
-								</a>
-								<div>
-									<h6 class="mb-1">Notifikasi</h6>
-									<p class="mb-0">Lihat Semua</p>
-								</div>
-								<a href="javascript:void(0);">
-									<svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24" fill="none"><path d="M3 6H5H21V8H5H3V6ZM9 6V4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V6H9ZM6 8H18C18.553 8 19 8.44772 19 9V20C19 20.5523 18.553 21 18 21H6C5.44772 21 5 20.5523 5 20V9C5 8.44772 5.44772 8 6 8ZM7 10V18H17V10H7Z" fill="#000000"/></svg>
-								</a>
-							</div>
-							<div class="card-body contacts_body p-0 dlab-scroll  " id="dlab_W_Contacts_Body">
-								<ul class="contacts">
-									<li class="name-first-letter">Pengambilan</li>
-									<li class="active dlab-chat-user">
-										<div class="d-flex bd-highlight">
-											<div class="img_cont">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-													<path d="M20 2H4C2.9 2 2 2.9 2 4V20C2 21.1 2.9 22 4 22H20C21.1 22 22 21.1 22 20V4C22 2.9 21.1 2 20 2ZM12 12L4 6V4L12 10L20 4V6L12 12Z" fill="#4f7086"/>
-												</svg>
-												<span class="online_icon"></span>
-											</div>	
-											<div class="user_info">
-												<span>Surat Disetujui</span>
-												<p>Surat dengan nomor SRT/PKS/02/2025 telah disetujui.</p>
-											</div>
-										</div>
-									</li>
-									<li class="dlab-chat-user">
-										<div class="d-flex bd-highlight">
-											<div class="img_cont">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-													<path d="M20 2H4C2.9 2 2 2.9 2 4V20C2 21.1 2.9 22 4 22H20C21.1 22 22 21.1 22 20V4C22 2.9 21.1 2 20 2ZM12 12L4 6V4L12 10L20 4V6L12 12Z" fill="#4f7086"/>
-												</svg>
-												<span class="online_icon offline"></span>
-											</div>	
-											<div class="user_info">
-												<span>Surat Ditolak</span>
-												<p>Maaf, surat Anda dengan nomor SRT/PKS/02/2025 ditolak. Silakan cek detail alasan penolakan.</p>
-											</div>
-										</div>
-									</li>
-									<li class="name-first-letter">Pengadaan</li>
-									<li class="active dlab-chat-user">
-										<div class="d-flex bd-highlight">
-											<div class="img_cont">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-													<path d="M20 2H4C2.9 2 2 2.9 2 4V20C2 21.1 2.9 22 4 22H20C21.1 22 22 21.1 22 20V4C22 2.9 21.1 2 20 2ZM12 12L4 6V4L12 10L20 4V6L12 12Z" fill="#4f7086"/>
-												</svg>
-												<span class="online_icon"></span>
-											</div>	
-											<div class="user_info">
-												<span>Surat Disetujui</span>
-												<p>Surat dengan nomor SRT/PKS/02/2025 telah disetujui.</p>
-											</div>
-										</div>
-									</li>
-									<li class="dlab-chat-user">
-										<div class="d-flex bd-highlight">
-											<div class="img_cont">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-													<path d="M20 2H4C2.9 2 2 2.9 2 4V20C2 21.1 2.9 22 4 22H20C21.1 22 22 21.1 22 20V4C22 2.9 21.1 2 20 2ZM12 12L4 6V4L12 10L20 4V6L12 12Z" fill="#4f7086"/>
-												</svg>
-												<span class="online_icon offline"></span>
-											</div>	
-											<div class="user_info">
-												<span>Surat Ditolak</span>
-												<p>Maaf, surat Anda dengan nomor SRT/PKS/02/2025 ditolak. Silakan cek detail alasan penolakan.</p>
-											</div>
-										</div>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 		
 		<!-- HEADER -->
         <div class="header">
@@ -145,16 +48,6 @@
                                 Halaman Utama 
                             </div>
                         </div>
-                        <ul class="navbar-nav header-right">
-							<li class="nav-item dropdown notification_dropdown">
-                                <a class="nav-link bell bell-link" href="javascript:void(0);">
-									<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path fill-rule="evenodd" clip-rule="evenodd" d="M12.638 4.9936V2.3C12.638 1.5824 13.2484 1 14.0006 1C14.7513 1 15.3631 1.5824 15.3631 2.3V4.9936C17.3879 5.2718 19.2805 6.1688 20.7438 7.565C22.5329 9.2719 23.5384 11.5872 23.5384 14V18.8932L24.6408 20.9966C25.1681 22.0041 25.1122 23.2001 24.4909 24.1582C23.8709 25.1163 22.774 25.7 21.5941 25.7H15.3631C15.3631 26.4176 14.7513 27 14.0006 27C13.2484 27 12.638 26.4176 12.638 25.7H6.40705C5.22571 25.7 4.12888 25.1163 3.50892 24.1582C2.88759 23.2001 2.83172 22.0041 3.36039 20.9966L4.46268 18.8932V14C4.46268 11.5872 5.46691 9.2719 7.25594 7.565C8.72068 6.1688 10.6119 5.2718 12.638 4.9936ZM14.0006 7.5C12.1924 7.5 10.4607 8.1851 9.18259 9.4045C7.90452 10.6226 7.18779 12.2762 7.18779 14V19.2C7.18779 19.4015 7.13739 19.6004 7.04337 19.7811C7.04337 19.7811 6.43703 20.9381 5.79662 22.1588C5.69171 22.3603 5.70261 22.6008 5.82661 22.7919C5.9506 22.983 6.16996 23.1 6.40705 23.1H21.5941C21.8298 23.1 22.0492 22.983 22.1732 22.7919C22.2972 22.6008 22.3081 22.3603 22.2031 22.1588C21.5627 20.9381 20.9564 19.7811 20.9564 19.7811C20.8624 19.6004 20.8133 19.4015 20.8133 19.2V14C20.8133 12.2762 20.0953 10.6226 18.8172 9.4045C17.5391 8.1851 15.8073 7.5 14.0006 7.5Z" fill="#4f7086"/>
-									</svg>
-									<span class="badge light text-white bg-utama rounded-circle">4</span>
-                                </a>
-							</li>
-                        </ul>
                     </div>
 				</nav>
 			</div>
@@ -162,56 +55,7 @@
 
 
         <!-- SIDEBAR -->
-        <div class="dlabnav">
-            <div class="dlabnav-scroll">
-				<ul class="metismenu" id="menu">
-					<li class="dropdown header-profile">
-						<a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
-							<img src="/project_web/assets/user.png" width="20" alt=""/>
-							<div class="header-info ms-3">
-								<span class="font-w600 "><b>Super Admin</b></span>
-								<small class="text-end font-w400">superadmin@gmail.com</small>
-							</div>
-						</a>
-						<div class="dropdown-menu dropdown-menu-end">
-							<a href="/login.php" class="dropdown-item ai-icon">
-								<svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-								<span class="ms-2">Keluar</span>
-							</a>
-						</div>
-					</li>
-                    <li><a href="index.php" class="ai-icon" aria-expanded="false">
-							<i class="flaticon-025-dashboard"></i>
-							<span class="nav-text">Halaman Utama</span>
-						</a>
-                    </li>
-					<li><a href="anggaran.php" class="ai-icon" aria-expanded="false">
-							<i class="flaticon-034-filter"></i>
-							<span class="nav-text">Anggaran</span>
-						</a>
-					</li>
-					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-						<i class="flaticon-022-copy"></i>
-						<span class="nav-text">Barang</span>
-					</a>
-					<ul aria-expanded="false">
-						<li><a href="./barang_pendataan.php">Pendataan Barang</a></li>
-						<li><a href="./barang_pengambilan.php">Data Pengambilan Barang</a></li>
-						<li><a href="./barang_pengajuan.php">Data Pengajuan Barang</a></li>
-					</ul>
-				</li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-072-printer"></i>
-							<span class="nav-text">Permohonan</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="./permohonan_pengambilan.php">Pengambilan Barang</a></li>
-                            <li><a href="./permohonan_pengadaan.php">Pengadaan Barang</a></li>
-                        </ul>
-                    </li>
-                </ul>
-			</div>
-        </div>
+        <?php include 'layouts/sidebar.php'; ?>
 
 		<!-- CONTENT -->
         <div class="content-body">
@@ -228,8 +72,8 @@
 									</svg>
 								</div>
 								<div>
-									<h2 class="text-white invoice-num">2478</h2>
-									<span class="text-white fs-18">Total Surat Permohonan Barang</span>
+									<h2 id="invoiceNum" class="text-white invoice-num">0</h2>
+									<span class="text-white fs-18">Total Surat Permohonan Pengambilan</span>
 								</div>
 							</div>
 						</div>
@@ -246,8 +90,8 @@
 									</svg>
 								</div>
 								<div>
-									<h2 class="text-white invoice-num">983</h2>
-									<span class="text-white fs-18">Total Persetujuan Surat Permohonan Barang</span>
+									<h2 id="invoiceNum3" class="text-white invoice-num">0</h2>
+									<span class="text-white fs-18">Total Diproses Surat Permohonan Pengambilan</span>
 								</div>
 							</div>
 						</div>
@@ -262,7 +106,7 @@
 									</svg>
 								</div>
 								<div>
-									<h2 class="text-white invoice-num">1256</h2>
+									<h2 id="invoiceNum2" class="text-white invoice-num">0</h2>
 									<span class="text-white fs-18">Total Surat Permohonan Pengadaan</span>
 								</div>
 							</div>
@@ -280,8 +124,8 @@
 									</svg>
 								</div>
 								<div>
-									<h2 class="text-white invoice-num">652</h2>
-									<span class="text-white fs-18">Total Persetujuan Surat Permohonan Barang</span>
+									<h2 id="invoiceNum4" class="text-white invoice-num">0</h2>
+									<span class="text-white fs-18">Total Diproses Surat Permohonan Pengadaan</span>
 								</div>
 							</div>
 						</div>
@@ -292,50 +136,13 @@
 						<div class="card">
 							<div class="card-header border-0 pb-0">
 								<div>
-									<h4 class="card-title mb-2">Pengeluaran</h4>
-									<span class="fs-12">Persenan pengeluaran departemen pergudangan</span>
+									<h4 class="card-title mb-2">Pengeluaran Keuangan</h4>
+									<span class="fs-12">Pengeluaran anggaran tiap divisi Lintas Internasional Berkarya</span>
 								</div>
 							</div>
-							<div class="card-body">	
-								<div class="progress default-progress">
-                                    <div class="progress-bar bg-gradient-4 progress-animated" style="width: 45%; height:20px;" role="progressbar">
-                                        <span class="sr-only">50% Complete</span>
-                                    </div>
-                                </div>
-								<div class="d-flex align-items-end mt-2 pb-3 justify-content-between">
-									<span>Pergudangan</span>
-									<span class="fs-16"><span class="text-black pe-2">Rp.100.000</span>/Rp.200.000</span>
-								</div>
-								<div class="progress default-progress mt-4">
-                                    <div class="progress-bar bg-gradient-4 progress-animated" style="width: 70%; height:20px;" role="progressbar">
-                                        <span class="sr-only">70% Complete</span>
-                                    </div>
-                                </div>
-								<div class="d-flex align-items-end mt-2 pb-3 justify-content-between">
-									<span>Operasional</span>
-									<span class="fs-16"><span class="text-black pe-2">Rp.100.000</span>/Rp.200.000</span>
-								</div>
-								<div class="progress default-progress mt-4">
-                                    <div class="progress-bar bg-gradient-4 progress-animated" style="width: 35%; height:20px;" role="progressbar">
-                                        <span class="sr-only">35% Complete</span>
-                                    </div>
-                                </div>
-								<div class="d-flex align-items-end mt-2 pb-3 justify-content-between">
-									<span>Logistik</span>
-									<span class="fs-16"><span class="text-black pe-2">Rp.100.000</span>/Rp.200.000</span>
-								</div>
-								<div class="progress default-progress mt-4">
-                                    <div class="progress-bar bg-gradient-4 progress-animated" style="width: 95%; height:20px;" role="progressbar">
-                                        <span class="sr-only">95% Complete</span>
-                                    </div>
-                                </div>
-								<div class="d-flex align-items-end mt-2 justify-content-between">
-									<span>HRD</span>
-									<span class="fs-16"><span class="text-black pe-2">Rp.100.000</span>/Rp.200.000</span>
-								</div>
-							</div>
+							<div class="card-body" id="progress-container"></div>
 							<div class="card-footer border-0 pt-0">
-								<a href="javascript:void(0);" class="btn btn-outline-utama d-block btn-lg"> Lihat Selengkapnya</a>
+								<a href="anggaran" class="btn btn-outline-utama d-block btn-lg"> Lihat Selengkapnya</a>
 							</div>
 						</div>
 					</div>
@@ -346,13 +153,13 @@
 									<h4 class="card-title mb-2">Tinjau Pengelolaan</h4>
 									<span class="fs-12">Bagan pengelolaan surat tiap bulan departemen pergudangan</span>
 								</div>
-								<a href="javascript:void(0)" class="btn btn-rounded btn-md btn-utama mr-3 me-3 text-white"><i class="las la-download scale5 me-3"></i>Unduh Laporan</a>
+								<a href="backend/download_laporan_barang.php" class="btn btn-rounded btn-md btn-utama mr-3 me-3 text-white"><i class="las la-download scale5 me-3"></i>Unduh Laporan</a>
 							</div>
 							<div class="card-body pb-2">
 								<div class="d-sm-flex d-block">
 									<ul class="card-list d-flex mt-sm-0 mt-3">
-										<li class="me-3"><span class="bg-kedua circle"></span>Barang Masuk</li>
-										<li class="me-3"><span class="bg-merah circle"></span>Barang Keluar</li>
+										<li class="me-3"><span class="bg-kedua circle"></span>Barang didata</li>
+										<li class="me-3"><span class="bg-merah circle"></span>Barang diambil</li>
 									</ul>
 								</div>
 								<div id="chartBar2" class="bar-chart"></div>
@@ -368,25 +175,155 @@
     <!--**********************************
         Scripts
     ***********************************-->
-    <!-- Required vendors -->
-    <script src="/project_web/vendor/global/global.min.js"></script>
-	<script src="/project_web/vendor/chart.js/Chart.bundle.min.js"></script>
-	<script src="/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+    <!-- Required vendorss -->
+    <script src="/project_inventaris/vendors/global/global.min.js"></script>
+	<script src="/project_inventaris/vendors/chart.js/Chart.bundle.min.js"></script>
+	<script src="/project_inventaris/vendors/jquery-nice-select/js/jquery.nice-select.min.js"></script>
 	
 	<!-- Apex Chart -->
-	<script src="/project_web/vendor/apexchart/apexchart.js"></script>
-	<script src="/project_web/vendor/nouislider/nouislider.min.js"></script>
-	<script src="/project_web/vendor/wnumb/wNumb.js"></script>
+	<script src="/project_inventaris/vendors/apexchart/apexchart.js"></script>
+	<script src="/project_inventaris/vendors/nouislider/nouislider.min.js"></script>
+	<script src="/project_inventaris/vendors/wnumb/wNumb.js"></script>
 	
 	<!-- Dashboard 1 -->
-	<script src="/project_web/js/dashboard/dashboard-1.js"></script>
+	<!-- <script src="/project_inventaris/js/dashboard/dashboard-1.js"></script> -->
 
-    <script src="/project_web/js/custom.min.js"></script>
-	<script src="/project_web/js/dlabnav-init.js"></script>
-
+    <script src="/project_inventaris/js/custom.min.js"></script>
+	<script src="/project_inventaris/js/dlabnav-init.js"></script>
 
     <!-- Init file -->
-    <script src="/project_web/js/plugins-init/widgets-script-init.js"></script>
+    <script src="/project_inventaris/js/plugins-init/widgets-script-init.js"></script>
+<!-- 		
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
+
+	<!-- SCRIPT JUMLAH SURAT -->
+	<script>
+		$(document).ready(function() {
+			$.ajax({
+				url: "backend/get_surat.php",
+				method: "GET",
+				dataType: "json",
+				success: function(response) {
+					console.log(response);
+					$("#invoiceNum2").text(response.total_pengadaan); 
+					$("#invoiceNum").text(response.total_peminjaman); 
+					$("#invoiceNum4").text(response.pengadaan_diproses); 
+					$("#invoiceNum3").text(response.peminjaman_diproses);
+				},
+				error: function(xhr, status, error) {
+					console.error("Error mengambil data:", error);
+				}
+			});
+		});
+	</script>
+
+	<script>
+		function loadProgress() {
+			$.ajax({
+				url: "backend/get_progress.php",
+				method: "GET",
+				dataType: "json",
+				success: function (data) {
+					let progressHtml = "";
+					const formatRupiah = (angka) => {
+						return new Intl.NumberFormat("id-ID", {
+							style: "currency",
+							currency: "IDR",
+							minimumFractionDigits: 0, 
+							maximumFractionDigits: 0
+						}).format(angka);
+					};
+
+					data.forEach(item => {
+						let percentage = item.anggaran > 0 ? (item.pengeluaran_anggaran / item.anggaran) * 100 : 0;
+						percentage = Math.min(percentage, 100);
+
+						progressHtml += `
+							<div class='progress default-progress mt-4'>
+								<div class='progress-bar bg-gradient-4 progress-animated' style='width: ${percentage}%; height:20px;' role='progressbar'>
+									<span class='sr-only'>${percentage.toFixed(2)}% Complete</span>
+								</div>
+							</div>
+							<div class='d-flex align-items-end mt-2 pb-3 justify-content-between'>
+								<span>${item.nama_staf}</span>
+								<span class='fs-16'>
+									<span class='text-black pe-2'>${formatRupiah(item.pengeluaran_anggaran)}</span> / ${formatRupiah(item.anggaran)}
+								</span>
+							</div>`;
+					});
+
+					$("#progress-container").html(progressHtml);
+				},
+				error: function (xhr, status, error) {
+					console.error("Error fetching data:", error);
+				}
+			});
+		}
+
+		$(document).ready(function () {
+			loadProgress();
+		});
+	</script>
+
+	<script>
+		var chartBar2 = function(){
+			fetch('backend/get_chart.php')
+			.then(response => response.json())
+			.then(data => {
+				var options = {
+					series: data.series,
+					chart: {
+						type: 'bar',
+						height: 400,
+						toolbar: { show: false }
+					},
+					plotOptions: {
+						bar: { horizontal: false, columnWidth: '60%', borderRadius: 10 }
+					},
+					states: { hover: { filter: 'none' } },
+					colors: ['#80ec67', '#fe7d65'], // Warna untuk masing-masing kategori
+					dataLabels: { enabled: false },
+					legend: {
+						position: 'top',
+						horizontalAlign: 'right',
+						show: false,
+						fontSize: '12px'
+					},
+					stroke: { show: true, width: 5, colors: ['transparent'] },
+					grid: { borderColor: '#eee' },
+					xaxis: {
+						categories: data.labels,
+						labels: {
+							style: { colors: '#3e4954', fontSize: '13px', fontFamily: 'poppins' }
+						}
+					},
+					yaxis: {
+						labels: {
+							style: { colors: '#3e4954', fontSize: '13px', fontFamily: 'poppins' }
+						}
+					},
+					fill: { opacity: 1, colors: ['#38B6FF', '#a41c24'] }, 
+					tooltip: {
+						y: { formatter: function (val) { return val + " Transaksi"; } }
+					},
+					responsive: [{ breakpoint: 575, options: { chart: { height: 250 } } }]
+				};
+
+				// Membuat chart dengan options yang telah disesuaikan
+				var chartBar1 = new ApexCharts(document.querySelector("#chartBar2"), options);
+				chartBar1.render();
+			})
+			.catch(error => console.error("Error fetching chart data:", error));
+		};
+
+		// Menjalankan chart setelah DOM selesai dimuat
+		document.addEventListener("DOMContentLoaded", function() {
+			chartBar2();
+		});
+	</script>
+
+
 
 	
 </body>

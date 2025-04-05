@@ -18,7 +18,7 @@ $bulanRomawi = [
 $bulanRomawi = $bulanRomawi[$bulan];
 
 // Ambil nomor terakhir dari database
-$queryLastNo = "SELECT no_surat FROM surat_pengambilan ORDER BY ID_surat DESC LIMIT 1";
+$queryLastNo = "SELECT no_surat FROM surat_pengambilan ORDER BY no_surat DESC LIMIT 1";
 $resultLastNo = $conn->query($queryLastNo);
 
 if ($resultLastNo->num_rows > 0) {

@@ -67,8 +67,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="tabelbarangpengajuan" class="display" style="width: 100%">
-                                        <thead>
+                                    <table id="tabelbarangpengajuan" class="display table table-bordered table-sm" style="width: 100%">
+                                        <thead class="bg-tableheader">
                                             <tr>
                                                 <th>ID Barang</th>
                                                 <th>Surat Terkait</th>
@@ -80,6 +80,9 @@
                                                 <th>Dana Final</th>
                                             </tr>
                                         </thead>
+                                        <tbody class="text-dark">
+                                            <!-- isi data dari database -->
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
