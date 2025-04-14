@@ -71,11 +71,10 @@
                                 <div class="table-responsive">
                                     <table id="tabelPengambilan" class="display table table-bordered table-sm" style="width: 100%">
                                         <thead class="bg-tableheader">
-                                            <tr>
+                                            <tr class="text-center">
                                                 <th>No Surat</th>
                                                 <th>Tanggal</th>
-                                                <th>ID Barang</th>
-                                                <th>Nama Barang</th>
+                                                <th style="width: 300px;">Nama Barang</th>
                                                 <th>Link Surat</th>
                                                 <th>Status</th>
                                             </tr>
@@ -109,17 +108,43 @@
                                 <input type="text" class="form-control" id="noSurat" name="noSurat" readonly>
                             </div>
                             <div class="w-50">
-                                <label for="tanggalDiperlukan" class="form-label">Tanggal diperlukan</label>
-                                <input type="date" class="form-control" id="tanggalDiperlukan" name="tanggalDiperlukan" required>
+                                <label for="idPengambilan" class="form-label">ID pengambilan</label>
+                                <input type="text" class="form-control" id="idPengambilan" name="idPengambilan" readonly>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="namaBarang" class="form-label">Nama Barang</label>
-                            <select class="multi-select" id="namaBarang" name="namaBarang" required></select>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="flex-grow-1">
+                                    <label for="namaBarang" class="form-label">Nama Barang</label>
+                                    <select class="form-select" id="namaBarang" name="namaBarang"></select>
+                                </div>
+                                <div class="col-3">
+                                    <label for="jumlah" class="form-label">Jumlah</label>
+                                    <input type="number" class="form-control" id="jumlah" name="jumlah" min="1">
+                                </div>
+                                <div class="d-flex align-items-center mt-4">
+                                    <button type="button" class="btn p-0 border-0 bg-transparent" id="btnTambahBarangKeTabel" title="Tambah">
+                                        <i class="fa fa-plus fs-5 text-primary"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="jumlah" class="form-label">Jumlah</label>
-                            <input type="number" class="form-control" id="jumlah" name="jumlah" min="1" required>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-sm">
+                                <thead>
+                                <tr class="text-center">
+                                    <th class="fs-6">Kode</th>
+                                    <th class="fs-6">Nama Barang</th>
+                                    <th class="fs-6">Stok</th>
+                                    <th class="fs-6">Jumlah</th>
+                                    <th class="fs-6">Hapus</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tabelBarangDipilih">
+                                    <!-- ISI BARANG YANG DIPILIH -->
+                                </tbody>
+                            </table>
                         </div>
                         <div class="mb-3">
                             <label for="tujuan" class="form-label">Tujuan</label>
@@ -133,7 +158,6 @@
             </div>
         </div>
     </div>
-
   
   
     <!-- Required vendorss -->
@@ -165,7 +189,7 @@
 	});
 	</script>
 		
-<!-- TAMPILKAN TABEL SURAT -->
+    <!-- TAMPILKAN TABEL SURAT -->
     <script>
         $(document).ready(function () {
             if (!$.fn.DataTable.isDataTable('#tabelPengambilan')) {
@@ -179,12 +203,11 @@
                     "columns": [
                         { "data": "no_surat", "orderable": true },
                         { "data": "tanggal", "orderable": true },
-                        { "data": "ID_barang", "orderable": false },
                         { "data": "nama_barang", "orderable": true },
                         { "data": "link_surat", "orderable": false },
                         { 
                             "data": "status", 
-                            "orderable": false,
+                            "orderable": true,
                             "render": function (data, type, row) {
                                 let badgeClass = "badge-secondary";
                                 if (data === "Diproses") badgeClass = "badge-warning";
@@ -214,18 +237,27 @@
         });
     </script>
 
-<!-- TAMPILKAN PILIHAN NAMA BARANG DI SELECT2 -->
+    <!-- TAMPILKAN PILIHAN NAMA BARANG DI SELECT2 -->
     <script>
+        function getKodeBarangFromText(text) {
+            return text.split(' - ')[0];
+        }
+
         $('#modalPengambilanBarang').on('shown.bs.modal', function () {
             $('#namaBarang').select2({
-                dropdownParent: $('#modalPengambilanBarang'), 
+                dropdownParent: $('#modalPengambilanBarang'),
                 ajax: {
                     url: 'backend/get_namabarang.php',
                     type: 'GET',
                     dataType: 'json',
                     processResults: function (data) {
+                        const filtered = data.filter(item => {
+                            const kode = getKodeBarangFromText(item.text);
+                            return !dataBarang.some(b => b.kodeBarang === kode);
+                        });
+
                         return {
-                            results: data
+                            results: filtered
                         };
                     }
                 },
@@ -236,23 +268,11 @@
                     if (data.disabled) {
                         $item.addClass('text-light');
                     }
-                    
+
                     return $item;
                 }
             });
-
-            // Set minimum date 
-            var today = new Date().toISOString().split('T')[0];
-            $('#tanggalDiperlukan').attr('min', today);
-
-            // Set minimum jumlah <= stok 
-            $('#namaBarang').on('change', function () {
-                let selectedText = $("#namaBarang option:selected").text();
-                let stok = selectedText.match(/\(Stok: (\d+)\)/);
-                let jumlahMax = stok ? parseInt(stok[1]) : 1;
-
-                $('#jumlah').attr('max', jumlahMax);
-            });
+            $('#namaBarang').val(null).trigger('change');
         });
     </script>
 
@@ -271,39 +291,124 @@
         });
     </script>
 
+    <!-- AMBIL ID PENGAMBILAN -->
+    <script>
+       document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("btnTambahData").addEventListener("click", function () {
+                fetch("backend/get_id_pengambilan")
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById("idPengambilan").value = data.id_pengambilan;
+                    })
+                    .catch(error => console.error("Error:", error));
+            });
+        });
+    </script>
+
+
+    <!-- TAMBAH BARANG KE TABEL MODAL -->
+    <script>
+        let dataBarang = [];
+        $('#btnTambahBarangKeTabel').on('click', function () {
+            var namaBarangFull = $('#namaBarang').select2('data')[0].text;
+            var jumlah = parseInt($('#jumlah').val());
+
+            var kodeBarang = namaBarangFull.split(' - ')[0];
+            var namaDanStok = namaBarangFull.split(' - ')[1];
+            var namaSaja = namaDanStok.split(' (')[0];
+            var stokBarang = parseInt(namaDanStok.match(/\d+/)[0]);
+
+            // Validasi jumlah
+            if (isNaN(jumlah) || jumlah < 1) {
+                swal("Oops!", "Jumlah barang minimal 1!", "warning");
+                return;
+            }
+            if (jumlah > stokBarang) {
+                swal("Stok tidak cukup!", "Jumlah melebihi stok yang tersedia (" + stokBarang + ")", "error");
+                return;
+            }
+            dataBarang.push({
+                kodeBarang: kodeBarang,
+                namaSaja: namaSaja,
+                jumlah: jumlah
+            });
+
+            console.log("Isi dataBarang setelah ditambah:", dataBarang);
+
+            var row = '<tr>';
+            row += '<td class="text-center">' + kodeBarang + '</td>';
+            row += '<td class="text-center">' + namaSaja + '</td>';
+            row += '<td class="text-center">' + stokBarang + '</td>';
+            row += '<td class="text-center">' + jumlah + '</td>';
+            row += `<td class="text-center">
+                        <a href="#" class="btn btn-danger shadow btn-xs sharp btn-delete" title="Hapus">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>`;
+            row += '</tr>';
+
+            $('#tabelBarangDipilih').append(row);
+
+            $('#jumlah').val('');
+            $('#namaBarang').val(null).trigger('change');
+        });
+    </script>
+
         
     <!-- TAMBAHKAN SURAT -->
     <script>
         $("#formPengambilanBarang").submit(function (e) {
             e.preventDefault();
-            var formData = $(this).serialize();
 
-            console.log(formData); // Debugging
+            var formData = $(this).serializeArray();
+            var dataForm = {};
+            $.each(formData, function(i, field) {
+                dataForm[field.name] = field.value;
+            });
 
+            $('#tabelBarangDipilih tbody tr').each(function () {
+                var kodeBarang = $(this).find('td:eq(0)').text();
+                var namaSaja = $(this).find('td:eq(1)').text();
+                var jumlah = parseInt($(this).find('td:eq(3)').text());
+
+                dataBarang.push({
+                    kodeBarang: kodeBarang,
+                    namaSaja: namaSaja,
+                    jumlah: jumlah
+                });
+            });
+
+            console.log("Isi dataBarang:", dataBarang);
+            if (dataBarang.length === 0) {
+                swal("Oops!", "Silakan tambahkan minimal satu barang.", "warning");
+                return;
+            }
             $.ajax({
                 type: "POST",
                 url: "backend/insert_pengambilan.php",
-                data: formData,
+                data: {
+                    ...dataForm, 
+                    dataBarang: JSON.stringify(dataBarang)
+                },
                 dataType: "json",
                 success: function (response) {
-                    console.log(response); // Debugging
+                    console.log(response);  
                     if (response.status === "success") {
                         swal("Berhasil!", "Data berhasil disimpan!", "success")
                         .then(() => {
-                            location.reload();
+                            location.reload(); 
                         });
                     } else {
                         swal("Peringatan!", response.message, "warning");
                     }
                 },
                 error: function (xhr, status, error) {
-                    console.error(xhr.responseText); // Debugging
+                    console.error(xhr.responseText); 
                     swal("Oops!", "Terjadi kesalahan dalam proses penyimpanan.", "error");
                 }
             });
         });
     </script>
-
     
 </body>
 </html>

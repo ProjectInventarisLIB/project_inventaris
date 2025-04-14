@@ -10,6 +10,6 @@ if (!$conn) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
 
-$base_url = "http://localhost/project_web";
+$base_url = "http://localhost/project_inventaris";
 
 ?>

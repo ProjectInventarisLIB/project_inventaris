@@ -79,11 +79,11 @@
                                 <div class="table-responsive">
 									<table id="tabelpengambilan" class="display table table-bordered table-sm" style="width: 100%">
                                         <thead class="bg-tableheader">
-                                            <tr>
+                                            <tr class="text-center">
 												<th>No Surat</th>
                                                 <th>Tanggal</th>
 												<th>Pengirim</th>
-                                                <th>Nama Barang</th>
+                                                <th style="width: 250px;">Nama Barang</th>
                                                 <th>Link Surat</th>
                                                 <th>Tindakan</th>
                                             </tr>

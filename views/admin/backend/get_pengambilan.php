@@ -19,26 +19,31 @@ $totalDataQuery = $conn->query("SELECT COUNT(*) AS total FROM surat_pengambilan 
 $totalData = $totalDataQuery->fetch_assoc()['total'];
 
 // Query dengan filter pencarian dan JOIN ke tabel staf, serta hanya status "Diproses"
-$sql = "SELECT s.no_surat, s.tanggal, s.nama_barang, s.link_surat, s.status, 
-               st.nama_staf 
+// DIUBAH: Menambahkan JOIN ke tabel detail_pengambilan untuk mendapatkan nama_barang dan ID_barang
+$sql = "SELECT s.no_surat, s.tanggal, s.link_surat, s.status, st.nama_staf,
+               GROUP_CONCAT(d.nama_barang ORDER BY d.nama_barang ASC SEPARATOR ', ') AS nama_barang,
+               GROUP_CONCAT(d.ID_barang ORDER BY d.nama_barang ASC SEPARATOR ', ') AS ID_barang
         FROM surat_pengambilan s 
         LEFT JOIN staf st ON s.ID_staf = st.ID_staf
+        LEFT JOIN detail_pengambilan d ON s.ID_pengambilan = d.ID_pengambilan
         WHERE s.status = 'Diproses'";
 
 if (!empty($search)) {
-    $sql .= " AND (s.nama_barang LIKE '%$search%' OR s.no_surat LIKE '%$search%' OR st.nama_staf LIKE '%$search%')";
+    $sql .= " AND (d.nama_barang LIKE '%$search%' OR s.no_surat LIKE '%$search%' OR st.nama_staf LIKE '%$search%')";
 }
 
 // Hitung total setelah pencarian
-$filteredDataQuery = $conn->query("SELECT COUNT(*) AS total 
+// DIUBAH: Menyesuaikan query filter dengan menggunakan JOIN
+$filteredDataQuery = $conn->query("SELECT COUNT(DISTINCT s.ID_pengambilan) AS total 
                                    FROM surat_pengambilan s 
-                                   LEFT JOIN staf st ON s.ID_staf = st.ID_staf 
+                                   LEFT JOIN staf st ON s.ID_staf = st.ID_staf
+                                   LEFT JOIN detail_pengambilan d ON s.ID_pengambilan = d.ID_pengambilan
                                    WHERE s.status = 'Diproses' 
-                                   AND (s.nama_barang LIKE '%$search%' OR s.no_surat LIKE '%$search%' OR st.nama_staf LIKE '%$search%')");
+                                   AND (d.nama_barang LIKE '%$search%' OR s.no_surat LIKE '%$search%' OR st.nama_staf LIKE '%$search%')");
 $recordsFiltered = $filteredDataQuery->fetch_assoc()['total'];
 
 // Tambahkan sorting
-$sql .= " ORDER BY $orderColumn $orderDir";
+$sql .= " GROUP BY s.ID_pengambilan ORDER BY $orderColumn $orderDir";
 
 // Tambahkan pagination
 $sql .= " LIMIT $start, $length";
@@ -46,11 +51,23 @@ $query = $conn->query($sql);
 
 $data = [];
 while ($row = $query->fetch_assoc()) {
+    // DIUBAH: Menggabungkan nama_barang dan ID_barang
+    $IDs = explode(",", $row['ID_barang']);
+    $names = explode(",", $row['nama_barang']);
+    $combined = [];
+
+    for ($i = 0; $i < count($names); $i++) {
+        $combined[] = trim($names[$i]) . " (" . trim($IDs[$i]) . ")";
+    }
+
+    // Gabungkan hasilnya menjadi string
+    $nama_barang_final = implode(", ", $combined);
+
     $data[] = [
         $row['no_surat'],        
         $row['tanggal'],         
         $row['nama_staf'],
-        $row['nama_barang'],            
+        $nama_barang_final, // Tampilkan format yang benar
         "<a href='" . $row['link_surat'] . "' target='_blank'>Lihat Surat</a>", 
         $row['status']
     ];
