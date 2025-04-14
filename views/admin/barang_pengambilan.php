@@ -100,32 +100,35 @@
                 </div>
                 <div class="modal-body">
                     <form id="formPengadaanBarang">
-                        <div class="mb-3">
-                            <label for="noSurat" class="form-label">No Surat</label>
-                            <select class="form-control" id="noSurat" name="noSurat" required>
-                                <option value="">Pilih No Surat</option>
-                            </select>
-                        </div>
                         <div class="mb-3 d-flex justify-content-between">
                             <div class="w-50 me-2">
-                                <label for="kodeBarang" class="form-label">Kode Barang</label>
-                                <input class="form-control" id="kodeBarang" name="kodeBarang" readonly>
+                                <label for="noSurat" class="form-label">No Surat</label>
+                                <select class="form-control" id="noSurat" name="noSurat" required>
+                                    <option value="">Pilih No Surat</option>
+                                </select>
                             </div>
                             <div class="w-50">
                                 <label for="tanggalKeluar" class="form-label">Tanggal Keluar</label>
-                                <input type="date" class="form-control" id="tanggalKeluar" name="tanggalKeluar" required>
+                                <input type="date" class="form-control" id="tanggalKeluar" name="tanggalKeluar" readonly>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="namaBarang" class="form-label">Nama Barang</label>
-                            <input type="text" class="form-control" id="namaBarang" name="namaBarang" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label for="jumlah" class="form-label">Jumlah yang ingin diambil</label>
-                            <input type="number" class="form-control" id="jumlah" name="jumlah" readonly>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-sm">
+                                <thead>
+                                <tr class="text-center">
+                                    <th class="fs-6">ID Pengambilan</th>
+                                    <th class="fs-6">Kode</th>
+                                    <th class="fs-6">Nama Barang</th>
+                                    <th class="fs-6">Jumlah</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tabelBarangOtomatis">
+                                    <!-- ISI BARANG YANG OTOMATIS -->
+                                </tbody>
+                            </table>
                         </div>
                         <div class="text-end">
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="submit" class="btn btn-primary">Simpan Data</button>
                         </div>
                     </form>
                 </div>
@@ -199,40 +202,83 @@
 
     <script>
         $(document).ready(function () {
-            // Ambil data nomor surat
             $.ajax({
                 url: "backend/get_nosurat_pengambilan.php",
-                type: "GET",
+                method: "GET",
                 dataType: "json",
                 success: function (data) {
-                    let options = "<option value=''>Pilih No Surat</option>";
+                    let options = `<option value="">Pilih No Surat</option>`;
                     data.forEach(item => {
-                        options += `<option value='${item.no_surat}'
-                                        data-kode='${item.ID_barang}'  
-                                        data-nama='${item.nama_barang}' 
-                                        data-jumlah='${item.jumlah}'>${item.no_surat}</option>`;
+                        options += `<option value="${item.id_pengambilan}" data-tanggal="${item.tanggal}">${item.no_surat}</option>`;
                     });
                     $('#noSurat').html(options);
                 }
             });
 
-            // Auto-fill input berdasarkan pilihan No Surat
+            // Saat No Surat dipilih
             $('#noSurat').change(function () {
-                var selectedOption = $(this).find('option:selected');
+                let selectedTanggal = $(this).find(':selected').data('tanggal');
+                $('#tanggalKeluar').val(selectedTanggal);
 
-                if (selectedOption.val() === "") {
-                    $('#kodeBarang, #namaBarang, #jumlah').val('');
-                } else {
-                    $('#kodeBarang').val(selectedOption.data('kode') || '');
-                    $('#namaBarang').val(selectedOption.data('nama') || '');
-                    $('#jumlah').val(selectedOption.data('jumlah') || '');
+                let no_surat = $(this).find('option:selected').text(); 
+                let id_pengambilan = $(this).val(); 
+                
+                console.log('No Surat:', no_surat);
+                console.log('ID Pengambilan:', id_pengambilan);
+
+                if (!id_pengambilan) {
+                    $('#tabelBarangOtomatis').html("");
+                    return;
                 }
+
+                $.ajax({
+                    url: "backend/get_detail_pengambilan.php",
+                    method: "GET",
+                    data: { id_pengambilan: id_pengambilan },
+                    dataType: "json",
+                    success: function (data) {
+                        let rows = '';
+                        data.forEach(item => {
+                            rows += `
+                                <tr>
+                                    <td>${item.id_pengambilan}</td>
+                                    <td><input type="hidden" name="kodeBarang[]" value="${item.ID_barang}">${item.ID_barang}</td>
+                                    <td>${item.nama_barang}</td>
+                                    <td>${item.jumlah}</td>
+                                </tr>`;
+                        });
+                        $('#tabelBarangOtomatis').html(rows);
+                    },
+                    error: function () {
+                        $('#tabelBarangOtomatis').html('<tr><td colspan="3">Gagal memuat data barang.</td></tr>');
+                    }
+                });
             });
 
             // AJAX Submit Form
             $('#formPengadaanBarang').submit(function (e) {
                 e.preventDefault();
-                var formData = new FormData(this);
+
+                const formData = new FormData();
+                const no_surat = $('#noSurat').find('option:selected').text();
+                const tanggalKeluar = $('#tanggalKeluar').val();
+                
+                formData.append("noSurat", no_surat);
+                formData.append("tanggalKeluar", tanggalKeluar);
+
+                let dataBarang = [];
+                $('#tabelBarangOtomatis tr').each(function (index) {
+                    const ID_barang = $(this).find('td:eq(1)').text().trim(); 
+                    const jumlah = $(this).find('td:eq(3)').text().trim();
+
+                    dataBarang.push({ ID_barang, jumlah });
+                });
+
+                // Masukkan data barang ke FormData
+                dataBarang.forEach((item, i) => {
+                    formData.append(`data[${i}][ID_barang]`, item.ID_barang);
+                    formData.append(`data[${i}][jumlah]`, item.jumlah);
+                });
 
                 $.ajax({
                     type: "POST",
@@ -242,19 +288,18 @@
                     processData: false,
                     dataType: "json",
                     success: function (response) {
-                        console.log(response); // Debug: lihat respon dari server
+                        console.log(response);
                         if (response.status === "success") {
-                            swal("Berhasil!", "Data berhasil disimpan!", "success")
-                            .then(() => {
+                            Swal.fire("Berhasil!", response.message, "success").then(() => {
                                 location.reload();
                             });
                         } else {
-                            swal("Peringatan!", response.message, "warning");
+                            Swal.fire("Peringatan!", response.message, "warning");
                         }
                     },
                     error: function (xhr, status, error) {
-                        console.error(xhr.responseText); // Debug: tampilkan error dari server
-                        swal("Oops!", "Terjadi kesalahan dalam proses penyimpanan.", "error");
+                        console.error(xhr.responseText);
+                        Swal.fire("Oops!", "Terjadi kesalahan saat menyimpan data.", "error");
                     }
                 });
             });
