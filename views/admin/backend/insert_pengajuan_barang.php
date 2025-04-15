@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $jumlah = isset($_POST['jumlah']) ? intval($_POST['jumlah']) : 0;
     $satuan = isset($_POST['satuan']) ? $conn->real_escape_string($_POST['satuan']) : "";
     $danaFinal = isset($_POST['danaFinal']) ? floatval($_POST['danaFinal']) : 0;
+    $namaVendor = isset($_POST['namaVendor']) ? $conn->real_escape_string($_POST['namaVendor']) : "";
 
     // Validasi input
     if (empty($noSurat) || empty($tanggalKeluar) || empty($jumlah) || empty($satuan) || empty($danaFinal)) {
@@ -45,8 +46,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
             // Insert data ke tabel barang_pengadaan
-            $sql = "INSERT INTO barang_pengadaan (ID_barang, no_surat, tanggal, nama_barang, deskripsi, jumlah_diperlukan, satuan, dana_final) 
-                    VALUES ('$kodeBarang', '$noSurat', '$tanggalKeluar', '$namaBarang', '$deskripsi', '$jumlah', '$satuan', '$danaFinal')";
+            $sql = "INSERT INTO barang_pengadaan (ID_barang, no_surat, tanggal, nama_barang, deskripsi, jumlah_diperlukan, satuan, dana_final, nama_vendor) 
+                    VALUES ('$kodeBarang', '$noSurat', '$tanggalKeluar', '$namaBarang', '$deskripsi', '$jumlah', '$satuan', '$danaFinal', '$namaVendor')";
             
             if ($conn->query($sql) === TRUE) {
                 // Update status di tabel surat_pengadaan

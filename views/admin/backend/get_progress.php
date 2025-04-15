@@ -1,6 +1,6 @@
 <?php
 session_start();
-include($_SERVER['DOCUMENT_ROOT'] . "/project_web/config/konfigurasi.php");
+include($_SERVER['DOCUMENT_ROOT'] . "/project_inventaris/config/konfigurasi.php");
 
 header('Content-Type: application/json');
 

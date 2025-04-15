@@ -7,7 +7,7 @@ $length = isset($_POST['length']) ? intval($_POST['length']) : 10;
 $search = isset($_POST['search']['value']) ? $conn->real_escape_string($_POST['search']['value']) : "";
 
 // Ambil parameter sorting
-$columns = ["ID_barang", "no_surat", "tanggal", "nama_barang", "deskripsi", "jumlah_diperlukan",  "satuan", "dana_final"];
+$columns = ["ID_barang", "no_surat", "tanggal", "nama_barang", "deskripsi", "jumlah_diperlukan",  "satuan", "dana_final", "nama_vendor"];
 $orderColumnIndex = isset($_POST['order'][0]['column']) ? intval($_POST['order'][0]['column']) : 0;
 $orderDir = isset($_POST['order'][0]['dir']) && $_POST['order'][0]['dir'] === 'desc' ? 'DESC' : 'ASC';
 
@@ -19,13 +19,13 @@ $totalDataQuery = $conn->query("SELECT COUNT(*) AS total FROM barang_pengadaan")
 $totalData = $totalDataQuery->fetch_assoc()['total'];
 
 // Query dengan filter pencarian
-$sql = "SELECT ID_barang, no_surat, tanggal, nama_barang, deskripsi, jumlah_diperlukan, satuan , dana_final FROM barang_pengadaan";
+$sql = "SELECT ID_barang, no_surat, tanggal, nama_barang, deskripsi, jumlah_diperlukan, satuan , dana_final, nama_vendor FROM barang_pengadaan";
 if (!empty($search)) {
     $sql .= " WHERE nama_barang LIKE '%$search%' OR ID_barang LIKE '%$search%'";
 }
 
 // Hitung total setelah pencarian
-$filteredDataQuery = $conn->query("SELECT COUNT(*) AS total FROM barang_pengadaan WHERE nama_barang LIKE '%$search%' OR ID_barang LIKE '%$search%'");
+$filteredDataQuery = $conn->query("SELECT COUNT(*) AS total FROM barang_pengadaan WHERE nama_barang LIKE '%$search%' OR ID_barang LIKE '%$search%' OR nama_vendor LIKE '%$search%'");
 $recordsFiltered = $filteredDataQuery->fetch_assoc()['total'];
 
 // Tambahkan sorting
@@ -45,7 +45,8 @@ while ($row = $query->fetch_assoc()) {
         "deskripsi" => $row['deskripsi'],
         "jumlah_diperlukan" => $row['jumlah_diperlukan'],
         "satuan" => $row['satuan'],
-        "dana_final" => $row['dana_final']
+        "dana_final" => $row['dana_final'],
+        "nama_vendor" => $row['nama_vendor']
     ];
 }
 

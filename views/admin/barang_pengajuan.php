@@ -67,9 +67,9 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="tabelbarangpengajuan" class="display table table-bordered table-sm" style="width: 100%">
+                                    <table id="tabelbarangpengajuan" class="display table table-bordered table-sm" style="min-width: 100%">
                                         <thead class="bg-tableheader">
-                                            <tr>
+                                            <tr class="text-center">
                                                 <th>ID Barang</th>
                                                 <th>Surat Terkait</th>
                                                 <th>Tanggal</th>
@@ -78,6 +78,7 @@
                                                 <th>Jumlah</th>
                                                 <th>Satuan</th>
                                                 <th>Dana Final</th>
+                                                <th>Vendor</th>
                                             </tr>
                                         </thead>
                                         <tbody class="text-dark">
@@ -145,6 +146,12 @@
                             <label for="danaFinal" class="form-label">Dana Final</label>
                             <input type="number" class="form-control" id="danaFinal" name="danaFinal" required>
                         </div>
+                        <div class="mb-3">
+                            <label for="namaVendor" class="form-label">Vendor</label>
+                            <select class="form-control" id="namaVendor" name="namaVendor" required>
+                                <option value="">Pilih Vendor</option>
+                            </select>
+                        </div>
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
@@ -209,6 +216,7 @@
 								return formatRupiah(data);
 							}
 						},
+                        { "data": "nama_vendor", "orderable": false },
                     ],
                     "order": [[1, "asc"]],
                     "language": {
@@ -278,6 +286,22 @@
                                             data-anggaran='${item.anggaran}'>${item.no_surat}</option>`;
                         });
                         $('#noSurat').html(options);
+                    }
+                });
+
+                $.ajax({
+                    url: "backend/get_nama_vendor.php",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        let options = "<option value=''>Pilih Vendor</option>";
+                        $.each(data, function(index, vendor) {
+                            options += `<option value="${vendor.nama_vendor}">${vendor.nama_vendor}</option>`;
+                        });
+                        $('#namaVendor').html(options);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Gagal mengambil data vendor:", error);
                     }
                 });
             });

@@ -1,5 +1,5 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . "/project_web/config/konfigurasi.php");
+include($_SERVER['DOCUMENT_ROOT'] . "/project_inventaris/config/konfigurasi.php");
 session_start(); // Pastikan session dimulai
 
 // Pastikan pengguna sudah login dan ID_staff tersedia di session

@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-include($_SERVER['DOCUMENT_ROOT'] . "/project_web/config/konfigurasi.php");
+include($_SERVER['DOCUMENT_ROOT'] . "/project_inventaris/config/konfigurasi.php");
 
 $searchTerm = isset($_GET['term']) ? mysqli_real_escape_string($conn, $_GET['term']) : '';
 

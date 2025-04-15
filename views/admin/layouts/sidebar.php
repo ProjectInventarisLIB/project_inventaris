@@ -29,16 +29,11 @@
                 </a>
             </li>
             <li>
-                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-022-copy"></i>
-                    <span class="nav-text">Barang</span>
-                </a>   
-                <ul aria-expanded="false">
-                    <li><a href="./barang_pendataan">Pendataan Barang</a></li>
-                    <li><a href="./barang_pengambilan">Data Pengambilan Barang</a></li>
-                    <li><a href="./barang_pengajuan">Data Pengajuan Barang</a></li>
-                </ul>
-            </li> 
+                <a href="vendor" class="ai-icon" aria-expanded="false">
+                    <i class="flaticon-038-gauge"></i>
+                    <span class="nav-text">Vendor</span>
+                </a>
+            </li>
             <li>
                 <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-072-printer"></i>
@@ -49,6 +44,17 @@
                     <li><a href="./permohonan_pengadaan">Pengadaan Barang</a></li>
                 </ul>
             </li>
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-022-copy"></i>
+                    <span class="nav-text">Barang</span>
+                </a>   
+                <ul aria-expanded="false">
+                    <li><a href="./barang_pendataan">Pendataan Barang</a></li>
+                    <li><a href="./barang_pengambilan">Data Pengambilan Barang</a></li>
+                    <li><a href="./barang_pengajuan">Data Pengajuan Barang</a></li>
+                </ul>
+            </li> 
         </ul>
     </div>
 </section>
