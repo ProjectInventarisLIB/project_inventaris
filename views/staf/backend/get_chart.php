@@ -1,7 +1,7 @@
 <?php
 session_start(); // Mulai session
 header('Content-Type: application/json');
-include($_SERVER['DOCUMENT_ROOT'] . "/project_web/config/konfigurasi.php");
+include($_SERVER['DOCUMENT_ROOT'] . "/project_inventaris/config/konfigurasi.php");
 
 // Cek apakah user sudah login dan memiliki ID_staf
 if (!isset($_SESSION['ID_staf']) || empty($_SESSION['ID_staf'])) {
