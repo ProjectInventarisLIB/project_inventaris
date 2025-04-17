@@ -10,6 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $satuan = $_POST["edit_satuan"];
     $tanggal = $_POST["edit_tanggal"];
     $dana_final = $_POST["edit_dana_final"];
+    $nama_vendor = $_POST["edit_nama_vendor"];
     $gambar_lama = $_POST["editFileName"]; // Nama file lama
 
     $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/project_inventaris/upload/gambar_barang/";
@@ -42,9 +43,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Update data barang di database
-    $query = "UPDATE barang SET nama_barang = ?, ukuran = ?, jumlah_barang = ?,  satuan = ?, gambar = ?, tanggal = ?, dana_final = ? WHERE ID_barang = ?";
+    $query = "UPDATE barang SET nama_barang = ?, ukuran = ?, jumlah_barang = ?,  satuan = ?, gambar = ?, tanggal = ?, dana_final = ?, nama_vendor = ? WHERE ID_barang = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ssisssis", $nama_barang, $ukuran, $jumlah_barang, $satuan, $fileName, $tanggal, $dana_final, $id_barang);
+    $stmt->bind_param("ssisssiss", $nama_barang, $ukuran, $jumlah_barang, $satuan, $fileName, $tanggal, $dana_final, $nama_vendor, $id_barang);
 
     if ($stmt->execute()) {
         echo json_encode(["status" => "success", "message" => "Data berhasil diperbarui!"]);

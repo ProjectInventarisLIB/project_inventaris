@@ -57,6 +57,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Mengurangi anggaran dari tabel staf dan menambahkan dana final ke pengeluaran_anggaran
                 $updateAnggaranSql = "UPDATE staf SET pengeluaran_anggaran = '$totalSetelahPenambahan' WHERE id_staf = '$idStaf'";
                 if ($conn->query($updateAnggaranSql) === TRUE) {
+
+                    // Tambahan: Update pengeluaran_anggaran di tabel anggaran berdasarkan tanggal_edit terbaru
+                    $updateAnggaranTableSql = "
+                        UPDATE anggaran 
+                        SET pengeluaran_anggaran = '$totalSetelahPenambahan' 
+                        WHERE id_staf = '$idStaf' 
+                        ORDER BY tanggal_edit DESC 
+                        LIMIT 1
+                    ";
+                    $conn->query($updateAnggaranTableSql);
+
                     echo json_encode(["status" => "success", "message" => "Data pengadaan berhasil disimpan dan status surat diubah menjadi Selesai! Anggaran staf berhasil diperbarui."]);
                 } else {
                     echo json_encode(["status" => "error", "message" => "Gagal memperbarui anggaran staf: " . $conn->error]);
