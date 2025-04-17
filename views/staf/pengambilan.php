@@ -352,6 +352,20 @@
             $('#jumlah').val('');
             $('#namaBarang').val(null).trigger('change');
         });
+
+        // Hapus barang
+        $('#tabelBarangDipilih').on('click', '.btn-delete', function (e) {
+            e.preventDefault();
+
+            var row = $(this).closest('tr');
+            var kodeBarang = row.find('td:eq(0)').text();
+
+            dataBarang = dataBarang.filter(function (item) {
+                return item.kodeBarang !== kodeBarang;
+            });
+            row.remove();
+        });
+
     </script>
 
         

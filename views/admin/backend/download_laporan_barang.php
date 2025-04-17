@@ -33,7 +33,7 @@ $style = '
 $html1 = $style . '<h2 style="text-align: center;">DATA BARANG PENDATAAN</h2>';
 $html1 .= '<p style="text-align: right;">Tanggal: ' . date('d-m-Y') . '</p>';
 $html1 .= '<table border="1">';
-$html1 .= '<tr><th>ID Barang</th><th>Nama Barang</th><th>Jumlah</th><th>Satuan</th><th>Ukuran</th><th>Tanggal</th><th>Dana Final</th></tr>';
+$html1 .= '<tr><th>ID Barang</th><th>Nama Barang</th><th>Jumlah</th><th>Satuan</th><th>Ukuran</th><th>Tanggal</th><th>Vendor</th><th>Dana Final</th></tr>';
 while ($row = $result1->fetch_assoc()) {
     $total_dana_pendataan += $row['dana_final'];
     $html1 .= '<tr>
@@ -43,10 +43,11 @@ while ($row = $result1->fetch_assoc()) {
         <td>' . $row['satuan'] . '</td>
         <td>' . $row['ukuran'] . '</td>
         <td>' . $row['tanggal'] . '</td>
+        <td>' . $row['nama_vendor'] . '</td>
         <td>' . number_format($row['dana_final'], 2, ',', '.') . '</td>
     </tr>';
 }
-$html1 .= '<tr class="total-row"><td colspan="6"><strong>TOTAL DANA</strong></td><td><strong>' . number_format($total_dana_pendataan, 2, ',', '.') . '</strong></td></tr>';
+$html1 .= '<tr class="total-row"><td colspan="7"><strong>TOTAL DANA</strong></td><td><strong>' . number_format($total_dana_pendataan, 2, ',', '.') . '</strong></td></tr>';
 $html1 .= '</table>';
 $mpdf->WriteHTML($html1);
 $mpdf->AddPage('L');
@@ -55,7 +56,7 @@ $mpdf->AddPage('L');
 $html2 = $style . '<h2 style="text-align: center;">DATA BARANG PENGADAAN</h2>';
 $html2 .= '<p style="text-align: right;">Tanggal: ' . date('d-m-Y') . '</p>';
 $html2 .= '<table border="1">';
-$html2 .= '<tr><th>ID Barang</th><th>No. Surat</th><th>Tanggal</th><th>Nama Barang</th><th>Deskripsi</th><th>Jumlah Diperlukan</th><th>Satuan</th><th>Dana Final</th></tr>';
+$html2 .= '<tr><th>ID Barang</th><th>No. Surat</th><th>Tanggal</th><th>Nama Barang</th><th>Deskripsi</th><th>Jumlah Diperlukan</th><th>Satuan</th><th>Vendor</th><th>Dana Final</th></tr>';
 while ($row = $result2->fetch_assoc()) {
     $total_dana_pengadaan += $row['dana_final'];
     $html2 .= '<tr>
@@ -66,10 +67,11 @@ while ($row = $result2->fetch_assoc()) {
         <td>' . $row['deskripsi'] . '</td>
         <td class="small-col">' . $row['jumlah_diperlukan'] . '</td>
         <td>' . $row['satuan'] . '</td>
+        <td>' . $row['nama_vendor'] . '</td>
         <td>' . number_format($row['dana_final'], 2, ',', '.') . '</td>
     </tr>';
 }
-$html2 .= '<tr class="total-row"><td colspan="7"><strong>TOTAL DANA</strong></td><td><strong>' . number_format($total_dana_pengadaan, 2, ',', '.') . '</strong></td></tr>';
+$html2 .= '<tr class="total-row"><td colspan="8"><strong>TOTAL DANA</strong></td><td><strong>' . number_format($total_dana_pengadaan, 2, ',', '.') . '</strong></td></tr>';
 $html2 .= '</table>';
 $mpdf->WriteHTML($html2);
 $mpdf->AddPage('L');

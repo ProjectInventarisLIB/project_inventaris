@@ -112,6 +112,10 @@
 							<input type="text" class="form-control" name="idNamaStaf" id="idNamaStaf" readonly>
 						</div>
 						<div class="mb-3">
+							<label for="sisaAnggaran" class="form-label">Sisa Anggaran</label>
+							<input type="number" class="form-control" name="sisaAnggaran" id="sisaAnggaran" readonly>
+						</div>
+						<div class="mb-3">
 							<label for="nilaiAnggaran" class="form-label">Nilai Anggaran</label>
 							<input type="number" class="form-control" name="nilaiAnggaran" id="nilaiAnggaran" required>
 						</div>
@@ -128,6 +132,37 @@
 		</div>
 	</div>
 
+
+	<!-- Modal Tambah Data -->
+    <div class="modal fade" id="modalHistory" tabindex="-1" aria-labelledby="modalHistoryLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalHistoryLabel">Data Anggaran</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="table-responsive">
+						<table class="table table-bordered table-sm">
+							<thead>
+							<tr class="text-center">
+								<th class="fs-6">ID Staf</th>
+								<th class="fs-6">Tanggal Update</th>
+								<th class="fs-6">Anggaran</th>
+								<th class="fs-6">Pengeluaran</th>
+								<th class="fs-6">Sisa Anggaran</th>
+								<th class="fs-6">Periode</th>
+							</tr>
+							</thead>
+							<tbody id="tabelAnggaranDipilih">
+								<!-- ISI ANGGARAN YANG DIPILIH -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
   
 
 
@@ -152,22 +187,78 @@
 	<script src="/project_inventaris/vendors/sweetalert2/dist/sweetalert2.min.js"></script>
 
 
-	<!-- Script untuk membuka modal -->
+	<!-- Script untuk membuka modal update anggaran-->
 	<script>
-		$(document).on("click", ".updateanggaran", function() {
+		$(document).on("click", ".btn-update", function() {
 			var row = $(this).closest("tr");
 			var table = $("#tableanggaran").DataTable();
 			var rowData = table.row(row).data();
-			
-			// Mengisi data otomatis ke dalam modal
+
+			var anggaran = parseFloat(rowData.anggaran);
+			var pengeluaran = parseFloat(rowData.pengeluaran_anggaran);
+			var sisaAnggaran = anggaran - pengeluaran;
+
 			$("#modalAnggaran #idNamaStaf").val(rowData.ID_staf + " - " + rowData.nama_staf);
-			$("#modalAnggaran #nilaiAnggaran").val(rowData.anggaran);
-			
-			// Menampilkan modal
+			$("#modalAnggaran #nilaiAnggaran").val(anggaran);
+			$("#modalAnggaran #sisaAnggaran").val(sisaAnggaran);
+			$("#modalAnggaran #periodeAnggaran").val(rowData.periode_anggaran);
+
 			var modal = new bootstrap.Modal(document.getElementById("modalAnggaran"));
 			modal.show();
 		});
 	</script>
+
+	<!-- Script untuk membuka modal modalhistory -->
+	<script>
+		function formatRupiah(angka) {
+			return "Rp " + new Intl.NumberFormat("id-ID", {
+				minimumFractionDigits: 0
+			}).format(angka);
+		}
+
+		$(document).on("click", ".btn-history", function () {
+			var idStaf = $(this).data("id");
+
+			$.ajax({
+				url: "backend/get_history_anggaran.php",
+				method: "GET",
+				data: { id: idStaf },
+				dataType: "json",
+				success: function (response) {
+					$("#tabelAnggaranDipilih").empty();
+
+					if (response.length > 0) {
+						response.forEach(function (item) {
+							// Hitung sisa anggaran
+							var sisaAnggaran = item.nominal_anggaran - item.pengeluaran_anggaran;
+
+							var html = `
+								<tr class="text-center">
+									<td class="fs-6">${item.ID_staf}</td>
+									<td class="fs-6">${item.tanggal_edit}</td>
+									<td class="fs-6">${formatRupiah(item.nominal_anggaran)}</td>
+									<td class="fs-6">${formatRupiah(item.pengeluaran_anggaran)}</td>
+									<td class="fs-6">${formatRupiah(sisaAnggaran)}</td>
+									<td class="fs-6">${item.periode_anggaran}</td>
+								</tr>
+							`;
+							$("#tabelAnggaranDipilih").append(html);
+						});
+					} else {
+						$("#tabelAnggaranDipilih").append('<tr><td colspan="6" class="text-center">Tidak ada data.</td></tr>');
+					}
+
+					var modal = new bootstrap.Modal(document.getElementById("modalHistory"));
+					modal.show();
+				},
+				error: function (xhr, status, error) {
+					alert("Gagal memuat data history: " + error);
+				}
+			});
+		});
+	</script>
+
+
 	
 	<script>
 		$(document).ready(function () {
@@ -201,8 +292,20 @@
 						{ 
 							"data": null, 
 							"orderable": false,
-							"render": function () {
-								return '<a class="btn btn-utama btn-xs px-3 py-2 text-white updateanggaran">Perbarui</a>';
+							"render": function (data, type, row) {
+								return `
+									<div class="d-flex justify-content-center">
+										<button type="button" 
+											class="btn btn-primary shadow btn-xs sharp me-1 btn-update" 
+											data-id="${row.ID_staf}" title="Edit">
+											<i class="fa fa-pencil"></i>
+										</button>
+										<a href="#" class="btn btn-primary shadow btn-xs sharp btn-history" 
+											data-id="${row.ID_staf}" title="Lihat">
+											<i class="fa fa-eye"></i>
+										</a>
+									</div>
+								`;
 							}
 						}
 					],

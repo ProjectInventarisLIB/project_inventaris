@@ -33,15 +33,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
 
     // Cek anggaran staf sebelum mengurangi
-    $queryCekAnggaran = "SELECT anggaran FROM staf WHERE id_staf = '$idStaf'";
+    $queryCekAnggaran = "SELECT anggaran, pengeluaran_anggaran FROM staf WHERE id_staf = '$idStaf'";
     $resultCekAnggaran = $conn->query($queryCekAnggaran);
     
     if ($resultCekAnggaran->num_rows > 0) {
         $row = $resultCekAnggaran->fetch_assoc();
         $anggaranStaf = (float) $row['anggaran'];
-
-        if ($anggaranStaf < $anggaran) {
-            echo json_encode(["status" => "error", "message" => "Anggaran tidak mencukupi!"]);
+        $pengeluaranStaf = isset($row['pengeluaran_anggaran']) ? (float) $row['pengeluaran_anggaran'] : 0;
+        
+        $sisaAnggaran = $anggaranStaf - $pengeluaranStaf;
+    
+        if ($sisaAnggaran < $anggaran) {
+            echo json_encode(["status" => "error", "message" => "Anggaran tidak mencukupi! Sisa anggaran: Rp " . number_format($sisaAnggaran, 2, ',', '.')]);
             exit;
         }
     } else {
@@ -92,10 +95,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="signature">
         <p>Balikpapan, ' . $tanggalSekarang . '</p>
         <p>Hormat kami,</p>
-        <br><br>
-        <p> '. $namaStaf .'</p>
-    </div>
-    ';
+        <br>
+        <p>' . $namaStaf . '</p>
+    </div>';
 
 
     $mpdf->WriteHTML($html);

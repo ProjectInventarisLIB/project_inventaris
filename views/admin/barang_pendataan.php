@@ -78,7 +78,8 @@
 												<th>Satuan</th>
 												<th>Biaya</th>
 												<th>Tanggal</th>
-												<th>Ubah</th>
+												<th>Vendor</th>
+												<th>Tindakan</th>
                                             </tr>
                                         </thead>
                                         <tbody class="text-dark">
@@ -146,6 +147,12 @@
 							<label for="dana_final" class="form-label">Dana Final</label>
 							<input type="number" class="form-control" id="dana_final" name="dana_final" required>
 						</div>
+						<div class="mb-3">
+                            <label for="namaVendor" class="form-label">Vendor</label>
+                            <select class="form-control" id="namaVendor" name="namaVendor" required>
+                                <option value="">Pilih Vendor</option>
+                            </select>
+                        </div>
 						<div class="text-end">
 							<button type="submit" class="btn btn-primary">Simpan</button>
 						</div>
@@ -210,6 +217,12 @@
 							<label for="edit_dana_final" class="form-label">Dana Final</label>
 							<input type="number" class="form-control" id="edit_dana_final" name="edit_dana_final" required>
 						</div>
+						<div class="mb-3">
+                            <label for="edit_nama_vendor" class="form-label">Vendor</label>
+                            <select class="form-control" id="edit_nama_vendor" name="edit_nama_vendor" required>
+                                <option value="">Pilih Vendor</option>
+                            </select>
+                        </div>
 						<div class="text-end">
 							<button type="submit" class="btn btn-primary">Simpan Perubahan</button>
 						</div>
@@ -325,6 +338,7 @@
 							}
 						},
 						{ "data": "tanggal", "orderable": false },
+						{ "data": "nama_vendor", "orderable": false },
 						{ 
 							"data": null, 
 							"orderable": false,
@@ -426,6 +440,7 @@
 							$("#edit_jumlah_barang").val(data.jumlah_barang);
 							$("#edit_satuan").val(data.satuan);
 							$("#edit_dana_final").val(data.dana_final);
+							$("#edit_nama_vendor").val(data.nama_vendor);
 							$("#editFileName").val(data.gambar); // Menampilkan nama file gambar lama
 							
 							// Tampilkan gambar lama jika ada
@@ -486,6 +501,25 @@
 			.then(data => {
 				document.getElementById("id_barang").value = data.id_barang;
 			});
+	</script>
+
+	<script>
+		$.ajax({
+			url: "backend/get_nama_vendor.php",
+			type: "GET",
+			dataType: "json",
+			success: function (data) {
+				let options = "<option value=''>Pilih Vendor</option>";
+				$.each(data, function(index, vendor) {
+					options += `<option value="${vendor.nama_vendor}">${vendor.nama_vendor}</option>`;
+				});
+				$('#namaVendor').html(options);
+				$('#edit_nama_vendor').html(options);
+			},
+			error: function(xhr, status, error) {
+				console.error("Gagal mengambil data vendor:", error);
+			}
+		});
 	</script>
 </body>
 </html>
