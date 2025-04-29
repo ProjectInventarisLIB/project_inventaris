@@ -205,7 +205,7 @@
                         { "data": 4, "orderable": false },
                         { 
                             "data": 5, 
-                            "orderable": false,
+                            "orderable": true,
                             "render": function (data, type, row) {
                                 let badgeClass = "badge-secondary";
                                 if (data === "Diproses") badgeClass = "badge-warning";

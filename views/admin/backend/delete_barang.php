@@ -1,5 +1,5 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . "/project_web/config/konfigurasi.php");
+include($_SERVER['DOCUMENT_ROOT'] . "/project_inventaris/config/konfigurasi.php");
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['ID_barang'])) {

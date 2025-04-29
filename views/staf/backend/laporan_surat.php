@@ -15,11 +15,15 @@ $tanggal_hari_ini = date("d-m-Y");
 $query1 = "SELECT * FROM surat_pengadaan WHERE ID_staf = '$id_staf' AND status != 'Selesai'";
 $result1 = $conn->query($query1);
 
-// Ambil data dari surat_pengambilan, kecuali yang statusnya 'Selesai'
-$query2 = "SELECT * FROM surat_pengambilan WHERE ID_staf = '$id_staf' AND status != 'Selesai'";
+// Ambil data dari surat_pengambilan disambungkan detail_pengambilan, kecuali yang statusnya 'Selesai'
+$query2 = "SELECT sp.no_surat, sp.tanggal, sp.tujuan, sp.link_surat, sp.status, sp.ID_staf, sp.ID_pengambilan,
+        dp.ID_barang, dp.nama_barang, dp.jumlah
+        FROM surat_pengambilan sp
+        JOIN detail_pengambilan dp ON sp.ID_pengambilan = dp.ID_pengambilan
+        WHERE sp.ID_staf = '$id_staf' AND sp.status != 'Selesai'";
 $result2 = $conn->query($query2);
 
-// Hitung status pengadaan
+// Hitung status pengadaan dan pengambilan
 $count_pengadaan = ['Diproses' => 0, 'Disetujui' => 0, 'Ditolak' => 0];
 while ($row = $result1->fetch_assoc()) {
     $status = ucfirst(strtolower($row['status']));
@@ -27,9 +31,8 @@ while ($row = $result1->fetch_assoc()) {
         $count_pengadaan[$status]++;
     }
 }
-$result1 = $conn->query($query1); // Reset
+$result1 = $conn->query($query1);
 
-// Hitung status pengambilan
 $count_pengambilan = ['Diproses' => 0, 'Disetujui' => 0, 'Ditolak' => 0];
 while ($row = $result2->fetch_assoc()) {
     $status = ucfirst(strtolower($row['status']));
@@ -37,7 +40,7 @@ while ($row = $result2->fetch_assoc()) {
         $count_pengambilan[$status]++;
     }
 }
-$result2 = $conn->query($query2); // Reset
+$result2 = $conn->query($query2);
 
 $mpdf = new \Mpdf\Mpdf(['orientation' => 'L']);
 
@@ -89,28 +92,46 @@ $html2 .= '<table border="1" width="100%" cellpadding="5" cellspacing="0" style=
 $html2 .= '<tr style="background-color: #f2f2f2;">
     <th>No. Surat</th>
     <th>Tanggal</th>
-    <th>ID Barang</th>
-    <th>Nama Barang</th>
-    <th>Jumlah</th>
+    <th>Barang & Jumlah</th>
     <th>Tujuan</th>
     <th>Link Surat</th>
     <th>Status</th>
     <th>ID Staf</th>
 </tr>';
 
+$pengambilan_data = [];
+
 while ($row = $result2->fetch_assoc()) {
+    $id_pengambilan = $row['ID_pengambilan'];
+
+    if (!isset($pengambilan_data[$id_pengambilan])) {
+        $pengambilan_data[$id_pengambilan] = [
+            'no_surat' => $row['no_surat'],
+            'tanggal' => $row['tanggal'],
+            'tujuan' => $row['tujuan'],
+            'link_surat' => $row['link_surat'],
+            'status' => $row['status'],
+            'ID_staf' => $row['ID_staf'],
+            'barang' => []
+        ];
+    }
+
+    $pengambilan_data[$id_pengambilan]['barang'][] = $row['jumlah'] . ' ' . $row['nama_barang'] . ' (' . $row['ID_barang'] . ')';
+}
+
+foreach ($pengambilan_data as $data) {
     $html2 .= '<tr>
-        <td>' . $row['no_surat'] . '</td>
-        <td>' . $row['tanggal'] . '</td>
-        <td>' . $row['ID_barang'] . '</td>
-        <td>' . $row['nama_barang'] . '</td>
-        <td>' . $row['jumlah'] . '</td>
-        <td>' . $row['tujuan'] . '</td>
-        <td><a href="' . $row['link_surat'] . '">Lihat</a></td>
-        <td>' . ucfirst($row['status']) . '</td>
-        <td>' . $row['ID_staf'] . '</td>
+        <td>' . $data['no_surat'] . '</td>
+        <td>' . $data['tanggal'] . '</td>
+        <td>' . implode(', ', $data['barang']) . '</td>
+        <td>' . $data['tujuan'] . '</td>
+        <td><a href="' . $data['link_surat'] . '">Lihat</a></td>
+        <td>' . ucfirst($data['status']) . '</td>
+        <td>' . $data['ID_staf'] . '</td>
     </tr>';
 }
+
+
 $html2 .= '</table>';
 $mpdf->WriteHTML($html2);
 
