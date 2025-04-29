@@ -10,13 +10,12 @@ header('Content-Type: application/json');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $idStaf = $_SESSION['ID_staf']; // ID staf yang sedang login
 
-    // Ambil nama staf dari database berdasarkan ID_staf
     $queryStaf = "SELECT nama_staf FROM staf WHERE ID_staf = '$idStaf'";
     $resultStaf = $conn->query($queryStaf);
 
     if ($resultStaf->num_rows > 0) {
         $rowStaf = $resultStaf->fetch_assoc();
-        $namaStaf = $rowStaf['nama_staf']; // Nama staf yang sedang login
+        $namaStaf = $rowStaf['nama_staf'];
     } else {
         echo json_encode(["status" => "error", "message" => "Data staf tidak ditemukan"]);
         exit();
@@ -26,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tanggalDiperlukan = $conn->real_escape_string($_POST['tanggalDiperlukan']);
     $tujuan = $conn->real_escape_string($_POST['tujuan']);
     $namaBarang = $conn->real_escape_string($_POST['namaBarang']);
-    $anggaran = (float) $conn->real_escape_string($_POST['anggaran']); // Konversi ke float
+    $anggaran = (float) $conn->real_escape_string($_POST['anggaran']); 
     $jumlah = (int) $conn->real_escape_string($_POST['jumlah']);
     $satuan = $conn->real_escape_string($_POST['satuan']);
     $deskripsi = $conn->real_escape_string($_POST['deskripsi']);
@@ -60,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tanggalSekarang = strftime('%d %B %Y');
 
     // Buat file PDF
-    $pdfFileName = "surat_" . time() . ".pdf";
+    $pdfFileName = "surat_pengadaan_" . str_replace("/", "-", $noSurat) . ".pdf";
     $pdfFilePath = $_SERVER['DOCUMENT_ROOT'] . "/project_inventaris/upload/surat_pengadaan/" . $pdfFileName;
     $linkSurat = "/project_inventaris/upload/surat_pengadaan/" . $pdfFileName;
 
@@ -95,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="signature">
         <p>Balikpapan, ' . $tanggalSekarang . '</p>
         <p>Hormat kami,</p>
-        <br>
+        <br><br>
         <p>' . $namaStaf . '</p>
     </div>';
 

@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['ID_vendor'])) {
     // Cek apakah ID ada di database sebelum menghapus
     $checkQuery = "SELECT * FROM vendor WHERE ID_vendor = ?";
     $stmt = $conn->prepare($checkQuery);
-    $stmt->bind_param("s", $id); // Gunakan "s" untuk VARCHAR
+    $stmt->bind_param("s", $id);
     $stmt->execute();
     $result = $stmt->get_result();
 

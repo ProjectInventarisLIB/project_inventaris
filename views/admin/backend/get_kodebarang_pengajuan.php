@@ -1,6 +1,6 @@
 <?php
 // Sertakan file konfigurasi untuk koneksi ke database
-include($_SERVER['DOCUMENT_ROOT'] . "/project_web/config/konfigurasi.php");
+include($_SERVER['DOCUMENT_ROOT'] . "/project_inventaris/config/konfigurasi.php");
 
 $sql = "SELECT ID_barang FROM barang_pengadaan ORDER BY ID_barang DESC LIMIT 1";
 $result = $conn->query($sql);

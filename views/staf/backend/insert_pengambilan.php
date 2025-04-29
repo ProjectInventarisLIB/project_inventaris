@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tanggalSekarang = strftime('%d %B %Y');
 
     // PDF
-    $pdfFileName = "pengambilan_" . time() . ".pdf";
+    $pdfFileName = "surat_pengambilan_". str_replace("/", "-", $noSurat) .".pdf";
     $pdfFilePath = $_SERVER['DOCUMENT_ROOT'] . "/project_inventaris/upload/surat_pengambilan/" . $pdfFileName;
     $linkSurat = "/project_inventaris/upload/surat_pengambilan/" . $pdfFileName;
 
@@ -99,8 +99,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="signature">
         <p>Balikpapan, ' . $tanggalSekarang . '</p>
-        <br>
         <p>Hormat kami,</p>
+        <br>
         <p>' . $namaStaf . '</p>
     </div>';
 
